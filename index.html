@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Fog Break — Demystifying Golf</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Scottish palette — heather, moss, slate, parchment */
+    --ink: #1d1f1c;
+    --parchment: #f3efe6;
+    --cream: #eae5d8;
+    --moss: #4a6348;
+    --moss-soft: #dfe7dd;
+    --heather: #5e4a6b;
+    --slate: #3a3d4a;
+    --rule: #bfb5a0;
+    --rule-dark: #8a7f6e;
+    --caption: #736a5c;
+    --gold: #b5903a;
+    --red: #8b4a3f;
+    --fog: rgba(255,255,255,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-size: 17px; }
+  body {
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+
+  /* === Fog texture overlay === */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(255,255,255,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(255,255,255,0.15) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Everything relative to body::before */
+  body > * { position: relative; z-index: 1; }
+
+  /* === TOP RULE — journal style === */
+  .top-rule {
+    border-top: 3px double var(--ink);
+    padding: 0.45rem 0;
+    margin: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--caption);
+  }
+
+  /* === MASTHEAD === */
+  .masthead {
+    text-align: center;
+    padding: 2.8rem 2rem 2rem;
+    margin: 0 2.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .masthead .title-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 4.8rem;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .masthead .title-the {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--caption);
+    margin-bottom: 0.3rem;
+  }
+
+  .masthead .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--caption);
+    margin-top: 0.6rem;
+    letter-spacing: 0.04em;
+  }
+
+  .masthead .sponsor-block {
+    margin-top: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .masthead .sponsor-rule {
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background: var(--rule);
+  }
+  .masthead .sponsor-link {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.52rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--moss);
+    text-decoration: none;
+    transition: color 0.25s;
+  }
+  .masthead .sponsor-link:hover {
+    color: var(--ink);
+  }
+
+  /* Decorative rule under masthead */
+  .masthead-rule {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+  .masthead-rule .rule-inner {
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: center;
+    padding-top: 0.6rem;
+    gap: 2rem;
+    align-items: center;
+  }
+  .masthead-rule .rule-dot {
+    width: 4px; height: 4px;
+    background: var(--moss);
+    border-radius: 50%;
+  }
+  .masthead-rule .sponsor-line {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.48rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--caption);
+  }
+  .masthead-rule .sponsor-line a {
+    color: var(--moss);
+    text-decoration: none;
+    border-bottom: 1px solid var(--moss);
+    padding-bottom: 1px;
+  }
+
+  /* === NAV === */
+  .nav {
+    display: flex;
+    justify-content: center;
+    gap: 2.2rem;
+    padding: 0.85rem 2rem;
+    border-bottom: 1px solid var(--rule);
+    margin: 0 2.5rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .nav a {
+    color: var(--caption);
+    text-decoration: none;
+    transition: color 0.25s;
+  }
+  .nav a:hover { color: var(--moss); }
+  .nav a.active { color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 2px; }
+
+  /* === HERO === */
+  .hero-section {
+    max-width: 1100px;
+    margin: 2.5rem auto;
+    padding: 0 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .hero-feature {
+    border-top: 2px solid var(--moss);
+    padding-top: 1.2rem;
+  }
+  .hero-feature .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--moss);
+    margin-bottom: 0.7rem;
+  }
+  .hero-feature h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 2.1rem;
+    line-height: 1.18;
+    margin-bottom: 0.9rem;
+    color: var(--ink);
+  }
+  .hero-feature .excerpt {
+    font-size: 1.02rem;
+    line-height: 1.72;
+    color: #4a4a42;
+    margin-bottom: 1.2rem;
+  }
+  .hero-feature .meta-line {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    color: var(--caption);
+    margin-bottom: 1rem;
+  }
+  .hero-feature .read-link {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--moss);
+    text-decoration: none;
+    border: 1px solid var(--moss);
+    padding: 0.5rem 1rem;
+    transition: all 0.25s;
+    display: inline-block;
+  }
+  .hero-feature .read-link:hover {
+    background: var(--moss);
+    color: var(--parchment);
+  }
+
+  /* === HERO DIAGRAM === */
+  .hero-diagram {
+    background: #fff;
+    border: 1px solid var(--rule);
+    padding: 1.5rem;
+  }
+  .hero-diagram svg { width: 100%; height: auto; display: block; }
+  .hero-diagram .diagram-caption {
+    margin-top: 0.8rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem;
+    color: var(--caption);
+    line-height: 1.55;
+  }
+  .hero-diagram .diagram-caption strong { color: var(--ink); }
+
+  /* === SECTION DIVIDER — Scottish thistle-inspired ornament === */
+  .section-ornament {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--rule);
+    font-size: 0.9rem;
+    letter-spacing: 0.8em;
+  }
+
+  /* === SECTION HEADER === */
+  .section-header {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .section-header h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .section-header .more-link {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.5rem;
+    color: var(--moss);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+  }
+
+  /* === ARTICLE GRID === */
+  .article-grid {
+    max-width: 1100px;
+    margin: 1.5rem auto 2.5rem;
+    padding: 0 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .article-card {
+    border-top: 1px solid var(--rule);
+    padding-top: 1rem;
+    transition: border-color 0.25s;
+  }
+  .article-card:hover { border-color: var(--moss); }
+
+  .article-card .card-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 2.2rem;
+    color: var(--rule);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .article-card .card-topic {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.48rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--moss);
+    margin-bottom: 0.5rem;
+  }
+  .article-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    line-height: 1.25;
+    margin-bottom: 0.6rem;
+    color: var(--ink);
+  }
+
+  /* Card mini-diagrams */
+  .card-diagram {
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    padding: 0.7rem;
+    margin: 0.6rem 0 0.8rem;
+  }
+  .card-diagram svg { width: 100%; height: auto; display: block; }
+
+  .article-card .card-excerpt {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: #555;
+    margin-bottom: 0.6rem;
+  }
+  .article-card .card-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.48rem;
+    letter-spacing: 0.1em;
+    color: var(--caption);
+  }
+
+  /* === SUBSCRIBE === */
+  .subscribe-section {
+    max-width: 1100px;
+    margin: 0 auto 3rem;
+    padding: 0 2.5rem;
+  }
+  .subscribe-box {
+    border: 1px solid var(--moss);
+    padding: 2.2rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    background: var(--moss-soft);
+    position: relative;
+  }
+  .subscribe-box::before {
+    content: '\2726  \2726  \2726';
+    position: absolute;
+    top: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--moss-soft);
+    padding: 0 0.8rem;
+    font-size: 0.5rem;
+    color: var(--moss);
+    letter-spacing: 0.4em;
+  }
+  .subscribe-box .sub-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.45rem;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+  .subscribe-box .sub-text p {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+  }
+  .subscribe-box .sub-text p em {
+    font-style: italic;
+    color: var(--moss);
+  }
+  .subscribe-box .sub-form {
+    display: flex;
+    gap: 0;
+    flex-shrink: 0;
+  }
+  .subscribe-box input {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--rule);
+    background: #fff;
+    width: 230px;
+    border-right: none;
+    color: var(--ink);
+  }
+  .subscribe-box input::placeholder { color: var(--caption); }
+  .subscribe-box button {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.65rem 1.2rem;
+    background: var(--moss);
+    color: var(--parchment);
+    border: 1px solid var(--moss);
+    cursor: pointer;
+    transition: background 0.25s;
+  }
+  .subscribe-box button:hover { background: var(--ink); border-color: var(--ink); }
+
+  /* === FOOTER === */
+  .site-footer {
+    border-top: 3px double var(--ink);
+    margin: 0 2.5rem;
+    padding: 1.5rem 0 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .footer-left .fl-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 1.4rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .footer-left .fl-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--caption);
+    margin-top: 0.15rem;
+  }
+  .footer-right {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.48rem;
+    color: var(--caption);
+    text-align: right;
+    line-height: 1.9;
+    letter-spacing: 0.05em;
+  }
+  .footer-right a { color: var(--moss); text-decoration: none; }
+  .footer-right .ff-sig {
+    margin-top: 0.6rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+  }
+
+  /* === ANIMATIONS === */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-section { animation: fadeUp 0.6s ease both; }
+  .section-header, .article-grid { animation: fadeUp 0.6s ease 0.1s both; }
+  .subscribe-section { animation: fadeUp 0.6s ease 0.2s both; }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 768px) {
+    .hero-section { grid-template-columns: 1fr; }
+    .article-grid { grid-template-columns: 1fr; }
+    .masthead .title-main { font-size: 3rem; }
+    .subscribe-box { flex-direction: column; text-align: center; }
+    .subscribe-box input { width: 100%; border-right: 1px solid var(--rule); border-bottom: none; }
+    .nav { gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .top-rule { flex-direction: column; gap: 0.2rem; text-align: center; }
+    .site-footer { flex-direction: column; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-rule">
+  <span>Vol. I &middot; No. 6 &mdash; Spring 2026</span>
+  <span>Published Weekly from Boulder, Colorado</span>
+</div>
+
+<div class="masthead">
+  <h1 class="title-main">The Fog Break</h1>
+  <div class="tagline">Demystifying Golf</div>
+  <div class="sponsor-block">
+    <span class="sponsor-rule"></span>
+    <a href="https://www.fogandflag.com" class="sponsor-link">A publication by Fog + Flag</a>
+    <span class="sponsor-rule"></span>
+  </div>
+</div>
+
+<div class="masthead-rule">
+  <div class="rule-inner">
+    <span class="rule-dot"></span>
+    <span class="sponsor-line">For the golfer who wants to know <em>why</em></span>
+    <span class="rule-dot"></span>
+  </div>
+</div>
+
+<nav class="nav">
+  <a href="#" class="active">Current Issue</a>
+  <a href="#">Archive</a>
+  <a href="#">Interactive Tools</a>
+  <a href="#">About</a>
+  <a href="#">Subscribe</a>
+</nav>
+
+<div class="hero-section">
+  <div class="hero-feature">
+    <div class="label">No. 6 &mdash; Putting</div>
+    <h2>What Your Putter Actually Does&mdash;and Doesn&rsquo;t Do&mdash;at Impact</h2>
+    <p class="excerpt">A forensic examination of blade, mallet, and zero-torque designs through the lens of oblique impact mechanics. Why face angle dominates direction, what MOI really buys you, where gear effect punishes the mallet, and why the dimpled ball puts a ceiling on all of it.</p>
+    <div class="meta-line">14 April 2026 &middot; 18 min read &middot; 5 interactive figures</div>
+    <a href="articles/putter-physics.html" class="read-link">Read the analysis &rarr;</a>
+  </div>
+
+  <div class="hero-diagram">
+    <svg viewBox="0 0 420 260" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="ha" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="4" markerHeight="4" orient="auto"><path d="M 0 1 L 8 4 L 0 7" fill="none" stroke="#8b4a3f" stroke-width="1.2"/></marker>
+        <marker id="hg" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="4" markerHeight="4" orient="auto"><path d="M 0 1 L 8 4 L 0 7" fill="none" stroke="#4a6348" stroke-width="1.2"/></marker>
+      </defs>
+      <rect width="100%" height="100%" fill="#faf8f3"/>
+
+      <text x="210" y="20" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" font-weight="500" fill="#1d1f1c" letter-spacing="0.14em">FACE ANGLE ERROR AT 8 FEET</text>
+
+      <rect x="30" y="38" width="360" height="95" fill="#dfe7dd" opacity="0.3" rx="2"/>
+      <line x1="68" y1="88" x2="370" y2="88" stroke="#bfb5a0" stroke-width="0.7" stroke-dasharray="5 3"/>
+      <line x1="68" y1="88" x2="348" y2="88" stroke="#4a6348" stroke-width="1.5" marker-end="url(#hg)" opacity="0.5"/>
+      <line x1="68" y1="88" x2="348" y2="63" stroke="#8b4a3f" stroke-width="1.5" marker-end="url(#ha)"/>
+      <line x1="68" y1="88" x2="348" y2="113" stroke="#8b4a3f" stroke-width="1" marker-end="url(#ha)" opacity="0.2"/>
+
+      <rect x="48" y="68" width="5" height="40" rx="1" fill="#4a6348"/>
+      <g transform="translate(50.5,88) rotate(-4)"><rect x="-2.5" y="-20" width="5" height="40" rx="1" fill="#8b4a3f" opacity="0.4"/></g>
+      <circle cx="68" cy="88" r="5" fill="#faf8f3" stroke="#1d1f1c" stroke-width="1.2"/>
+
+      <circle cx="366" cy="88" r="11" fill="none" stroke="#1d1f1c" stroke-width="1.5"/>
+      <circle cx="366" cy="88" r="7" fill="#2a2a28"/>
+
+      <text x="138" y="80" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#736a5c">0.76&#176;</text>
+      <text x="382" y="60" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b4a3f" font-weight="500">MISS</text>
+      <text x="382" y="70" font-family="'IBM Plex Mono',monospace" font-size="6" fill="#8b4a3f">1.28" outside</text>
+
+      <line x1="30" y1="152" x2="390" y2="152" stroke="#bfb5a0" stroke-width="0.5"/>
+      <g transform="translate(52,174)">
+        <text x="0" y="0" font-family="'IBM Plex Mono',monospace" font-size="17" fill="#1d1f1c" font-weight="500">0.76&#176;</text>
+        <text x="0" y="13" font-family="'IBM Plex Mono',monospace" font-size="6" fill="#736a5c">Max error at 8 ft</text>
+      </g>
+      <g transform="translate(162,174)">
+        <text x="0" y="0" font-family="'IBM Plex Mono',monospace" font-size="17" fill="#1d1f1c" font-weight="500">83&#8211;92%</text>
+        <text x="0" y="13" font-family="'IBM Plex Mono',monospace" font-size="6" fill="#736a5c">From face angle</text>
+      </g>
+      <g transform="translate(298,174)">
+        <text x="0" y="0" font-family="'IBM Plex Mono',monospace" font-size="17" fill="#8b4a3f" font-weight="500">1.28"</text>
+        <text x="0" y="13" font-family="'IBM Plex Mono',monospace" font-size="6" fill="#736a5c">Lateral miss</text>
+      </g>
+      <line x1="30" y1="202" x2="390" y2="202" stroke="#bfb5a0" stroke-width="0.5"/>
+
+      <text x="210" y="222" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#736a5c">Interactive version in the full article</text>
+      <rect x="160" y="230" width="100" height="20" rx="2" fill="none" stroke="#4a6348" stroke-width="1"/>
+      <text x="210" y="244" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#4a6348" letter-spacing="0.1em">EXPLORE &#8594;</text>
+    </svg>
+    <div class="diagram-caption"><strong>Fig. 1</strong> &#8212; At eight feet, a face open by less than one degree sends the ball entirely outside the cup. Angles exaggerated for visibility. The real divergence is invisible to the eye.</div>
+  </div>
+</div>
+
+<div class="section-ornament">&#10044; &ensp; &#10044; &ensp; &#10044;</div>
+
+<div class="section-header">
+  <h3>From the Archive</h3>
+  <a href="#" class="more-link">All issues &rarr;</a>
+</div>
+
+<div class="article-grid">
+
+  <div class="article-card">
+    <div class="card-num">V</div>
+    <div class="card-topic">Equipment</div>
+    <h4>Launch Angle, Spin Loft, and the 15&nbsp;Yards You&rsquo;re Leaving on the Tee</h4>
+    <div class="card-diagram">
+      <svg viewBox="0 0 280 75" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100%" height="100%" fill="#f3efe6"/>
+        <line x1="20" y1="62" x2="260" y2="62" stroke="#bfb5a0" stroke-width="0.7"/>
+        <path d="M 30 62 Q 80 8 150 28 Q 200 40 250 58" fill="none" stroke="#4a6348" stroke-width="1.5"/>
+        <path d="M 30 62 Q 60 22 120 33 Q 170 40 210 60" fill="none" stroke="#8b4a3f" stroke-width="1.1" stroke-dasharray="3 2"/>
+        <text x="255" y="52" font-family="'IBM Plex Mono',monospace" font-size="5.5" fill="#4a6348">Optimised</text>
+        <text x="215" y="55" font-family="'IBM Plex Mono',monospace" font-size="5.5" fill="#8b4a3f">Typical</text>
+        <circle cx="30" cy="62" r="2.5" fill="#1d1f1c"/>
+      </svg>
+    </div>
+    <p class="card-excerpt">Most amateurs lose distance not from speed but from spin loft mismatch. The fix is in the numbers.</p>
+    <div class="card-meta">7 April 2026 &middot; 14 min</div>
+  </div>
+
+  <div class="article-card">
+    <div class="card-num">IV</div>
+    <div class="card-topic">Short Game</div>
+    <h4>Wedge Bounce: The Most Misunderstood Number on Your&nbsp;Club</h4>
+    <div class="card-diagram">
+      <svg viewBox="0 0 280 75" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100%" height="100%" fill="#f3efe6"/>
+        <line x1="40" y1="58" x2="240" y2="58" stroke="#bfb5a0" stroke-width="0.7"/>
+        <path d="M 100 58 L 140 18 L 142 18 L 115 58 Z" fill="#4a6348" opacity="0.12" stroke="#4a6348" stroke-width="1"/>
+        <path d="M 100 58 A 20 20 0 0 0 115 58" fill="none" stroke="#b5903a" stroke-width="1.4"/>
+        <text x="95" y="70" font-family="'IBM Plex Mono',monospace" font-size="5.5" fill="#b5903a">Bounce angle</text>
+        <path d="M 180 58 L 220 16 L 222 16 L 208 58 Z" fill="#8b4a3f" opacity="0.08" stroke="#8b4a3f" stroke-width="1"/>
+        <text x="90" y="14" font-family="'IBM Plex Mono',monospace" font-size="5.5" fill="#736a5c">High bounce</text>
+        <text x="178" y="70" font-family="'IBM Plex Mono',monospace" font-size="5.5" fill="#736a5c">Low bounce</text>
+      </svg>
+    </div>
+    <p class="card-excerpt">Bounce isn&rsquo;t about the turf. It&rsquo;s about angle of attack, and getting it wrong costs more than any other wedge spec.</p>
+    <div class="card-meta">31 March 2026 &middot; 11 min</div>
+  </div>
+
+  <div class="article-card">
+    <div class="card-num">III</div>
+    <div class="card-topic">Ball Flight</div>
+    <h4>Why Your Ball Doesn&rsquo;t Fly Like a Textbook Parabola</h4>
+    <div class="card-diagram">
+      <svg viewBox="0 0 280 75" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100%" height="100%" fill="#f3efe6"/>
+        <line x1="20" y1="62" x2="265" y2="62" stroke="#bfb5a0" stroke-width="0.7"/>
+        <path d="M 30 62 Q 130 -12 240 62" fill="none" stroke="#bfb5a0" stroke-width="0.9" stroke-dasharray="3 2"/>
+        <text x="245" y="56" font-family="'IBM Plex Mono',monospace" font-size="5" fill="#bfb5a0">Vacuum</text>
+        <path d="M 30 62 C 60 28 100 8 140 13 C 180 18 220 48 250 61" fill="none" stroke="#4a6348" stroke-width="1.5"/>
+        <text x="145" y="8" font-family="'IBM Plex Mono',monospace" font-size="5" fill="#4a6348">Actual (dimpled)</text>
+        <line x1="80" y1="28" x2="80" y2="16" stroke="#b5903a" stroke-width="0.7"/>
+        <text x="85" y="14" font-family="'IBM Plex Mono',monospace" font-size="4.5" fill="#b5903a">Magnus lift</text>
+      </svg>
+    </div>
+    <p class="card-excerpt">Dimples, drag, and the Magnus effect produce a flight path that defies simple physics. Here&rsquo;s what actually happens.</p>
+    <div class="card-meta">24 March 2026 &middot; 16 min</div>
+  </div>
+
+</div>
+
+<div class="subscribe-section">
+  <div class="subscribe-box">
+    <div class="sub-text">
+      <h3>A new issue, every Monday morning.</h3>
+      <p>How golf actually works. No marketing, no hype&mdash;just clarity, <em>for the golfer who wants to know why.</em></p>
+    </div>
+    <div class="sub-form">
+      <input type="email" placeholder="your@email.com">
+      <button>Subscribe</button>
+    </div>
+  </div>
+</div>
+
+<div class="site-footer">
+  <div class="footer-left">
+    <div class="fl-title">The Fog Break</div>
+    <div class="fl-tagline">Demystifying Golf</div>
+  </div>
+  <div class="footer-right">
+    &copy; 2026. All rights reserved.<br>
+    Published weekly from Boulder, Colorado<br>
+    <div class="ff-sig">A publication by <a href="https://www.fogandflag.com">Fog + Flag</a></div>
+  </div>
+</div>
+
+</body>
+</html>
