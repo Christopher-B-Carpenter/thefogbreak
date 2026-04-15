@@ -163,71 +163,54 @@ function rot(rx, ry, angleDeg, ox, oy) {
 }
 
 function putterShape(type, angleDeg, ox, oy) {
-  // ox,oy = hosel/shaft connection point (ball contact point)
-  // putter faces right (+x), shaft goes left (-x)
-  // open face = positive angle = rotated clockwise in SVG coords
+  // All shapes: face at x=0 (rightmost), shaft extends left
+  // Stroke-based schematics — clean lines, no filled blobs
+  const c = '#3a5040';    // main stroke colour
+  const cf = '#1d2e1e';   // face accent
+  const sw = 3;           // shaft width
+  const hw = 2.5;         // head outline width
 
-  const shaft = (x1, y1, x2, y2) =>
-    `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"
-      stroke="#3a5a3e" stroke-width="3" stroke-linecap="round" opacity="0.9"/>`;
+  const line = (x1,y1,x2,y2,stroke,width,extra='') => {
+    const [p1x,p1y] = rot(x1,y1,angleDeg,ox,oy);
+    const [p2x,p2y] = rot(x2,y2,angleDeg,ox,oy);
+    return `<line x1="${p1x.toFixed(1)}" y1="${p1y.toFixed(1)}" x2="${p2x.toFixed(1)}" y2="${p2y.toFixed(1)}" stroke="${stroke}" stroke-width="${width}" stroke-linecap="round" ${extra}/>`;
+  };
+
+  const poly = (pts, fill, stroke, sw) => {
+    const mapped = pts.map(([x,y]) => rot(x,y,angleDeg,ox,oy).map(v=>v.toFixed(1)).join(',')).join(' ');
+    return `<polygon points="${mapped}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round"/>`;
+  };
 
   if (type === 'blade') {
-    // Blade: narrow bar, 36px heel-to-toe, 9px deep, face on right edge
-    // Local coords: face at x=0, body extends left (x=-9), heel at y=-18, toe at y=+18
-    const corners = [
-      rot(0, -18, angleDeg, ox, oy),   // face heel
-      rot(0,  18, angleDeg, ox, oy),   // face toe
-      rot(-9, 18, angleDeg, ox, oy),   // back toe
-      rot(-9,-18, angleDeg, ox, oy),   // back heel
-    ];
-    const pts = corners.map(p => p.map(v=>v.toFixed(1)).join(',')).join(' ');
-    const [sx, sy] = rot(-9, 0, angleDeg, ox, oy);
-    const [ex, ey] = rot(-30, 0, angleDeg, ox, oy);
-    const [fl1x, fl1y] = corners[0], [fl2x, fl2y] = corners[1];
-    return `
-      ${shaft(sx, sy, ex, ey)}
-      <polygon points="${pts}" fill="#4a6348" stroke="#2a3d2c" stroke-width="1" opacity="0.9"/>
-      <line x1="${fl1x.toFixed(1)}" y1="${fl1y.toFixed(1)}" x2="${fl2x.toFixed(1)}" y2="${fl2y.toFixed(1)}"
-        stroke="#1d2e1e" stroke-width="1.5"/>`;
+    // Clean blade: thin rectangular bar, heel-to-toe 34px, depth 8px
+    // shaft enters at heel (y=-17)
+    return [
+      line(-28, -17, 0, -17, c, sw),                    // shaft (heel-side)
+      poly([[0,-17],[0,17],[-8,17],[-8,-17]], '#e8ede9', c, hw), // head outline
+      line(0, -17, 0, 17, cf, 2.5),                     // face (bold)
+    ].join('');
 
   } else if (type === 'mallet') {
-    // Mallet: wide rectangular head, 40px heel-to-toe, 22px deep, plus rear alignment line
-    const c = [
-      rot(0,  -20, angleDeg, ox, oy),
-      rot(0,   20, angleDeg, ox, oy),
-      rot(-22, 20, angleDeg, ox, oy),
-      rot(-22,-20, angleDeg, ox, oy),
-    ];
-    const pts = c.map(p => p.map(v=>v.toFixed(1)).join(',')).join(' ');
-    // Rear alignment stripe
-    const [rs1x,rs1y] = rot(-16,-20, angleDeg, ox, oy);
-    const [rs2x,rs2y] = rot(-16, 20, angleDeg, ox, oy);
-    // Hosel on heel side
-    const [hx,hy] = rot(-4,-20, angleDeg, ox, oy);
-    const [sx,sy] = rot(-4,-38, angleDeg, ox, oy);
-    const [ex,ey] = rot(-4,-52, angleDeg, ox, oy);
-    const [fl1x,fl1y] = c[0], [fl2x,fl2y] = c[1];
-    return `
-      ${shaft(hx, hy, sx, sy)}
-      <polygon points="${pts}" fill="#4a6348" stroke="#2a3d2c" stroke-width="1" opacity="0.9"/>
-      <line x1="${rs1x.toFixed(1)}" y1="${rs1y.toFixed(1)}" x2="${rs2x.toFixed(1)}" y2="${rs2y.toFixed(1)}"
-        stroke="#2a3d2c" stroke-width="1.5" opacity="0.6"/>
-      <line x1="${fl1x.toFixed(1)}" y1="${fl1y.toFixed(1)}" x2="${fl2x.toFixed(1)}" y2="${fl2y.toFixed(1)}"
-        stroke="#1d2e1e" stroke-width="1.5"/>`;
+    // Mallet: wide rectangle 38px H x 20px D, shaft heel-mounted
+    // alignment dot/line at rear centre
+    const [ax,ay] = rot(-14, 0, angleDeg, ox, oy);
+    return [
+      line(-28, -19, 0, -19, c, sw),                    // shaft
+      poly([[0,-19],[0,19],[-20,19],[-20,-19]], '#e8ede9', c, hw), // head
+      line(0, -19, 0, 19, cf, 2.5),                     // face
+      line(-14, -19, -14, 19, c, 1, 'opacity="0.4"'),  // rear alignment line
+      `<circle cx="${ax.toFixed(1)}" cy="${ay.toFixed(1)}" r="2.5" fill="${c}" opacity="0.7"/>`, // CG dot
+    ].join('');
 
   } else {
-    // Zero torque: round head (r=17), shaft through CG (centre of circle)
-    const [cx, cy_] = rot(-10, 0, angleDeg, ox, oy);
-    const [sx, sy] = rot(-10, 0, angleDeg, ox, oy);
-    const [ex, ey] = rot(-34, 0, angleDeg, ox, oy);
-    const [fl1x,fl1y] = rot(0,-8, angleDeg, ox, oy);
-    const [fl2x,fl2y] = rot(0, 8, angleDeg, ox, oy);
-    return `
-      ${shaft(sx, sy, ex, ey)}
-      <circle cx="${cx.toFixed(1)}" cy="${cy_.toFixed(1)}" r="17"
-        fill="#4a6348" stroke="#2a3d2c" stroke-width="1" opacity="0.9"/>
-      <line x1="${fl1x.toFixed(1)}" y1="${fl1y.toFixed(1)}" x2="${fl2x.toFixed(1)}" y2="${fl2y.toFixed(1)}"
-        stroke="#1d2e1e" stroke-width="1.5"/>`;
+    // Zero torque: circle head r=16, shaft passes through true centre
+    const [cx,cy_] = rot(-11, 0, angleDeg, ox, oy);
+    return [
+      line(-36, 0, 5, 0, c, sw),                        // shaft through CG
+      `<circle cx="${cx.toFixed(1)}" cy="${cy_.toFixed(1)}" r="16" fill="#e8ede9" stroke="${c}" stroke-width="${hw}"/>`,
+      line(0, -10, 0, 10, cf, 2.5),                     // face mark
+      `<circle cx="${cx.toFixed(1)}" cy="${cy_.toFixed(1)}" r="2.5" fill="${c}" opacity="0.6"/>`, // CG centre dot
+    ].join('');
   }
 }
 
