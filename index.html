@@ -360,6 +360,25 @@
     color: var(--caption);
   }
 
+  /* === ARCHIVE COMING SOON === */
+  .archive-coming-soon {
+    max-width: 1100px;
+    margin: 1.5rem auto 2.5rem;
+    padding: 0 2.5rem;
+    text-align: center;
+  }
+  .acs-quip {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--caption);
+    padding: 2rem 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    line-height: 1.7;
+  }
+  .acs-quip em { color: var(--moss); font-style: italic; }
+
   /* === SUBSCRIBE === */
   .subscribe-section {
     max-width: 1100px;
@@ -594,83 +613,24 @@
 
 <div class="section-ornament">&#10044; &ensp; &#10044; &ensp; &#10044;</div>
 
-<div class="section-header">
+<div class="section-header" id="archive">
   <h3>From the Archive</h3>
   <a href="#" class="more-link">All issues &rarr;</a>
 </div>
 
-<div class="article-grid">
-
-  <div class="article-card">
-    <div class="card-num">V</div>
-    <div class="card-topic">Equipment</div>
-    <h4>Launch Angle, Spin Loft, and the 15&nbsp;Yards You&rsquo;re Leaving on the Tee</h4>
-    <div class="card-diagram">
-      <svg viewBox="0 0 280 75" xmlns="http://www.w3.org/2000/svg">
-        <rect width="100%" height="100%" fill="#f3efe6"/>
-        <line x1="20" y1="62" x2="260" y2="62" stroke="#bfb5a0" stroke-width="0.7"/>
-        <path d="M 30 62 Q 80 8 150 28 Q 200 40 250 58" fill="none" stroke="#4a6348" stroke-width="1.5"/>
-        <path d="M 30 62 Q 60 22 120 33 Q 170 40 210 60" fill="none" stroke="#8b4a3f" stroke-width="1.1" stroke-dasharray="3 2"/>
-        <text x="255" y="52" font-family="'IBM Plex Mono',monospace" font-size="5.5" fill="#4a6348">Optimised</text>
-        <text x="215" y="55" font-family="'IBM Plex Mono',monospace" font-size="5.5" fill="#8b4a3f">Typical</text>
-        <circle cx="30" cy="62" r="2.5" fill="#1d1f1c"/>
-      </svg>
-    </div>
-    <p class="card-excerpt">Most amateurs lose distance not from speed but from spin loft mismatch. The fix is in the numbers.</p>
-    <div class="card-meta">7 April 2026 &middot; 14 min</div>
-  </div>
-
-  <div class="article-card">
-    <div class="card-num">IV</div>
-    <div class="card-topic">Short Game</div>
-    <h4>Wedge Bounce: The Most Misunderstood Number on Your&nbsp;Club</h4>
-    <div class="card-diagram">
-      <svg viewBox="0 0 280 75" xmlns="http://www.w3.org/2000/svg">
-        <rect width="100%" height="100%" fill="#f3efe6"/>
-        <line x1="40" y1="58" x2="240" y2="58" stroke="#bfb5a0" stroke-width="0.7"/>
-        <path d="M 100 58 L 140 18 L 142 18 L 115 58 Z" fill="#4a6348" opacity="0.12" stroke="#4a6348" stroke-width="1"/>
-        <path d="M 100 58 A 20 20 0 0 0 115 58" fill="none" stroke="#b5903a" stroke-width="1.4"/>
-        <text x="95" y="70" font-family="'IBM Plex Mono',monospace" font-size="5.5" fill="#b5903a">Bounce angle</text>
-        <path d="M 180 58 L 220 16 L 222 16 L 208 58 Z" fill="#8b4a3f" opacity="0.08" stroke="#8b4a3f" stroke-width="1"/>
-        <text x="90" y="14" font-family="'IBM Plex Mono',monospace" font-size="5.5" fill="#736a5c">High bounce</text>
-        <text x="178" y="70" font-family="'IBM Plex Mono',monospace" font-size="5.5" fill="#736a5c">Low bounce</text>
-      </svg>
-    </div>
-    <p class="card-excerpt">Bounce isn&rsquo;t about the turf. It&rsquo;s about angle of attack, and getting it wrong costs more than any other wedge spec.</p>
-    <div class="card-meta">31 March 2026 &middot; 11 min</div>
-  </div>
-
-  <div class="article-card">
-    <div class="card-num">III</div>
-    <div class="card-topic">Ball Flight</div>
-    <h4>Why Your Ball Doesn&rsquo;t Fly Like a Textbook Parabola</h4>
-    <div class="card-diagram">
-      <svg viewBox="0 0 280 75" xmlns="http://www.w3.org/2000/svg">
-        <rect width="100%" height="100%" fill="#f3efe6"/>
-        <line x1="20" y1="62" x2="265" y2="62" stroke="#bfb5a0" stroke-width="0.7"/>
-        <path d="M 30 62 Q 130 -12 240 62" fill="none" stroke="#bfb5a0" stroke-width="0.9" stroke-dasharray="3 2"/>
-        <text x="245" y="56" font-family="'IBM Plex Mono',monospace" font-size="5" fill="#bfb5a0">Vacuum</text>
-        <path d="M 30 62 C 60 28 100 8 140 13 C 180 18 220 48 250 61" fill="none" stroke="#4a6348" stroke-width="1.5"/>
-        <text x="145" y="8" font-family="'IBM Plex Mono',monospace" font-size="5" fill="#4a6348">Actual (dimpled)</text>
-        <line x1="80" y1="28" x2="80" y2="16" stroke="#b5903a" stroke-width="0.7"/>
-        <text x="85" y="14" font-family="'IBM Plex Mono',monospace" font-size="4.5" fill="#b5903a">Magnus lift</text>
-      </svg>
-    </div>
-    <p class="card-excerpt">Dimples, drag, and the Magnus effect produce a flight path that defies simple physics. Here&rsquo;s what actually happens.</p>
-    <div class="card-meta">24 March 2026 &middot; 16 min</div>
-  </div>
-
+<div class="archive-coming-soon">
+  <p class="acs-quip">The archive fills one issue at a time. More on the way&mdash;<em>every Monday, with the dew still on.</em></p>
 </div>
 
-<div class="subscribe-section">
+<div class="subscribe-section" id="subscribe">
   <div class="subscribe-box">
     <div class="sub-text">
       <h3>A new issue, every Monday morning.</h3>
       <p>How golf actually works. No marketing, no hype&mdash;just clarity, <em>for the golfer who wants to know why.</em></p>
     </div>
     <div class="sub-form">
-      <input type="email" placeholder="your@email.com">
-      <button>Subscribe</button>
+      <input type="email" id="sub-email" placeholder="your@email.com">
+      <button id="sub-btn" onclick="handleSubscribe()">Subscribe</button>
     </div>
   </div>
 </div>
@@ -687,5 +647,27 @@
   </div>
 </div>
 
+<script>
+function handleSubscribe() {
+  const email = document.getElementById('sub-email').value.trim();
+  const btn = document.getElementById('sub-btn');
+  const input = document.getElementById('sub-email');
+  if (!email || !email.includes('@')) {
+    input.style.borderColor = '#8b4a3f';
+    input.focus();
+    return;
+  }
+  // Store locally and show confirmation
+  const subs = JSON.parse(localStorage.getItem('tfb_subscribers') || '[]');
+  if (!subs.includes(email)) subs.push(email);
+  localStorage.setItem('tfb_subscribers', JSON.stringify(subs));
+  input.style.display = 'none';
+  btn.textContent = 'You\'re in. See you Monday.';
+  btn.style.background = 'var(--ink)';
+  btn.style.borderColor = 'var(--ink)';
+  btn.style.cursor = 'default';
+  btn.disabled = true;
+}
+</script>
 </body>
 </html>

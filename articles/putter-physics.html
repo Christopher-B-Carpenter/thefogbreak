@@ -60,10 +60,25 @@
   .references li a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 1px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; }
   .references li a:hover { color: var(--ink); border-color: var(--ink); }
   .footer { max-width: 680px; margin: 0 auto; padding: 2rem 1.5rem 4rem; border-top: 1px solid var(--rule); font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--caption); text-align: center; }
+  /* === SITE NAV === */
+  .site-nav { display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 2.5rem; border-bottom: 1px solid var(--rule); font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; letter-spacing: 0.16em; text-transform: uppercase; }
+  .site-nav .nav-home { color: var(--ink); text-decoration: none; font-weight: 500; }
+  .site-nav .nav-home:hover { color: var(--accent); }
+  .site-nav .nav-links { display: flex; gap: 1.8rem; }
+  .site-nav .nav-links a { color: var(--caption); text-decoration: none; transition: color 0.2s; }
+  .site-nav .nav-links a:hover { color: var(--accent); }
   @media (max-width: 600px) { html { font-size: 16px; } .hero h1 { font-size: 2.2rem; } .hero .subtitle { font-size: 1.05rem; } .pullquote { margin: 2rem 0; font-size: 1.05rem; } .article h2 { font-size: 1.5rem; } }
 </style>
 </head>
 <body>
+<nav class="site-nav">
+  <a href="../index.html" class="nav-home">&larr; The Fog Break</a>
+  <div class="nav-links">
+    <a href="../index.html">Current Issue</a>
+    <a href="../index.html#archive">Archive</a>
+    <a href="../index.html#subscribe">Subscribe</a>
+  </div>
+</nav>
 <div class="masthead">The Fog Break &bull; Equipment &bull; Essay</div>
 <div class="hero">
   <div class="kicker">The Physics of Putting</div>
