@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Physics of the Flatstick</title>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #1a1a18;
@@ -19,50 +19,46 @@
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { font-size: 18px; scroll-behavior: smooth; }
-  body { background: var(--paper); color: var(--ink); font-family: 'Source Serif 4', Georgia, serif; line-height: 1.72; -webkit-font-smoothing: antialiased; }
-  .masthead { text-align: center; padding: 3rem 1.5rem 2rem; border-bottom: 1px solid var(--rule); letter-spacing: 0.18em; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; text-transform: uppercase; color: var(--caption); }
+  body { background: var(--paper); color: var(--ink); font-family: 'EB Garamond', Georgia, serif; line-height: 1.72; -webkit-font-smoothing: antialiased; }
+  .masthead { text-align: center; padding: 3rem 1.5rem 2rem; border-bottom: 1px solid var(--rule); letter-spacing: 0.18em; font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; text-transform: uppercase; color: var(--caption); }
   .hero { max-width: 800px; margin: 0 auto; padding: 4rem 1.5rem 3rem; text-align: center; }
-  .hero .kicker { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
-  .hero h1 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 3.2rem; line-height: 1.1; margin-bottom: 1rem; letter-spacing: -0.02em; }
-  .hero .subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; font-size: 1.25rem; color: var(--caption); line-height: 1.5; max-width: 600px; margin: 0 auto; }
+  .hero .kicker { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
+  .hero h1 { font-family: 'Cormorant Garamond', serif; font-weight: 900; font-size: 3.2rem; line-height: 1.1; margin-bottom: 1rem; letter-spacing: -0.02em; }
+  .hero .subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: 1.25rem; color: var(--caption); line-height: 1.5; max-width: 600px; margin: 0 auto; }
   .hero-rule { width: 60px; height: 3px; background: var(--accent); margin: 2.5rem auto; border: none; }
   .article { max-width: 680px; margin: 0 auto; padding: 0 1.5rem 5rem; }
   .article p { margin-bottom: 1.4rem; font-size: 1rem; }
   .article p.lede { font-size: 1.15rem; line-height: 1.8; color: #333; }
-  .article h2 { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.8rem; margin: 3.5rem 0 1.2rem; line-height: 1.2; }
-  .article h3 { font-family: 'Source Serif 4', serif; font-weight: 600; font-size: 1.15rem; margin: 2.5rem 0 0.8rem; color: var(--accent); }
-  .article .drop-cap::first-letter { font-family: 'Playfair Display', serif; font-weight: 900; float: left; font-size: 4.2rem; line-height: 0.78; padding-right: 0.12em; margin-top: 0.06em; color: var(--accent); }
-  .pullquote { margin: 2.5rem -1rem; padding: 1.8rem 1.5rem; border-left: 4px solid var(--accent); background: var(--accent-light); font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.2rem; line-height: 1.55; color: #2a2a28; border-radius: 0 4px 4px 0; }
+  .article h2 { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.8rem; margin: 3.5rem 0 1.2rem; line-height: 1.2; }
+  .article h3 { font-family: 'EB Garamond', serif; font-weight: 600; font-size: 1.15rem; margin: 2.5rem 0 0.8rem; color: var(--accent); }
+  .article .drop-cap::first-letter { font-family: 'Cormorant Garamond', serif; font-weight: 900; float: left; font-size: 4.2rem; line-height: 0.78; padding-right: 0.12em; margin-top: 0.06em; color: var(--accent); }
+  .pullquote { margin: 2.5rem -1rem; padding: 1.8rem 1.5rem; border-left: 4px solid var(--accent); background: var(--accent-light); font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.2rem; line-height: 1.55; color: #2a2a28; border-radius: 0 4px 4px 0; }
   .data-card { margin: 2.5rem 0; padding: 1.6rem 1.5rem; background: #fff; border: 1px solid var(--rule); border-radius: 3px; }
-  .data-card .card-label { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
+  .data-card .card-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
   .data-card table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
-  .data-card th { text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--caption); padding: 0.4rem 0.6rem; border-bottom: 2px solid var(--ink); }
+  .data-card th { text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--caption); padding: 0.4rem 0.6rem; border-bottom: 2px solid var(--ink); }
   .data-card td { padding: 0.5rem 0.6rem; border-bottom: 1px solid #e8e4dd; }
-  .data-card td.mono { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; }
+  .data-card td.mono { font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; }
   .article-figure { margin: 3rem 0; }
   .article-figure svg { width: 100%; height: auto; background: #fff; border: 1px solid var(--rule); border-radius: 4px; display: block; }
-  .article-figure figcaption { margin-top: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--caption); line-height: 1.65; }
+  .article-figure figcaption { margin-top: 1rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--caption); line-height: 1.65; }
   .article-figure figcaption strong { color: var(--ink); }
   .section-break { text-align: center; margin: 3rem 0; color: var(--rule); font-size: 1.4rem; letter-spacing: 0.5em; }
   .article strong { font-weight: 600; color: #111; }
-  /* Inline citations */
-  .article sup.ref { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--accent); text-decoration: none; cursor: pointer; margin-left: 1px; }
+  .article sup.ref { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--accent); text-decoration: none; cursor: pointer; margin-left: 1px; }
   .article sup.ref a { color: var(--accent); text-decoration: none; }
   .article sup.ref a:hover { text-decoration: underline; }
-  /* References section */
   .references { margin-top: 3rem; padding-top: 1.5rem; border-top: 2px solid var(--ink); }
-  .references h2 { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); margin-bottom: 1.2rem; }
+  .references h2 { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); margin-bottom: 1.2rem; }
   .references ol { list-style: none; counter-reset: ref-counter; padding: 0; }
   .references li { counter-increment: ref-counter; margin-bottom: 0.9rem; font-size: 0.82rem; line-height: 1.6; color: #555; padding-left: 2rem; position: relative; }
-  .references li::before { content: counter(ref-counter); position: absolute; left: 0; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--accent); font-weight: 500; top: 0.1rem; }
+  .references li::before { content: counter(ref-counter); position: absolute; left: 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--accent); font-weight: 500; top: 0.1rem; }
   .references li .ref-authors { color: var(--ink); }
   .references li .ref-title { font-style: italic; }
-  .references li .ref-journal { }
-  .references li a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 1px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; }
+  .references li a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 1px; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; }
   .references li a:hover { color: var(--ink); border-color: var(--ink); }
-  .footer { max-width: 680px; margin: 0 auto; padding: 2rem 1.5rem 4rem; border-top: 1px solid var(--rule); font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--caption); text-align: center; }
-  /* === SITE NAV === */
-  .site-nav { display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 2.5rem; border-bottom: 1px solid var(--rule); font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; letter-spacing: 0.16em; text-transform: uppercase; }
+  .footer { max-width: 680px; margin: 0 auto; padding: 2rem 1.5rem 4rem; border-top: 1px solid var(--rule); font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--caption); text-align: center; }
+  .site-nav { display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 2.5rem; border-bottom: 1px solid var(--rule); font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem; letter-spacing: 0.16em; text-transform: uppercase; }
   .site-nav .nav-home { color: var(--ink); text-decoration: none; font-weight: 500; }
   .site-nav .nav-home:hover { color: var(--accent); }
   .site-nav .nav-links { display: flex; gap: 1.8rem; }
@@ -124,37 +120,37 @@
     <marker id="a1g" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1.5 L 10 5 L 0 8.5" fill="none" stroke="#2d5a27" stroke-width="1.5"/></marker>
   </defs>
   <rect width="100%" height="100%" fill="#faf8f5"/><rect width="100%" height="100%" fill="url(#g1)"/>
-  <text x="340" y="30" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#1a1a18" letter-spacing="0.1em">THE GEOMETRY OF A MISS</text>
-  <text x="340" y="45" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#6b6256">Face angle error at 8 feet &#8212; angles exaggerated ~40&#215; for visibility</text>
+  <text x="340" y="30" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" font-weight="700" fill="#1a1a18" letter-spacing="0.1em">THE GEOMETRY OF A MISS</text>
+  <text x="340" y="45" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#6b6256">Face angle error at 8 feet &#8212; angles exaggerated ~40&#215; for visibility</text>
   <rect x="60" y="70" width="560" height="120" rx="2" fill="#f0f4ef" opacity="0.4"/>
   <line x1="115" y1="135" x2="590" y2="135" stroke="#c4b9a8" stroke-width="1" stroke-dasharray="6 4"/>
-  <text x="350" y="154" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#c4b9a8">TARGET LINE</text>
+  <text x="350" y="154" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#c4b9a8">TARGET LINE</text>
   <line x1="115" y1="135" x2="548" y2="135" stroke="#2d5a27" stroke-width="2" marker-end="url(#a1g)" opacity="0.6"/>
   <line x1="115" y1="135" x2="548" y2="97" stroke="#8b3a3a" stroke-width="2" marker-end="url(#a1r)"/>
   <line x1="115" y1="135" x2="548" y2="173" stroke="#8b3a3a" stroke-width="1.5" marker-end="url(#a1r)" opacity="0.25"/>
   <path d="M 185 135 A 70 70 0 0 0 184 127" fill="none" stroke="#1a1a18" stroke-width="1.2"/>
-  <text x="200" y="124" font-family="'JetBrains Mono',monospace" font-size="10" fill="#1a1a18" font-weight="500">0.76&#176;</text>
+  <text x="200" y="124" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#1a1a18" font-weight="500">0.76&#176;</text>
   <rect x="90" y="110" width="6" height="50" rx="1" fill="#2d5a27"/>
   <g transform="translate(93,135) rotate(-5)"><rect x="-3" y="-25" width="6" height="50" rx="1" fill="#8b3a3a" opacity="0.45"/></g>
-  <text x="75" y="104" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#8b3a3a">OPEN</text>
-  <text x="108" y="104" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#2d5a27">SQUARE</text>
+  <text x="75" y="104" text-anchor="end" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#8b3a3a">OPEN</text>
+  <text x="108" y="104" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#2d5a27">SQUARE</text>
   <circle cx="115" cy="135" r="7" fill="#faf8f5" stroke="#1a1a18" stroke-width="1.5"/>
   <circle cx="568" cy="135" r="16" fill="none" stroke="#1a1a18" stroke-width="2"/>
   <circle cx="568" cy="135" r="11" fill="#2a2a28"/>
   <line x1="553" y1="97" x2="583" y2="97" stroke="#8b3a3a" stroke-width="0.8" stroke-dasharray="3 2"/>
-  <text x="593" y="92" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#8b3a3a" font-weight="500">MISS</text>
-  <text x="593" y="104" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#8b3a3a">1.28" outside cup</text>
+  <text x="593" y="92" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#8b3a3a" font-weight="500">MISS</text>
+  <text x="593" y="104" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#8b3a3a">1.28" outside cup</text>
   <line x1="115" y1="193" x2="568" y2="193" stroke="#6b6256" stroke-width="0.8"/>
   <line x1="115" y1="188" x2="115" y2="198" stroke="#6b6256" stroke-width="0.8"/>
   <line x1="568" y1="188" x2="568" y2="198" stroke="#6b6256" stroke-width="0.8"/>
-  <text x="341" y="207" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6b6256">8 FEET</text>
+  <text x="341" y="207" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#6b6256">8 FEET</text>
   <line x1="60" y1="230" x2="620" y2="230" stroke="#c4b9a8" stroke-width="0.5"/>
-  <g transform="translate(110,252)"><text x="0" y="0" font-family="'JetBrains Mono',monospace" font-size="20" fill="#1a1a18" font-weight="700">0.76&#176;</text><text x="0" y="15" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#6b6256">Max error at 8 ft</text></g>
-  <g transform="translate(275,252)"><text x="0" y="0" font-family="'JetBrains Mono',monospace" font-size="20" fill="#1a1a18" font-weight="700">83&#8211;92%</text><text x="0" y="15" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#6b6256">Direction from face angle</text></g>
-  <g transform="translate(480,252)"><text x="0" y="0" font-family="'JetBrains Mono',monospace" font-size="20" fill="#8b3a3a" font-weight="700">1.28"</text><text x="0" y="15" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#6b6256">Lateral miss at hole</text></g>
+  <g transform="translate(110,252)"><text x="0" y="0" font-family="'IBM Plex Mono',monospace" font-size="20" fill="#1a1a18" font-weight="700">0.76&#176;</text><text x="0" y="15" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">Max error at 8 ft</text></g>
+  <g transform="translate(275,252)"><text x="0" y="0" font-family="'IBM Plex Mono',monospace" font-size="20" fill="#1a1a18" font-weight="700">83&#8211;92%</text><text x="0" y="15" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">Direction from face angle</text></g>
+  <g transform="translate(480,252)"><text x="0" y="0" font-family="'IBM Plex Mono',monospace" font-size="20" fill="#8b3a3a" font-weight="700">1.28"</text><text x="0" y="15" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">Lateral miss at hole</text></g>
   <line x1="60" y1="280" x2="620" y2="280" stroke="#c4b9a8" stroke-width="0.5"/>
-  <rect x="80" y="287" width="12" height="3" fill="#2d5a27"/><text x="98" y="292" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#6b6256">Square face &#8594; ball finds the hole</text>
-  <rect x="340" y="287" width="12" height="3" fill="#8b3a3a"/><text x="358" y="292" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#6b6256">0.76&#176; open &#8594; ball misses entirely</text>
+  <rect x="80" y="287" width="12" height="3" fill="#2d5a27"/><text x="98" y="292" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">Square face &#8594; ball finds the hole</text>
+  <rect x="340" y="287" width="12" height="3" fill="#8b3a3a"/><text x="358" y="292" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">0.76&#176; open &#8594; ball misses entirely</text>
 </svg>
 <figcaption><strong>Fig. 1 &#8212; The Geometric Reality.</strong> At eight feet, a face angle open by less than one degree launches the ball outside the cup. The real divergence is invisible to the naked eye &#8212; which is precisely the problem.</figcaption>
 </figure>
@@ -180,50 +176,50 @@
     <marker id="a2b" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1 L 8 4 L 0 7" fill="none" stroke="#1a1a18" stroke-width="1.2"/></marker>
   </defs>
   <rect width="100%" height="100%" fill="#faf8f5"/>
-  <text x="340" y="28" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#1a1a18" letter-spacing="0.1em">CG DEPTH AND THE GEAR EFFECT</text>
-  <text x="340" y="43" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#6b6256">Why the putter with more MOI can send the ball more offline</text>
+  <text x="340" y="28" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" font-weight="700" fill="#1a1a18" letter-spacing="0.1em">CG DEPTH AND THE GEAR EFFECT</text>
+  <text x="340" y="43" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#6b6256">Why the putter with more MOI can send the ball more offline</text>
   <!-- Blade -->
-  <text x="170" y="72" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" font-weight="700" fill="#2d5a27">BLADE &#8212; SHALLOW CG</text>
+  <text x="170" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9.5" font-weight="700" fill="#2d5a27">BLADE &#8212; SHALLOW CG</text>
   <rect x="80" y="100" width="180" height="30" rx="3" fill="#e8efe7" stroke="#2d5a27" stroke-width="2"/>
   <line x1="80" y1="100" x2="80" y2="130" stroke="#2d5a27" stroke-width="3"/>
   <circle cx="120" cy="115" r="6" fill="#d4a84b" stroke="#1a1a18" stroke-width="1"/>
-  <text x="120" y="118" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6" fill="#1a1a18" font-weight="700">CG</text>
+  <text x="120" y="118" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="6" fill="#1a1a18" font-weight="700">CG</text>
   <line x1="83" y1="142" x2="120" y2="142" stroke="#6b6256" stroke-width="0.8"/><line x1="83" y1="138" x2="83" y2="146" stroke="#6b6256" stroke-width="0.8"/><line x1="120" y1="138" x2="120" y2="146" stroke="#6b6256" stroke-width="0.8"/>
-  <text x="101" y="155" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6b6256">SHALLOW</text>
+  <text x="101" y="155" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#6b6256">SHALLOW</text>
   <circle cx="240" cy="100" r="8" fill="#faf8f5" stroke="#1a1a18" stroke-width="1.5"/>
-  <text x="253" y="95" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6b6256">TOE HIT</text>
+  <text x="253" y="95" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#6b6256">TOE HIT</text>
   <path d="M 125 108 A 30 30 0 0 1 130 96" fill="none" stroke="#8b3a3a" stroke-width="1.5" stroke-dasharray="3 2"/>
-  <text x="143" y="94" font-family="'JetBrains Mono',monospace" font-size="7" fill="#8b3a3a">Small rotation</text>
+  <text x="143" y="94" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a">Small rotation</text>
   <line x1="240" y1="92" x2="240" y2="55" stroke="#1a1a18" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#a2b)"/>
-  <text x="240" y="50" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#1a1a18">Ball path</text>
+  <text x="240" y="50" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#1a1a18">Ball path</text>
   <rect x="70" y="175" width="200" height="60" rx="3" fill="#fff" stroke="#c4b9a8" stroke-width="1"/>
-  <text x="170" y="195" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="18" fill="#2d5a27" font-weight="700">0.23&#176;</text>
-  <text x="170" y="210" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#6b6256">offline on 15mm toe strike</text>
-  <text x="170" y="225" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#6b6256">Misses hole at 47 feet</text>
+  <text x="170" y="195" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="18" fill="#2d5a27" font-weight="700">0.23&#176;</text>
+  <text x="170" y="210" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">offline on 15mm toe strike</text>
+  <text x="170" y="225" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">Misses hole at 47 feet</text>
   <line x1="340" y1="65" x2="340" y2="245" stroke="#c4b9a8" stroke-width="1"/>
   <!-- Mallet -->
-  <text x="510" y="72" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9.5" font-weight="700" fill="#8b3a3a">MALLET &#8212; DEEP CG</text>
+  <text x="510" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9.5" font-weight="700" fill="#8b3a3a">MALLET &#8212; DEEP CG</text>
   <path d="M 420 100 L 600 100 C 610 100 610 175 540 175 L 480 175 C 410 175 410 100 420 100 Z" fill="#f5eaea" stroke="#8b3a3a" stroke-width="2"/>
   <line x1="420" y1="100" x2="600" y2="100" stroke="#8b3a3a" stroke-width="3"/>
   <circle cx="510" cy="145" r="6" fill="#d4a84b" stroke="#1a1a18" stroke-width="1"/>
-  <text x="510" y="148" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6" fill="#1a1a18" font-weight="700">CG</text>
+  <text x="510" y="148" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="6" fill="#1a1a18" font-weight="700">CG</text>
   <line x1="425" y1="185" x2="510" y2="185" stroke="#6b6256" stroke-width="0.8"/><line x1="425" y1="181" x2="425" y2="189" stroke="#6b6256" stroke-width="0.8"/><line x1="510" y1="181" x2="510" y2="189" stroke="#6b6256" stroke-width="0.8"/>
-  <text x="467" y="198" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6b6256">DEEP</text>
+  <text x="467" y="198" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#6b6256">DEEP</text>
   <circle cx="585" cy="100" r="8" fill="#faf8f5" stroke="#1a1a18" stroke-width="1.5"/>
-  <text x="598" y="95" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6b6256">TOE HIT</text>
+  <text x="598" y="95" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#6b6256">TOE HIT</text>
   <path d="M 520 135 A 45 45 0 0 1 535 110" fill="none" stroke="#8b3a3a" stroke-width="1.5" stroke-dasharray="3 2"/>
-  <text x="548" y="118" font-family="'JetBrains Mono',monospace" font-size="7" fill="#8b3a3a">Large rotation</text>
+  <text x="548" y="118" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a">Large rotation</text>
   <line x1="585" y1="92" x2="600" y2="48" stroke="#8b3a3a" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#a2)"/>
-  <text x="610" y="50" font-family="'JetBrains Mono',monospace" font-size="7" fill="#8b3a3a">Ball pushed</text>
-  <text x="610" y="60" font-family="'JetBrains Mono',monospace" font-size="7" fill="#8b3a3a">offline</text>
+  <text x="610" y="50" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a">Ball pushed</text>
+  <text x="610" y="60" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a">offline</text>
   <rect x="410" y="215" width="200" height="60" rx="3" fill="#fff" stroke="#c4b9a8" stroke-width="1"/>
-  <text x="510" y="235" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="18" fill="#8b3a3a" font-weight="700">0.59&#176;</text>
-  <text x="510" y="250" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#6b6256">offline on 15mm toe strike</text>
-  <text x="510" y="265" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#6b6256">Misses hole at 18 feet</text>
+  <text x="510" y="235" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="18" fill="#8b3a3a" font-weight="700">0.59&#176;</text>
+  <text x="510" y="250" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">offline on 15mm toe strike</text>
+  <text x="510" y="265" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">Misses hole at 18 feet</text>
   <line x1="60" y1="295" x2="620" y2="295" stroke="#c4b9a8" stroke-width="0.5"/>
-  <text x="340" y="315" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#1a1a18">The deep-CG mallet had <tspan font-weight="700">20% higher MOI</tspan> &#8212; yet sent the ball <tspan font-weight="700" fill="#8b3a3a">2.6&#215; more offline</tspan>.</text>
-  <text x="340" y="332" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#6b6256">More &#8220;forgiveness&#8221; on paper. Worse directional accuracy in practice.</text>
-  <text x="340" y="352" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#c4b9a8">Source: Lambeth et al. &#8212; adjustable CG/MOI putter, robotic testing</text>
+  <text x="340" y="315" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#1a1a18">The deep-CG mallet had <tspan font-weight="700">20% higher MOI</tspan> &#8212; yet sent the ball <tspan font-weight="700" fill="#8b3a3a">2.6&#215; more offline</tspan>.</text>
+  <text x="340" y="332" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">More &#8220;forgiveness&#8221; on paper. Worse directional accuracy in practice.</text>
+  <text x="340" y="352" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#c4b9a8">Source: Lambeth et al. &#8212; adjustable CG/MOI putter, robotic testing</text>
 </svg>
 <figcaption><strong>Fig. 2 &#8212; The Mallet Tax.</strong> Top-down view: when struck off-center, the head rotates around its CG. A shallow CG (blade) produces a small arc at the contact point. A deep CG (mallet) produces a large arc, imparting a tangential kick that pushes the ball offline &#8212; despite having higher MOI.</figcaption>
 </figure>
@@ -237,38 +233,38 @@
 <figure class="article-figure">
 <svg viewBox="0 0 680 260" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" fill="#faf8f5"/>
-  <text x="340" y="28" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#1a1a18" letter-spacing="0.1em">WHAT HAPPENS ON A &#189;-INCH MISHIT</text>
-  <text x="340" y="43" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#6b6256">Robotic test &#8212; center hit vs. &#189;" off-center</text>
+  <text x="340" y="28" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" font-weight="700" fill="#1a1a18" letter-spacing="0.1em">WHAT HAPPENS ON A &#189;-INCH MISHIT</text>
+  <text x="340" y="43" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#6b6256">Robotic test &#8212; center hit vs. &#189;" off-center</text>
   <!-- Low MOI -->
-  <text x="170" y="70" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" font-weight="700" fill="#8b3a3a">LOW MOI (BLADE)</text>
-  <text x="170" y="83" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#6b6256">~3,000 g&#183;cm&#178;</text>
+  <text x="170" y="70" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="700" fill="#8b3a3a">LOW MOI (BLADE)</text>
+  <text x="170" y="83" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">~3,000 g&#183;cm&#178;</text>
   <rect x="70" y="98" width="200" height="28" rx="3" fill="#f5eaea" stroke="#c4b9a8" stroke-width="1"/>
-  <text x="80" y="116" font-family="'JetBrains Mono',monospace" font-size="8" fill="#6b6256">TWIST</text>
+  <text x="80" y="116" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">TWIST</text>
   <rect x="120" y="103" width="140" height="18" rx="2" fill="#8b3a3a" opacity="0.8"/>
-  <text x="190" y="116" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#fff" font-weight="700">6&#215; baseline</text>
+  <text x="190" y="116" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#fff" font-weight="700">6&#215; baseline</text>
   <rect x="70" y="132" width="200" height="28" rx="3" fill="#f5eaea" stroke="#c4b9a8" stroke-width="1"/>
-  <text x="80" y="150" font-family="'JetBrains Mono',monospace" font-size="8" fill="#6b6256">SPEED</text>
+  <text x="80" y="150" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">SPEED</text>
   <rect x="120" y="137" width="60" height="18" rx="2" fill="#d4a84b" opacity="0.7"/>
-  <text x="190" y="150" font-family="'JetBrains Mono',monospace" font-size="10" fill="#1a1a18" font-weight="500">1.70 &#8594; 1.52</text>
+  <text x="190" y="150" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#1a1a18" font-weight="500">1.70 &#8594; 1.52</text>
   <rect x="70" y="170" width="200" height="32" rx="3" fill="#fff" stroke="#8b3a3a" stroke-width="1.5"/>
-  <text x="170" y="191" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#8b3a3a" font-weight="700">&#8776; 3 FEET SHORT</text>
+  <text x="170" y="191" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#8b3a3a" font-weight="700">&#8776; 3 FEET SHORT</text>
   <line x1="340" y1="65" x2="340" y2="210" stroke="#c4b9a8" stroke-width="1"/>
   <!-- High MOI -->
-  <text x="510" y="70" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" font-weight="700" fill="#2d5a27">HIGH MOI (MALLET)</text>
-  <text x="510" y="83" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#6b6256">~8,000+ g&#183;cm&#178;</text>
+  <text x="510" y="70" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="700" fill="#2d5a27">HIGH MOI (MALLET)</text>
+  <text x="510" y="83" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">~8,000+ g&#183;cm&#178;</text>
   <rect x="410" y="98" width="200" height="28" rx="3" fill="#e8efe7" stroke="#c4b9a8" stroke-width="1"/>
-  <text x="420" y="116" font-family="'JetBrains Mono',monospace" font-size="8" fill="#6b6256">TWIST</text>
+  <text x="420" y="116" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">TWIST</text>
   <rect x="460" y="103" width="22" height="18" rx="2" fill="#2d5a27" opacity="0.7"/>
-  <text x="530" y="116" font-family="'JetBrains Mono',monospace" font-size="10" fill="#1a1a18" font-weight="500">1&#215; baseline</text>
+  <text x="530" y="116" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#1a1a18" font-weight="500">1&#215; baseline</text>
   <rect x="410" y="132" width="200" height="28" rx="3" fill="#e8efe7" stroke="#c4b9a8" stroke-width="1"/>
-  <text x="420" y="150" font-family="'JetBrains Mono',monospace" font-size="8" fill="#6b6256">SPEED</text>
+  <text x="420" y="150" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">SPEED</text>
   <rect x="460" y="137" width="55" height="18" rx="2" fill="#d4a84b" opacity="0.7"/>
-  <text x="530" y="150" font-family="'JetBrains Mono',monospace" font-size="10" fill="#1a1a18" font-weight="500">1.70 &#8594; 1.69</text>
+  <text x="530" y="150" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#1a1a18" font-weight="500">1.70 &#8594; 1.69</text>
   <rect x="410" y="170" width="200" height="32" rx="3" fill="#fff" stroke="#2d5a27" stroke-width="1.5"/>
-  <text x="510" y="191" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#2d5a27" font-weight="700">&#8776; 2 INCHES SHORT</text>
+  <text x="510" y="191" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="11" fill="#2d5a27" font-weight="700">&#8776; 2 INCHES SHORT</text>
   <line x1="60" y1="220" x2="620" y2="220" stroke="#c4b9a8" stroke-width="0.5"/>
-  <text x="340" y="242" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#1a1a18">Same mishit. The blade leaves you <tspan font-weight="700" fill="#8b3a3a">3 feet short</tspan>. The mallet leaves you <tspan font-weight="700" fill="#2d5a27">2 inches short</tspan>.</text>
-  <text x="340" y="256" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#c4b9a8">Source: Quintic Ball Roll Lab &#8212; robotic putter testing</text>
+  <text x="340" y="242" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#1a1a18">Same mishit. The blade leaves you <tspan font-weight="700" fill="#8b3a3a">3 feet short</tspan>. The mallet leaves you <tspan font-weight="700" fill="#2d5a27">2 inches short</tspan>.</text>
+  <text x="340" y="256" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#c4b9a8">Source: Quintic Ball Roll Lab &#8212; robotic putter testing</text>
 </svg>
 <figcaption><strong>Fig. 3 &#8212; The Distance Forgiveness Case for MOI.</strong> On a half-inch off-center hit, the low-MOI blade loses enough energy to leave a putt three feet short. The high-MOI mallet barely notices. This is the one variable where the mallet advantage is unambiguous &#8212; but it only addresses distance, not direction.</figcaption>
 </figure>
@@ -323,10 +319,10 @@
     <marker id="a4r" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1 L 8 4 L 0 7" fill="none" stroke="#8b3a3a" stroke-width="1.2"/></marker>
   </defs>
   <rect width="100%" height="100%" fill="#faf8f5"/>
-  <text x="340" y="28" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#1a1a18" letter-spacing="0.1em">GRAVITATIONAL TORQUE AND LIE ANGLE BALANCE</text>
-  <text x="340" y="43" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#6b6256">What the putter wants to do when you let go of face control</text>
+  <text x="340" y="28" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" font-weight="700" fill="#1a1a18" letter-spacing="0.1em">GRAVITATIONAL TORQUE AND LIE ANGLE BALANCE</text>
+  <text x="340" y="43" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#6b6256">What the putter wants to do when you let go of face control</text>
   <!-- Traditional -->
-  <text x="170" y="72" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" font-weight="700" fill="#8b3a3a">TRADITIONAL (TOE HANG)</text>
+  <text x="170" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="700" fill="#8b3a3a">TRADITIONAL (TOE HANG)</text>
   <line x1="130" y1="85" x2="170" y2="225" stroke="#6b6256" stroke-width="3" stroke-linecap="round"/>
   <g transform="translate(170,225) rotate(15)">
     <rect x="-5" y="-8" width="70" height="16" rx="3" fill="#f5eaea" stroke="#8b3a3a" stroke-width="1.5"/>
@@ -334,16 +330,16 @@
     <circle cx="25" cy="0" r="4" fill="#d4a84b" stroke="#1a1a18" stroke-width="0.8"/>
   </g>
   <line x1="248" y1="233" x2="248" y2="265" stroke="#8b3a3a" stroke-width="1.5" marker-end="url(#a4r)"/>
-  <text x="260" y="255" font-family="'JetBrains Mono',monospace" font-size="8" fill="#8b3a3a">Gravity</text>
-  <text x="260" y="265" font-family="'JetBrains Mono',monospace" font-size="8" fill="#8b3a3a">pulls toe</text>
+  <text x="260" y="255" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#8b3a3a">Gravity</text>
+  <text x="260" y="265" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#8b3a3a">pulls toe</text>
   <path d="M 195 195 A 40 40 0 0 1 215 210" fill="none" stroke="#8b3a3a" stroke-width="1.5" stroke-dasharray="3 2"/>
-  <text x="220" y="195" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#8b3a3a">Face opens</text>
-  <text x="170" y="292" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#6b6256">CG offset from shaft axis &#8594;</text>
-  <text x="170" y="305" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#8b3a3a" font-weight="500">gravitational torque opens face</text>
-  <text x="170" y="318" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#6b6256">Golfer must time the close</text>
+  <text x="220" y="195" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#8b3a3a">Face opens</text>
+  <text x="170" y="292" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">CG offset from shaft axis &#8594;</text>
+  <text x="170" y="305" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#8b3a3a" font-weight="500">gravitational torque opens face</text>
+  <text x="170" y="318" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">Golfer must time the close</text>
   <line x1="340" y1="60" x2="340" y2="275" stroke="#c4b9a8" stroke-width="1"/>
   <!-- LAB -->
-  <text x="510" y="72" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" font-weight="700" fill="#2d5a27">LIE ANGLE BALANCED</text>
+  <text x="510" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="700" fill="#2d5a27">LIE ANGLE BALANCED</text>
   <line x1="470" y1="85" x2="510" y2="225" stroke="#6b6256" stroke-width="3" stroke-linecap="round"/>
   <g transform="translate(510,225)">
     <rect x="-5" y="-8" width="70" height="16" rx="3" fill="#e8efe7" stroke="#2d5a27" stroke-width="1.5"/>
@@ -351,12 +347,12 @@
     <circle cx="10" cy="0" r="4" fill="#d4a84b" stroke="#1a1a18" stroke-width="0.8"/>
   </g>
   <line x1="510" y1="223" x2="520" y2="257" stroke="#2d5a27" stroke-width="0.8" stroke-dasharray="3 2"/>
-  <text x="530" y="253" font-family="'JetBrains Mono',monospace" font-size="7" fill="#2d5a27">CG on shaft axis</text>
-  <text x="558" y="213" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#2d5a27">Face stays</text>
-  <text x="558" y="223" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#2d5a27">square</text>
-  <text x="510" y="292" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#6b6256">CG aligned with shaft axis &#8594;</text>
-  <text x="510" y="305" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#2d5a27" font-weight="500">zero gravitational torque</text>
-  <text x="510" y="318" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#6b6256">Face has no rotational bias</text>
+  <text x="530" y="253" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#2d5a27">CG on shaft axis</text>
+  <text x="558" y="213" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#2d5a27">Face stays</text>
+  <text x="558" y="223" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#2d5a27">square</text>
+  <text x="510" y="292" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">CG aligned with shaft axis &#8594;</text>
+  <text x="510" y="305" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#2d5a27" font-weight="500">zero gravitational torque</text>
+  <text x="510" y="318" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">Face has no rotational bias</text>
 </svg>
 <figcaption><strong>Fig. 4 &#8212; The Torque Problem.</strong> A traditional putter&#8217;s CG sits offline from the shaft axis at the lie angle, so gravity constantly tries to rotate the face open. Lie angle balanced designs align the CG with the shaft axis, removing this static torque &#8212; though dynamic forces from the stroke itself remain.</figcaption>
 </figure>
@@ -412,13 +408,13 @@
 <figure class="article-figure">
 <svg viewBox="0 0 680 310" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" fill="#faf8f5"/>
-  <text x="340" y="28" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" font-weight="700" fill="#1a1a18" letter-spacing="0.1em">THE STROKE AS A COUPLED SYSTEM</text>
-  <text x="340" y="43" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#6b6256">Two oscillators, one moment of truth</text>
+  <text x="340" y="28" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" font-weight="700" fill="#1a1a18" letter-spacing="0.1em">THE STROKE AS A COUPLED SYSTEM</text>
+  <text x="340" y="43" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#6b6256">Two oscillators, one moment of truth</text>
   <!-- Primary -->
-  <text x="190" y="72" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" font-weight="700" fill="#2d5a27">PRIMARY MOTION</text>
-  <text x="190" y="85" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#6b6256">Sagittal plane &#8212; pendulum</text>
+  <text x="190" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="700" fill="#2d5a27">PRIMARY MOTION</text>
+  <text x="190" y="85" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">Sagittal plane &#8212; pendulum</text>
   <circle cx="190" cy="105" r="5" fill="#6b6256"/>
-  <text x="200" y="103" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6b6256">SHOULDER PIVOT</text>
+  <text x="200" y="103" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#6b6256">SHOULDER PIVOT</text>
   <line x1="190" y1="110" x2="140" y2="240" stroke="#c4b9a8" stroke-width="2"/>
   <rect x="130" y="235" width="20" height="10" rx="2" fill="#c4b9a8" opacity="0.5" transform="rotate(-20,140,240)"/>
   <line x1="190" y1="110" x2="190" y2="250" stroke="#2d5a27" stroke-width="2.5"/>
@@ -427,25 +423,25 @@
   <line x1="190" y1="110" x2="240" y2="240" stroke="#c4b9a8" stroke-width="2"/>
   <rect x="230" y="235" width="20" height="10" rx="2" fill="#c4b9a8" opacity="0.5" transform="rotate(20,240,240)"/>
   <path d="M 140 240 A 140 140 0 0 1 240 240" fill="none" stroke="#2d5a27" stroke-width="1" stroke-dasharray="4 3"/>
-  <text x="190" y="272" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#2d5a27">Controls: speed, tempo</text>
-  <text x="190" y="284" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#2d5a27">Driven at resonant frequency</text>
+  <text x="190" y="272" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#2d5a27">Controls: speed, tempo</text>
+  <text x="190" y="284" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#2d5a27">Driven at resonant frequency</text>
   <line x1="340" y1="60" x2="340" y2="290" stroke="#c4b9a8" stroke-width="1"/>
   <!-- Secondary -->
-  <text x="500" y="72" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" font-weight="700" fill="#8b3a3a">SECONDARY MOTION</text>
-  <text x="500" y="85" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#6b6256">Transverse plane &#8212; face rotation</text>
+  <text x="500" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="700" fill="#8b3a3a">SECONDARY MOTION</text>
+  <text x="500" y="85" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">Transverse plane &#8212; face rotation</text>
   <line x1="500" y1="100" x2="500" y2="250" stroke="#6b6256" stroke-width="2.5" stroke-linecap="round"/>
   <g transform="translate(500,155) rotate(-12)"><rect x="-3" y="-20" width="45" height="8" rx="2" fill="#f5eaea" stroke="#8b3a3a" stroke-width="1" opacity="0.5"/><line x1="-3" y1="-20" x2="-3" y2="-12" stroke="#8b3a3a" stroke-width="2"/></g>
-  <text x="555" y="148" font-family="'JetBrains Mono',monospace" font-size="7" fill="#8b3a3a" opacity="0.6">Open</text>
+  <text x="555" y="148" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a" opacity="0.6">Open</text>
   <g transform="translate(500,190)"><rect x="-3" y="-20" width="45" height="8" rx="2" fill="#e8efe7" stroke="#2d5a27" stroke-width="1.5"/><line x1="-3" y1="-20" x2="-3" y2="-12" stroke="#2d5a27" stroke-width="2.5"/></g>
-  <text x="555" y="178" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#2d5a27" font-weight="500">SQUARE</text>
-  <text x="555" y="188" font-family="'JetBrains Mono',monospace" font-size="7" fill="#2d5a27">at impact</text>
+  <text x="555" y="178" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#2d5a27" font-weight="500">SQUARE</text>
+  <text x="555" y="188" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#2d5a27">at impact</text>
   <g transform="translate(500,225) rotate(12)"><rect x="-3" y="-20" width="45" height="8" rx="2" fill="#f5eaea" stroke="#8b3a3a" stroke-width="1" opacity="0.5"/><line x1="-3" y1="-20" x2="-3" y2="-12" stroke="#8b3a3a" stroke-width="2"/></g>
-  <text x="555" y="218" font-family="'JetBrains Mono',monospace" font-size="7" fill="#8b3a3a" opacity="0.6">Closed</text>
+  <text x="555" y="218" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a" opacity="0.6">Closed</text>
   <path d="M 542 150 A 30 60 0 0 1 542 225" fill="none" stroke="#8b3a3a" stroke-width="1.2" stroke-dasharray="3 2"/>
-  <text x="500" y="272" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#8b3a3a">Controls: direction (83&#8211;92%)</text>
-  <text x="500" y="284" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="#8b3a3a">Must be timed to &lt; 1&#176; at impact</text>
+  <text x="500" y="272" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#8b3a3a">Controls: direction (83&#8211;92%)</text>
+  <text x="500" y="284" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#8b3a3a">Must be timed to &lt; 1&#176; at impact</text>
   <line x1="60" y1="298" x2="620" y2="298" stroke="#c4b9a8" stroke-width="0.5"/>
-  <text x="340" y="310" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="#1a1a18">These two motions are <tspan font-weight="700">coupled</tspan> &#8212; the primary stroke creates torques that disturb the secondary.</text>
+  <text x="340" y="310" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#1a1a18">These two motions are <tspan font-weight="700">coupled</tspan> &#8212; the primary stroke creates torques that disturb the secondary.</text>
 </svg>
 <figcaption><strong>Fig. 5 &#8212; Two Oscillators, One Moment of Truth.</strong> The primary pendulum motion controls speed. The secondary face rotation controls direction. They&#8217;re coupled: accelerating the putter creates dynamic torques that try to rotate the face. Every putter design is a different strategy for managing this coupling. None eliminate it.</figcaption>
 </figure>
