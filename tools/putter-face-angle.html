@@ -189,6 +189,43 @@ function draw() {
   const missPx = miss * scale;
   const endY = startY - missPx;
 
+  // Putter head SVG — top-down view, centred at (startX, startY), facing right
+  // angle = face open angle in degrees (positive = open/right miss)
+  const rad = angle * Math.PI / 180;
+  const cos = Math.cos(rad), sin = Math.sin(rad);
+  // rotate point around startX,startY
+  const rot = (x, y) => [
+    startX + (x * cos - y * sin),
+    startY + (x * sin + y * cos)
+  ];
+
+  let putterSVG = '';
+  if (type === 'blade') {
+    // Blade: narrow heel-to-toe bar (32px wide, 8px deep) + shaft stub
+    const pts = [rot(2,-16), rot(2,16), rot(-6,16), rot(-6,-16)];
+    putterSVG = `
+      <line x1="${rot(-18,0)[0]}" y1="${rot(-18,0)[1]}" x2="${rot(2,0)[0]}" y2="${rot(2,0)[1]}" stroke="#4a6348" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+      <polygon points="${pts.map(p=>p.join(',')).join(' ')}" fill="#4a6348" opacity="0.85"/>
+      <line x1="${rot(2,-16)[0]}" y1="${rot(2,-16)[1]}" x2="${rot(2,16)[0]}" y2="${rot(2,16)[1]}" stroke="#1d1f1c" stroke-width="1.5"/>`;
+  } else if (type === 'mallet') {
+    // Mallet: wide semicircle head (radius 20) + back bar + shaft
+    const faceL = rot(2, -20), faceR = rot(2, 20);
+    const backL = rot(-18, -20), backR = rot(-18, 20);
+    // arc from faceR to faceL going around the back via backL/backR
+    putterSVG = `
+      <line x1="${rot(-18,0)[0]}" y1="${rot(-18,0)[1]}" x2="${rot(2,0)[0]}" y2="${rot(2,0)[1]}" stroke="#4a6348" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+      <path d="M ${faceL[0]} ${faceL[1]} L ${backL[0]} ${backL[1]} A 20 20 0 0 0 ${backR[0]} ${backR[1]} L ${faceR[0]} ${faceR[1]} Z"
+        fill="#4a6348" opacity="0.85"/>
+      <line x1="${faceL[0]}" y1="${faceL[1]}" x2="${faceR[0]}" y2="${faceR[1]}" stroke="#1d1f1c" stroke-width="1.5"/>`;
+  } else {
+    // Zero torque: circular head (r=14) centred slightly behind face + centred shaft
+    const cx = rot(-6, 0);
+    putterSVG = `
+      <line x1="${rot(-18,0)[0]}" y1="${rot(-18,0)[1]}" x2="${rot(2,0)[0]}" y2="${rot(2,0)[1]}" stroke="#4a6348" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+      <circle cx="${cx[0]}" cy="${cx[1]}" r="14" fill="#4a6348" opacity="0.85"/>
+      <line x1="${rot(2,-8)[0]}" y1="${rot(2,-8)[1]}" x2="${rot(2,8)[0]}" y2="${rot(2,8)[1]}" stroke="#1d1f1c" stroke-width="1.5"/>`;
+  }
+
   document.getElementById('viz').innerHTML = `
     <rect width="${W}" height="${H}" fill="#faf8f4"/>
     <rect x="${startX}" y="${startY - 60}" width="${distPx + 40}" height="120" fill="#e8efe6" opacity="0.4" rx="2"/>
@@ -197,7 +234,7 @@ function draw() {
     <circle cx="${endX}" cy="${startY}" r="${cupRadPx}" fill="none" stroke="#1d1f1c" stroke-width="2"/>
     <circle cx="${endX}" cy="${startY}" r="${cupRadPx * 0.4}" fill="#2a2a28"/>
     <circle cx="${endX}" cy="${endY}" r="5" fill="${made ? '#4a6348' : '#8b4a3f'}" stroke="#fff" stroke-width="1.5"/>
-    <rect x="${startX - 8}" y="${startY - 18}" width="6" height="36" rx="1" fill="#4a6348" opacity="0.7"/>
+    ${putterSVG}
     ${Math.abs(missPx) > 8 ? `<text x="${endX + 12}" y="${endY + (missPx > 0 ? -8 : 14)}" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#8b4a3f">${Math.abs(miss).toFixed(1)}"</text>` : ''}
     <text x="${startX}" y="${H - 10}" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#736a5c">ADDRESS</text>
     <text x="${endX - 10}" y="${H - 10}" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#736a5c">${dist}ft</text>
