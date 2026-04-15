@@ -648,25 +648,43 @@
 </div>
 
 <script>
-function handleSubscribe() {
+async function handleSubscribe() {
   const email = document.getElementById('sub-email').value.trim();
   const btn = document.getElementById('sub-btn');
   const input = document.getElementById('sub-email');
+
   if (!email || !email.includes('@')) {
     input.style.borderColor = '#8b4a3f';
     input.focus();
     return;
   }
-  // Store locally and show confirmation
-  const subs = JSON.parse(localStorage.getItem('tfb_subscribers') || '[]');
-  if (!subs.includes(email)) subs.push(email);
-  localStorage.setItem('tfb_subscribers', JSON.stringify(subs));
-  input.style.display = 'none';
-  btn.textContent = 'You\'re in. See you Monday.';
-  btn.style.background = 'var(--ink)';
-  btn.style.borderColor = 'var(--ink)';
-  btn.style.cursor = 'default';
+
+  btn.textContent = 'Subscribing...';
   btn.disabled = true;
+
+  try {
+    const res = await fetch('/.netlify/functions/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+
+    if (res.ok) {
+      input.style.display = 'none';
+      btn.textContent = 'You\'re in. See you Monday.';
+      btn.style.background = 'var(--ink)';
+      btn.style.borderColor = 'var(--ink)';
+      btn.style.cursor = 'default';
+    } else {
+      btn.textContent = 'Something went wrong — try again';
+      btn.disabled = false;
+      btn.style.background = 'var(--red)';
+      btn.style.borderColor = 'var(--red)';
+    }
+  } catch {
+    btn.textContent = 'Something went wrong — try again';
+    btn.disabled = false;
+  }
 }
 </script>
 </body>
