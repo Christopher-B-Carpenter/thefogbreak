@@ -41,21 +41,20 @@
   input[type=range] { width: 100%; accent-color: var(--moss); cursor: pointer; }
   select { font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; padding: 0.3rem 0.5rem; border: 1px solid var(--rule); background: #fff; color: var(--ink); width: 100%; cursor: pointer; }
 
-  .viz-box { background: #fff; border: 1px solid var(--rule); padding: 1.5rem; }
+  .viz-box { background: #fff; border: 1px solid var(--rule); padding: 1.2rem 1.5rem; }
   .viz-box svg { width: 100%; height: auto; display: block; }
 
   .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: 1.5rem; }
   .stat { background: var(--parchment); padding: 1rem 1.2rem; text-align: center; }
-  .stat .stat-val { font-family: 'IBM Plex Mono', monospace; font-size: 1.4rem; font-weight: 500; color: var(--ink); line-height: 1; margin-bottom: 0.3rem; }
-  .stat .stat-val.warn { color: var(--red); }
-  .stat .stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.48rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--caption); }
+  .stat-val { font-family: 'IBM Plex Mono', monospace; font-size: 1.4rem; font-weight: 500; color: var(--ink); line-height: 1; margin-bottom: 0.3rem; }
+  .stat-val.warn { color: var(--red); }
+  .stat-val.good { color: var(--moss); }
+  .stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.48rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--caption); }
 
   .insight { margin-top: 1.5rem; padding: 1.2rem 1.5rem; border-left: 3px solid var(--moss); background: var(--moss-soft); font-style: italic; font-size: 0.95rem; line-height: 1.65; color: #333; }
   .insight strong { font-style: normal; color: var(--moss); }
-
-  .caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem; color: var(--caption); line-height: 1.6; margin-top: 1rem; }
+  .caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem; color: var(--caption); line-height: 1.6; margin-top: 0.9rem; }
   .caption strong { color: var(--ink); }
-
   .back-link { display: inline-block; margin-top: 2rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--moss); text-decoration: none; border-bottom: 1px solid var(--moss); padding-bottom: 2px; }
 
   @media (max-width: 600px) {
@@ -85,7 +84,6 @@
 </div>
 
 <div class="tool-wrap">
-
   <div class="controls">
     <div class="control-group">
       <label>Face Angle Error <span class="val" id="angle-val">1.0&deg;</span></label>
@@ -110,8 +108,8 @@
   </div>
 
   <div class="viz-box">
-    <svg id="viz" viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg"></svg>
-    <div class="caption"><strong>Fig. 1</strong> &mdash; Top-down view. Green line = intended line. Red line = actual ball start direction. Cup shown to scale at selected distance. Face angle contributes ~83&ndash;92% of start direction; path the remainder.</div>
+    <svg id="viz" viewBox="0 0 680 280" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="caption"><strong>Fig. 1</strong> &mdash; Top-down view. Dashed line = intended target line. Solid line = actual ball start direction. Cup shown to scale. Face angle open = ball starts right of target.</div>
   </div>
 
   <div class="stats">
@@ -130,119 +128,192 @@
   </div>
 
   <div class="insight" id="insight-text"></div>
-
   <a href="/articles/putter-physics.html" class="back-link">Read the full physics analysis &rarr;</a>
-
 </div>
 
 <script>
-const CUP_RADIUS_IN = 2.125;
+const CUP_IN = 2.125;
+const W = 680, H = 280;
+const PUTTER_X = 52, CY = H / 2;
 
-function getFaceContribution(type) {
-  if (type === 'zerotorque') return 0.92;
-  if (type === 'mallet') return 0.85;
-  return 0.875;
+function faceWeight(type) {
+  return type === 'zerotorque' ? 0.92 : type === 'mallet' ? 0.85 : 0.875;
 }
 
-function calcMiss(angle, dist, path, type) {
-  const fw = getFaceContribution(type);
-  const effective = (angle * fw) + (path * (1 - fw));
-  return dist * 12 * Math.tan(effective * Math.PI / 180);
+function calcMiss(angleDeg, distFt, pathDeg, type) {
+  const fw = faceWeight(type);
+  const eff = angleDeg * fw + pathDeg * (1 - fw);
+  return distFt * 12 * Math.tan(eff * Math.PI / 180);
 }
 
 function getInsight(angle, dist, miss, type) {
-  const made = Math.abs(miss) <= CUP_RADIUS_IN;
+  const made = Math.abs(miss) <= CUP_IN;
   const name = { blade: 'blade', mallet: 'high-MOI mallet', zerotorque: 'zero-torque putter' }[type];
-  if (angle < 0.5) return `At less than half a degree of error, your <strong>${name}</strong> keeps the ball inside the cup from ${dist} feet. This is elite-level face control &mdash; PGA Tour average is around 0.5&ndash;1.0&deg;.`;
-  if (made) return `A ${angle}&deg; face error is survivable at ${dist} feet with a <strong>${name}</strong> &mdash; the ball still catches the cup. But this is the margin where green speed and dimple randomness start to matter.`;
+  if (angle < 0.5) return `At under half a degree of error your <strong>${name}</strong> holds inside the cup from ${dist} feet. This is elite face control &mdash; PGA Tour average sits around 0.5&ndash;1.0&deg;.`;
+  if (made) return `A ${angle}&deg; error is survivable at ${dist} feet with a <strong>${name}</strong> &mdash; the ball still catches the cup. But this is the margin where green speed and dimple randomness start to matter.`;
   if (Math.abs(miss) < 3) return `The ball misses by ${Math.abs(miss).toFixed(1)}&Prime; with a <strong>${name}</strong>. Close, but physics doesn&rsquo;t negotiate.`;
-  return `At ${Math.abs(miss).toFixed(1)}&Prime; offline, no putter design recovers this. A ${angle}&deg; face error at ${dist} feet is a mechanical problem, not an equipment problem.`;
+  return `At ${Math.abs(miss).toFixed(1)}&Prime; offline no putter design recovers this. A ${angle}&deg; face error at ${dist} feet is a mechanical problem, not an equipment problem.`;
+}
+
+// Rotate point (rx, ry) around origin by angleDeg, then translate to (ox, oy)
+function rot(rx, ry, angleDeg, ox, oy) {
+  const r = angleDeg * Math.PI / 180;
+  return [ox + rx * Math.cos(r) - ry * Math.sin(r),
+          oy + rx * Math.sin(r) + ry * Math.cos(r)];
+}
+
+function putterShape(type, angleDeg, ox, oy) {
+  // ox,oy = hosel/shaft connection point (ball contact point)
+  // putter faces right (+x), shaft goes left (-x)
+  // open face = positive angle = rotated clockwise in SVG coords
+
+  const shaft = (x1, y1, x2, y2) =>
+    `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"
+      stroke="#3a5a3e" stroke-width="3" stroke-linecap="round" opacity="0.9"/>`;
+
+  if (type === 'blade') {
+    // Blade: narrow bar, 36px heel-to-toe, 9px deep, face on right edge
+    // Local coords: face at x=0, body extends left (x=-9), heel at y=-18, toe at y=+18
+    const corners = [
+      rot(0, -18, angleDeg, ox, oy),   // face heel
+      rot(0,  18, angleDeg, ox, oy),   // face toe
+      rot(-9, 18, angleDeg, ox, oy),   // back toe
+      rot(-9,-18, angleDeg, ox, oy),   // back heel
+    ];
+    const pts = corners.map(p => p.map(v=>v.toFixed(1)).join(',')).join(' ');
+    const [sx, sy] = rot(-9, 0, angleDeg, ox, oy);
+    const [ex, ey] = rot(-30, 0, angleDeg, ox, oy);
+    const [fl1x, fl1y] = corners[0], [fl2x, fl2y] = corners[1];
+    return `
+      ${shaft(sx, sy, ex, ey)}
+      <polygon points="${pts}" fill="#4a6348" stroke="#2a3d2c" stroke-width="1" opacity="0.9"/>
+      <line x1="${fl1x.toFixed(1)}" y1="${fl1y.toFixed(1)}" x2="${fl2x.toFixed(1)}" y2="${fl2y.toFixed(1)}"
+        stroke="#1d2e1e" stroke-width="1.5"/>`;
+
+  } else if (type === 'mallet') {
+    // Mallet: wide rectangular head, 40px heel-to-toe, 22px deep, plus rear alignment line
+    const c = [
+      rot(0,  -20, angleDeg, ox, oy),
+      rot(0,   20, angleDeg, ox, oy),
+      rot(-22, 20, angleDeg, ox, oy),
+      rot(-22,-20, angleDeg, ox, oy),
+    ];
+    const pts = c.map(p => p.map(v=>v.toFixed(1)).join(',')).join(' ');
+    // Rear alignment stripe
+    const [rs1x,rs1y] = rot(-16,-20, angleDeg, ox, oy);
+    const [rs2x,rs2y] = rot(-16, 20, angleDeg, ox, oy);
+    // Hosel on heel side
+    const [hx,hy] = rot(-4,-20, angleDeg, ox, oy);
+    const [sx,sy] = rot(-4,-38, angleDeg, ox, oy);
+    const [ex,ey] = rot(-4,-52, angleDeg, ox, oy);
+    const [fl1x,fl1y] = c[0], [fl2x,fl2y] = c[1];
+    return `
+      ${shaft(hx, hy, sx, sy)}
+      <polygon points="${pts}" fill="#4a6348" stroke="#2a3d2c" stroke-width="1" opacity="0.9"/>
+      <line x1="${rs1x.toFixed(1)}" y1="${rs1y.toFixed(1)}" x2="${rs2x.toFixed(1)}" y2="${rs2y.toFixed(1)}"
+        stroke="#2a3d2c" stroke-width="1.5" opacity="0.6"/>
+      <line x1="${fl1x.toFixed(1)}" y1="${fl1y.toFixed(1)}" x2="${fl2x.toFixed(1)}" y2="${fl2y.toFixed(1)}"
+        stroke="#1d2e1e" stroke-width="1.5"/>`;
+
+  } else {
+    // Zero torque: round head (r=17), shaft through CG (centre of circle)
+    const [cx, cy_] = rot(-10, 0, angleDeg, ox, oy);
+    const [sx, sy] = rot(-10, 0, angleDeg, ox, oy);
+    const [ex, ey] = rot(-34, 0, angleDeg, ox, oy);
+    const [fl1x,fl1y] = rot(0,-8, angleDeg, ox, oy);
+    const [fl2x,fl2y] = rot(0, 8, angleDeg, ox, oy);
+    return `
+      ${shaft(sx, sy, ex, ey)}
+      <circle cx="${cx.toFixed(1)}" cy="${cy_.toFixed(1)}" r="17"
+        fill="#4a6348" stroke="#2a3d2c" stroke-width="1" opacity="0.9"/>
+      <line x1="${fl1x.toFixed(1)}" y1="${fl1y.toFixed(1)}" x2="${fl2x.toFixed(1)}" y2="${fl2y.toFixed(1)}"
+        stroke="#1d2e1e" stroke-width="1.5"/>`;
+  }
 }
 
 function draw() {
   const angle = parseFloat(document.getElementById('angle').value);
-  const dist = parseInt(document.getElementById('dist').value);
-  const path = parseFloat(document.getElementById('path').value);
-  const type = document.getElementById('putter-type').value;
+  const dist  = parseInt(document.getElementById('dist').value);
+  const path  = parseFloat(document.getElementById('path').value);
+  const type  = document.getElementById('putter-type').value;
 
   document.getElementById('angle-val').textContent = angle.toFixed(1) + '°';
-  document.getElementById('dist-val').textContent = dist + ' ft';
-  document.getElementById('path-val').textContent = (path >= 0 ? '+' : '') + path.toFixed(1) + '°';
+  document.getElementById('dist-val').textContent  = dist + ' ft';
+  document.getElementById('path-val').textContent  = (path >= 0 ? '+' : '') + path.toFixed(1) + '°';
 
   const miss = calcMiss(angle, dist, path, type);
-  const made = Math.abs(miss) <= CUP_RADIUS_IN;
-  const faceContrib = Math.round(getFaceContribution(type) * 100);
+  // Positive miss = ball goes right = positive Y in SVG (y increases downward)
+  const made = Math.abs(miss) <= CUP_IN;
+  const fw   = Math.round(faceWeight(type) * 100);
 
   document.getElementById('stat-miss').textContent = Math.abs(miss).toFixed(1) + '"';
-  document.getElementById('stat-miss').className = 'stat-val' + (made ? '' : ' warn');
-  document.getElementById('stat-pct').textContent = faceContrib + '%';
+  document.getElementById('stat-miss').className = 'stat-val ' + (made ? 'good' : 'warn');
+  document.getElementById('stat-pct').textContent = fw + '%';
   document.getElementById('stat-verdict').textContent = made ? 'Make ✓' : 'Miss ✗';
-  document.getElementById('stat-verdict').className = 'stat-val' + (made ? '' : ' warn');
+  document.getElementById('stat-verdict').className = 'stat-val ' + (made ? 'good' : 'warn');
   document.getElementById('insight-text').innerHTML = getInsight(angle, dist, miss, type);
 
-  const W = 680, H = 300;
-  const startX = 60, startY = H / 2;
-  const scale = Math.min(580 / (dist * 12), 12);
+  // Layout: putter at left, cup at right
+  const maxDistPx = W - PUTTER_X - 80;
+  const scale = Math.min(maxDistPx / (dist * 12), 10);
   const distPx = dist * 12 * scale;
-  const endX = startX + distPx;
-  const cupRadPx = Math.max(CUP_RADIUS_IN * scale, 5);
-  const missPx = miss * scale;
-  const endY = startY - missPx;
+  const cupX = PUTTER_X + distPx;
+  const cupY = CY;
+  const missPx = miss * scale; // positive = downward in SVG = right of target
+  const ballY = CY + missPx;
+  const cupR = Math.max(CUP_IN * scale, 5);
 
-  // Putter head SVG — top-down view, centred at (startX, startY), facing right
-  // angle = face open angle in degrees (positive = open/right miss)
-  const rad = angle * Math.PI / 180;
-  const cos = Math.cos(rad), sin = Math.sin(rad);
-  // rotate point around startX,startY
-  const rot = (x, y) => [
-    startX + (x * cos - y * sin),
-    startY + (x * sin + y * cos)
-  ];
+  // Fade green (fairway) band
+  const bandH = Math.max(80, Math.abs(missPx) + cupR + 20);
 
-  let putterSVG = '';
-  if (type === 'blade') {
-    // Blade: narrow heel-to-toe bar (32px wide, 8px deep) + shaft stub
-    const pts = [rot(2,-16), rot(2,16), rot(-6,16), rot(-6,-16)];
-    putterSVG = `
-      <line x1="${rot(-18,0)[0]}" y1="${rot(-18,0)[1]}" x2="${rot(2,0)[0]}" y2="${rot(2,0)[1]}" stroke="#4a6348" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
-      <polygon points="${pts.map(p=>p.join(',')).join(' ')}" fill="#4a6348" opacity="0.85"/>
-      <line x1="${rot(2,-16)[0]}" y1="${rot(2,-16)[1]}" x2="${rot(2,16)[0]}" y2="${rot(2,16)[1]}" stroke="#1d1f1c" stroke-width="1.5"/>`;
-  } else if (type === 'mallet') {
-    // Mallet: wide semicircle head (radius 20) + back bar + shaft
-    const faceL = rot(2, -20), faceR = rot(2, 20);
-    const backL = rot(-18, -20), backR = rot(-18, 20);
-    // arc from faceR to faceL going around the back via backL/backR
-    putterSVG = `
-      <line x1="${rot(-18,0)[0]}" y1="${rot(-18,0)[1]}" x2="${rot(2,0)[0]}" y2="${rot(2,0)[1]}" stroke="#4a6348" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
-      <path d="M ${faceL[0]} ${faceL[1]} L ${backL[0]} ${backL[1]} A 20 20 0 0 0 ${backR[0]} ${backR[1]} L ${faceR[0]} ${faceR[1]} Z"
-        fill="#4a6348" opacity="0.85"/>
-      <line x1="${faceL[0]}" y1="${faceL[1]}" x2="${faceR[0]}" y2="${faceR[1]}" stroke="#1d1f1c" stroke-width="1.5"/>`;
-  } else {
-    // Zero torque: circular head (r=14) centred slightly behind face + centred shaft
-    const cx = rot(-6, 0);
-    putterSVG = `
-      <line x1="${rot(-18,0)[0]}" y1="${rot(-18,0)[1]}" x2="${rot(2,0)[0]}" y2="${rot(2,0)[1]}" stroke="#4a6348" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
-      <circle cx="${cx[0]}" cy="${cx[1]}" r="14" fill="#4a6348" opacity="0.85"/>
-      <line x1="${rot(2,-8)[0]}" y1="${rot(2,-8)[1]}" x2="${rot(2,8)[0]}" y2="${rot(2,8)[1]}" stroke="#1d1f1c" stroke-width="1.5"/>`;
-  }
-
-  document.getElementById('viz').innerHTML = `
+  let svg = `
     <rect width="${W}" height="${H}" fill="#faf8f4"/>
-    <rect x="${startX}" y="${startY - 60}" width="${distPx + 40}" height="120" fill="#e8efe6" opacity="0.4" rx="2"/>
-    <line x1="${startX}" y1="${startY}" x2="${endX + 30}" y2="${startY}" stroke="#bfb5a0" stroke-width="1" stroke-dasharray="6 4"/>
-    <line x1="${startX}" y1="${startY}" x2="${endX}" y2="${endY}" stroke="#8b4a3f" stroke-width="2"/>
-    <circle cx="${endX}" cy="${startY}" r="${cupRadPx}" fill="none" stroke="#1d1f1c" stroke-width="2"/>
-    <circle cx="${endX}" cy="${startY}" r="${cupRadPx * 0.4}" fill="#2a2a28"/>
-    <circle cx="${endX}" cy="${endY}" r="5" fill="${made ? '#4a6348' : '#8b4a3f'}" stroke="#fff" stroke-width="1.5"/>
-    ${putterSVG}
-    ${Math.abs(missPx) > 8 ? `<text x="${endX + 12}" y="${endY + (missPx > 0 ? -8 : 14)}" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#8b4a3f">${Math.abs(miss).toFixed(1)}"</text>` : ''}
-    <text x="${startX}" y="${H - 10}" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#736a5c">ADDRESS</text>
-    <text x="${endX - 10}" y="${H - 10}" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#736a5c">${dist}ft</text>
-    <text x="${W - 10}" y="${startY + 4}" text-anchor="end" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#bfb5a0">TARGET LINE</text>
+    <rect x="${PUTTER_X - 10}" y="${CY - bandH/2}" width="${distPx + 50}" height="${bandH}"
+      fill="#e8f0e5" opacity="0.5" rx="3"/>
+
+    <!-- Target line (dashed) -->
+    <line x1="${PUTTER_X}" y1="${CY}" x2="${cupX + 30}" y2="${CY}"
+      stroke="#b0a894" stroke-width="1" stroke-dasharray="6 4"/>
+
+    <!-- Ball path -->
+    <line x1="${PUTTER_X}" y1="${CY}" x2="${cupX}" y2="${ballY}"
+      stroke="#8b4a3f" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- Cup: ring + dark centre -->
+    <circle cx="${cupX}" cy="${cupY}" r="${cupR}"
+      fill="none" stroke="#1d1f1c" stroke-width="2"/>
+    <circle cx="${cupX}" cy="${cupY}" r="${(cupR * 0.45).toFixed(1)}"
+      fill="#2a2a28"/>
+
+    <!-- Ball landing dot -->
+    <circle cx="${cupX}" cy="${ballY}" r="5.5"
+      fill="${made ? '#4a6348' : '#8b4a3f'}" stroke="#fff" stroke-width="1.5"/>
+
+    <!-- Miss gap indicator -->
+    ${Math.abs(missPx) > cupR + 6 ? `
+    <line x1="${(cupX + 8).toFixed(1)}" y1="${cupY}" x2="${(cupX + 8).toFixed(1)}" y2="${ballY}"
+      stroke="#8b4a3f" stroke-width="1" stroke-dasharray="3 2" opacity="0.6"/>
+    <text x="${(cupX + 14).toFixed(1)}" y="${((cupY + ballY)/2 + 4).toFixed(1)}"
+      font-family="'IBM Plex Mono',monospace" font-size="11" fill="#8b4a3f">${Math.abs(miss).toFixed(1)}"</text>
+    ` : ''}
+
+    <!-- Putter silhouette -->
+    ${putterShape(type, angle, PUTTER_X, CY)}
+
+    <!-- Labels -->
+    <text x="${(PUTTER_X - 6).toFixed(1)}" y="${H - 10}"
+      font-family="'IBM Plex Mono',monospace" font-size="9" fill="#9a9080">address</text>
+    <text x="${(cupX).toFixed(1)}" y="${H - 10}" text-anchor="middle"
+      font-family="'IBM Plex Mono',monospace" font-size="9" fill="#9a9080">${dist}ft</text>
+    <text x="${W - 8}" y="${CY + 4}" text-anchor="end"
+      font-family="'IBM Plex Mono',monospace" font-size="9" fill="#c0b8a8">target line</text>
   `;
+
+  document.getElementById('viz').innerHTML = svg;
 }
 
-['angle','dist','path','putter-type'].forEach(id => document.getElementById(id).addEventListener('input', draw));
+['angle','dist','path','putter-type'].forEach(id =>
+  document.getElementById(id).addEventListener('input', draw));
 draw();
 </script>
 </body>
