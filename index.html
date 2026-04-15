@@ -523,7 +523,7 @@
 <body>
 
 <div class="top-rule">
-  <span>Vol. I &middot; No. 6 &mdash; Spring 2026</span>
+  <span id="issue-tag">Vol. I &middot; No. 1 &mdash; Spring 2026</span>
   <span>Published Weekly from Boulder, Colorado</span>
 </div>
 
@@ -555,7 +555,7 @@
 
 <div class="hero-section">
   <div class="hero-feature">
-    <div class="label">No. 6 &mdash; Putting</div>
+    <div class="label" id="issue-label">No. 1 &mdash; Putting</div>
     <h2>What Your Putter Actually Does&mdash;and Doesn&rsquo;t Do&mdash;at Impact</h2>
     <p class="excerpt">A forensic examination of blade, mallet, and zero-torque designs through the lens of oblique impact mechanics. Why face angle dominates direction, what MOI really buys you, where gear effect punishes the mallet, and why the dimpled ball puts a ceiling on all of it.</p>
     <div class="meta-line">14 April 2026 &middot; 18 min read &middot; 5 interactive figures</div>
@@ -689,6 +689,41 @@ async function handleSubscribe() {
     btn.disabled = false;
   }
 }
+</script>
+<script>
+// Auto-update issue number based on weeks since launch (Issue 1 = 14 April 2026)
+(function() {
+  const LAUNCH = new Date('2026-04-14');
+  const ISSUE_1_TOPIC = 'Putting';
+  const now = new Date();
+  const weeksSince = Math.floor((now - LAUNCH) / (7 * 24 * 60 * 60 * 1000));
+  const issueNum = weeksSince + 1;
+  const vol = Math.ceil(issueNum / 52);
+
+  const seasons = [
+    [12,2,'Winter'], [3,5,'Spring'], [6,8,'Summer'], [9,11,'Autumn']
+  ];
+  const month = now.getMonth() + 1;
+  const season = seasons.find(([s,e]) => month >= s || month <= e)?.[2] ||
+    seasons.find(([s,e,n]) => month >= s && month <= e)?.[2] || 'Spring';
+  const seasonName = (() => {
+    if (month >= 3 && month <= 5) return 'Spring';
+    if (month >= 6 && month <= 8) return 'Summer';
+    if (month >= 9 && month <= 11) return 'Autumn';
+    return 'Winter';
+  })();
+
+  const toRoman = n => {
+    const vals = [[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],
+      [50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];
+    return vals.reduce((s,[v,r]) => { while(n>=v){s+=r;n-=v;} return s; }, '');
+  };
+
+  document.getElementById('issue-tag').textContent =
+    `Vol. ${toRoman(vol)} \u00B7 No. ${issueNum} \u2014 ${seasonName} ${now.getFullYear()}`;
+  document.getElementById('issue-label').textContent =
+    `No. ${issueNum} \u2014 ${ISSUE_1_TOPIC}`;
+})();
 </script>
 </body>
 </html>
