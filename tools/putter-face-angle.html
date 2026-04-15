@@ -182,34 +182,46 @@ function putterShape(type, angleDeg, ox, oy) {
   };
 
   if (type === 'blade') {
-    // Clean blade: thin rectangular bar, heel-to-toe 34px, depth 8px
-    // shaft enters at heel (y=-17)
+    // BLADE: rectangle, shaft at heel (y=-18)
+    // Face at x=0 (right edge), body 10px deep, 36px heel-to-toe
     return [
-      line(-28, -17, 0, -17, c, sw),                    // shaft (heel-side)
-      poly([[0,-17],[0,17],[-8,17],[-8,-17]], '#e8ede9', c, hw), // head outline
-      line(0, -17, 0, 17, cf, 2.5),                     // face (bold)
+      line(-30, -18, 0, -18, c, sw),
+      poly([[0,-18],[0,18],[-10,18],[-10,-18]], '#e8ede9', c, hw),
+      line(0, -18, 0, 18, cf, 2.5),
     ].join('');
 
   } else if (type === 'mallet') {
-    // Mallet: wide rectangle 38px H x 20px D, shaft heel-mounted
-    // alignment dot/line at rear centre
-    const [ax,ay] = rot(-14, 0, angleDeg, ox, oy);
+    // MALLET: half-circle (flat face, rounded back), shaft at heel
+    // Face at x=0, flat from y=-22 to y=22, semicircle back radius=22
+    const pts = [];
+    const R = 22, steps = 16;
+    for (let i = 0; i <= steps; i++) {
+      const theta = (Math.PI / 2) + (Math.PI * i / steps); // from -90° to +90° going left
+      pts.push(rot(R * Math.cos(theta), R * Math.sin(theta), angleDeg, ox, oy));
+    }
+    const arcPts = pts.map(p => p.map(v => v.toFixed(1)).join(',')).join(' ');
+    const [fh1x,fh1y] = rot(0,-22,angleDeg,ox,oy);
+    const [fh2x,fh2y] = rot(0, 22,angleDeg,ox,oy);
     return [
-      line(-28, -19, 0, -19, c, sw),                    // shaft
-      poly([[0,-19],[0,19],[-20,19],[-20,-19]], '#e8ede9', c, hw), // head
-      line(0, -19, 0, 19, cf, 2.5),                     // face
-      line(-14, -19, -14, 19, c, 1, 'opacity="0.4"'),  // rear alignment line
-      `<circle cx="${ax.toFixed(1)}" cy="${ay.toFixed(1)}" r="2.5" fill="${c}" opacity="0.7"/>`, // CG dot
+      line(-30, -22, 0, -22, c, sw),
+      `<polyline points="${rot(0,-22,angleDeg,ox,oy).map(v=>v.toFixed(1)).join(',')} ${arcPts} ${rot(0,22,angleDeg,ox,oy).map(v=>v.toFixed(1)).join(',')}" fill="#e8ede9" stroke="${c}" stroke-width="${hw}" stroke-linejoin="round"/>`,
+      line(0, -22, 0, 22, cf, 2.5),
     ].join('');
 
   } else {
-    // Zero torque: circle head r=16, shaft passes through true centre
-    const [cx,cy_] = rot(-11, 0, angleDeg, ox, oy);
+    // ZERO TORQUE: half-circle, shaft through center (x=0, y=0)
+    // Face at x=0, semicircle extends left, radius=20
+    const R = 20, steps = 16;
+    const pts = [];
+    for (let i = 0; i <= steps; i++) {
+      const theta = (Math.PI / 2) + (Math.PI * i / steps);
+      pts.push(rot(R * Math.cos(theta), R * Math.sin(theta), angleDeg, ox, oy));
+    }
+    const arcPts = pts.map(p => p.map(v => v.toFixed(1)).join(',')).join(' ');
     return [
-      line(-36, 0, 5, 0, c, sw),                        // shaft through CG
-      `<circle cx="${cx.toFixed(1)}" cy="${cy_.toFixed(1)}" r="16" fill="#e8ede9" stroke="${c}" stroke-width="${hw}"/>`,
-      line(0, -10, 0, 10, cf, 2.5),                     // face mark
-      `<circle cx="${cx.toFixed(1)}" cy="${cy_.toFixed(1)}" r="2.5" fill="${c}" opacity="0.6"/>`, // CG centre dot
+      line(-36, 0, 0, 0, c, sw),
+      `<polyline points="${rot(0,-20,angleDeg,ox,oy).map(v=>v.toFixed(1)).join(',')} ${arcPts} ${rot(0,20,angleDeg,ox,oy).map(v=>v.toFixed(1)).join(',')}" fill="#e8ede9" stroke="${c}" stroke-width="${hw}" stroke-linejoin="round"/>`,
+      line(0, -20, 0, 20, cf, 2.5),
     ].join('');
   }
 }
