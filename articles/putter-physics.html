@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Physics of the Flatstick</title>
-<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -45,9 +44,11 @@
   .article-figure figcaption strong { color: var(--ink); }
   .section-break { text-align: center; margin: 3rem 0; color: var(--rule); font-size: 1.4rem; letter-spacing: 0.5em; }
   .article strong { font-weight: 600; color: #111; }
+  /* Inline citations */
   .article sup.ref { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--accent); text-decoration: none; cursor: pointer; margin-left: 1px; }
   .article sup.ref a { color: var(--accent); text-decoration: none; }
   .article sup.ref a:hover { text-decoration: underline; }
+  /* References section */
   .references { margin-top: 3rem; padding-top: 1.5rem; border-top: 2px solid var(--ink); }
   .references h2 { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); margin-bottom: 1.2rem; }
   .references ol { list-style: none; counter-reset: ref-counter; padding: 0; }
@@ -55,9 +56,11 @@
   .references li::before { content: counter(ref-counter); position: absolute; left: 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--accent); font-weight: 500; top: 0.1rem; }
   .references li .ref-authors { color: var(--ink); }
   .references li .ref-title { font-style: italic; }
+  .references li .ref-journal { }
   .references li a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 1px; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; }
   .references li a:hover { color: var(--ink); border-color: var(--ink); }
   .footer { max-width: 680px; margin: 0 auto; padding: 2rem 1.5rem 4rem; border-top: 1px solid var(--rule); font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--caption); text-align: center; }
+  /* === SITE NAV === */
   .site-nav { display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 2.5rem; border-bottom: 1px solid var(--rule); font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem; letter-spacing: 0.16em; text-transform: uppercase; }
   .site-nav .nav-home { color: var(--ink); text-decoration: none; font-weight: 500; }
   .site-nav .nav-home:hover { color: var(--accent); }
@@ -113,47 +116,75 @@
 </div>
 
 <figure class="article-figure">
-<svg viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 680 280" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <pattern id="g1" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#c4b9a8" stroke-width="0.4" opacity="0.2"/></pattern>
     <marker id="a1r" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1.5 L 10 5 L 0 8.5" fill="none" stroke="#8b3a3a" stroke-width="1.5"/></marker>
     <marker id="a1g" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1.5 L 10 5 L 0 8.5" fill="none" stroke="#2d5a27" stroke-width="1.5"/></marker>
   </defs>
-  <rect width="100%" height="100%" fill="#faf8f5"/><rect width="100%" height="100%" fill="url(#g1)"/>
-  <text x="340" y="30" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" font-weight="700" fill="#1a1a18" letter-spacing="0.1em">THE GEOMETRY OF A MISS</text>
-  <text x="340" y="45" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#6b6256">Face angle error at 8 feet &#8212; angles exaggerated ~40&#215; for visibility</text>
-  <rect x="60" y="70" width="560" height="120" rx="2" fill="#f0f4ef" opacity="0.4"/>
-  <line x1="115" y1="135" x2="590" y2="135" stroke="#c4b9a8" stroke-width="1" stroke-dasharray="6 4"/>
-  <text x="350" y="154" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#c4b9a8">TARGET LINE</text>
-  <line x1="115" y1="135" x2="548" y2="135" stroke="#2d5a27" stroke-width="2" marker-end="url(#a1g)" opacity="0.6"/>
-  <line x1="115" y1="135" x2="548" y2="97" stroke="#8b3a3a" stroke-width="2" marker-end="url(#a1r)"/>
-  <line x1="115" y1="135" x2="548" y2="173" stroke="#8b3a3a" stroke-width="1.5" marker-end="url(#a1r)" opacity="0.25"/>
-  <path d="M 185 135 A 70 70 0 0 0 184 127" fill="none" stroke="#1a1a18" stroke-width="1.2"/>
-  <text x="200" y="124" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#1a1a18" font-weight="500">0.76&#176;</text>
-  <rect x="90" y="110" width="6" height="50" rx="1" fill="#2d5a27"/>
-  <g transform="translate(93,135) rotate(-5)"><rect x="-3" y="-25" width="6" height="50" rx="1" fill="#8b3a3a" opacity="0.45"/></g>
-  <text x="75" y="104" text-anchor="end" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#8b3a3a">OPEN</text>
-  <text x="108" y="104" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#2d5a27">SQUARE</text>
-  <circle cx="115" cy="135" r="7" fill="#faf8f5" stroke="#1a1a18" stroke-width="1.5"/>
-  <circle cx="568" cy="135" r="16" fill="none" stroke="#1a1a18" stroke-width="2"/>
-  <circle cx="568" cy="135" r="11" fill="#2a2a28"/>
-  <line x1="553" y1="97" x2="583" y2="97" stroke="#8b3a3a" stroke-width="0.8" stroke-dasharray="3 2"/>
-  <text x="593" y="92" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#8b3a3a" font-weight="500">MISS</text>
-  <text x="593" y="104" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#8b3a3a">1.28" outside cup</text>
-  <line x1="115" y1="193" x2="568" y2="193" stroke="#6b6256" stroke-width="0.8"/>
-  <line x1="115" y1="188" x2="115" y2="198" stroke="#6b6256" stroke-width="0.8"/>
-  <line x1="568" y1="188" x2="568" y2="198" stroke="#6b6256" stroke-width="0.8"/>
-  <text x="341" y="207" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#6b6256">8 FEET</text>
-  <line x1="60" y1="230" x2="620" y2="230" stroke="#c4b9a8" stroke-width="0.5"/>
-  <g transform="translate(110,252)"><text x="0" y="0" font-family="'IBM Plex Mono',monospace" font-size="20" fill="#1a1a18" font-weight="700">0.76&#176;</text><text x="0" y="15" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">Max error at 8 ft</text></g>
-  <g transform="translate(275,252)"><text x="0" y="0" font-family="'IBM Plex Mono',monospace" font-size="20" fill="#1a1a18" font-weight="700">83&#8211;92%</text><text x="0" y="15" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">Direction from face angle</text></g>
-  <g transform="translate(480,252)"><text x="0" y="0" font-family="'IBM Plex Mono',monospace" font-size="20" fill="#8b3a3a" font-weight="700">1.28"</text><text x="0" y="15" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">Lateral miss at hole</text></g>
-  <line x1="60" y1="280" x2="620" y2="280" stroke="#c4b9a8" stroke-width="0.5"/>
-  <rect x="80" y="287" width="12" height="3" fill="#2d5a27"/><text x="98" y="292" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">Square face &#8594; ball finds the hole</text>
-  <rect x="340" y="287" width="12" height="3" fill="#8b3a3a"/><text x="358" y="292" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">0.76&#176; open &#8594; ball misses entirely</text>
+  <rect width="100%" height="100%" fill="#faf8f5"/>
+
+  <text x="340" y="28" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" font-weight="700" fill="#1a1a18" letter-spacing="0.1em">THE GEOMETRY OF A MISS</text>
+  <text x="340" y="43" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#6b6256">Angles exaggerated ~40&#215; for visibility &#8212; the real divergence is invisible</text>
+
+  <!-- Green area -->
+  <rect x="60" y="60" width="560" height="105" rx="2" fill="#f0f4ef" opacity="0.35"/>
+
+  <!-- Intended line (dashed, subtle) -->
+  <line x1="115" y1="115" x2="570" y2="115" stroke="#c4b9a8" stroke-width="0.8" stroke-dasharray="5 4"/>
+
+  <!-- Square face &#8594; ball finds the hole (green, solid) -->
+  <line x1="115" y1="115" x2="548" y2="115" stroke="#2d5a27" stroke-width="2.5" marker-end="url(#a1g)"/>
+
+  <!-- Open face &#8594; ball misses (red, diverging) -->
+  <line x1="115" y1="115" x2="548" y2="78" stroke="#8b3a3a" stroke-width="2" marker-end="url(#a1r)"/>
+
+  <!-- Angle arc &#8212; visible wedge shape to show the gap -->
+  <path d="M 200 115 L 115 115 L 200 109" fill="#8b3a3a" opacity="0.08"/>
+  <path d="M 170 115 A 55 55 0 0 0 169.5 108.5" fill="none" stroke="#1a1a18" stroke-width="1.2"/>
+  <text x="182" y="109" font-family="'IBM Plex Mono',monospace" font-size="9.5" fill="#1a1a18" font-weight="500">0.76&#176;</text>
+
+  <!-- Putter face &#8212; square (green) -->
+  <rect x="90" y="92" width="6" height="46" rx="1" fill="#2d5a27"/>
+  <!-- Putter face &#8212; open (red, rotated) -->
+  <g transform="translate(93,115) rotate(-5)"><rect x="-3" y="-23" width="6" height="46" rx="1" fill="#8b3a3a" opacity="0.4"/></g>
+
+  <!-- Labels on putter faces -->
+  <text x="78" y="85" text-anchor="end" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a">OPEN</text>
+  <text x="106" y="85" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#2d5a27">SQUARE</text>
+
+  <!-- Ball -->
+  <circle cx="115" cy="115" r="7" fill="#faf8f5" stroke="#1a1a18" stroke-width="1.5"/>
+
+  <!-- Hole -->
+  <circle cx="568" cy="115" r="16" fill="none" stroke="#1a1a18" stroke-width="2"/>
+  <circle cx="568" cy="115" r="11" fill="#2a2a28"/>
+
+  <!-- Miss annotation &#8212; bracket showing gap between red line and hole edge -->
+  <line x1="555" y1="78" x2="555" y2="99" stroke="#8b3a3a" stroke-width="1"/>
+  <line x1="551" y1="78" x2="559" y2="78" stroke="#8b3a3a" stroke-width="1"/>
+  <line x1="551" y1="99" x2="559" y2="99" stroke="#8b3a3a" stroke-width="1"/>
+  <text x="595" y="84" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#8b3a3a" font-weight="500">1.28" OUTSIDE</text>
+  <text x="595" y="95" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#8b3a3a">THE CUP</text>
+
+  <!-- Distance dimension -->
+  <line x1="115" y1="175" x2="568" y2="175" stroke="#6b6256" stroke-width="0.7"/>
+  <line x1="115" y1="170" x2="115" y2="180" stroke="#6b6256" stroke-width="0.7"/>
+  <line x1="568" y1="170" x2="568" y2="180" stroke="#6b6256" stroke-width="0.7"/>
+  <text x="341" y="189" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#6b6256">8 FEET</text>
+
+  <!-- Stat bar -->
+  <line x1="60" y1="210" x2="620" y2="210" stroke="#c4b9a8" stroke-width="0.5"/>
+  <g transform="translate(100,233)"><text x="0" y="0" font-family="'IBM Plex Mono',monospace" font-size="20" fill="#1a1a18" font-weight="700">0.76&#176;</text><text x="0" y="15" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">Max face error at 8 ft</text></g>
+  <g transform="translate(275,233)"><text x="0" y="0" font-family="'IBM Plex Mono',monospace" font-size="20" fill="#1a1a18" font-weight="700">83&#8211;92%</text><text x="0" y="15" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">Direction from face angle</text></g>
+  <g transform="translate(480,233)"><text x="0" y="0" font-family="'IBM Plex Mono',monospace" font-size="20" fill="#8b3a3a" font-weight="700">MISS</text><text x="0" y="15" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">At just 0.76&#176; open</text></g>
+  <line x1="60" y1="260" x2="620" y2="260" stroke="#c4b9a8" stroke-width="0.5"/>
+  <rect x="100" y="267" width="12" height="3" fill="#2d5a27"/><text x="118" y="272" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">Square face</text>
+  <rect x="300" y="267" width="12" height="3" fill="#8b3a3a"/><text x="318" y="272" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">0.76&#176; open</text>
 </svg>
-<figcaption><strong>Fig. 1 &#8212; The Geometric Reality.</strong> At eight feet, a face angle open by less than one degree launches the ball outside the cup. The real divergence is invisible to the naked eye &#8212; which is precisely the problem.</figcaption>
+<figcaption><strong>Fig. 1 &#8212; The Geometric Reality.</strong> At eight feet, less than one degree of face angle error at impact sends the ball entirely outside the cup. The actual angular difference between these two paths is invisible to the naked eye.</figcaption>
 </figure>
+
+<p><a href="/tools/putter-face-angle.html" style="color: var(--accent); font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; letter-spacing: 0.08em; text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 1px;">&#8594; Try this interactively: adjust face angle, distance, and putter type</a></p>
 
 <p>Every putter design, no matter how novel, has to be evaluated against this table. The question is always: <em>does this design help the golfer deliver the face within these tolerances more consistently?</em> And if so, at what cost?</p>
 
@@ -170,58 +201,100 @@
 <p>That number deserves emphasis. The putter with <em>more</em> forgiveness on paper sent the ball <em>more</em> offline in practice, because the directional error from gear effect overwhelmed the speed preservation from higher MOI. Putts starting 0.23&deg; and 0.59&deg; offline miss the hole at 47 and 18 feet, respectively.</p>
 
 <figure class="article-figure">
-<svg viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 680 380" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <marker id="a2" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1 L 8 4 L 0 7" fill="none" stroke="#8b3a3a" stroke-width="1.2"/></marker>
-    <marker id="a2b" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1 L 8 4 L 0 7" fill="none" stroke="#1a1a18" stroke-width="1.2"/></marker>
+    <marker id="a2r" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1 L 8 4 L 0 7" fill="none" stroke="#8b3a3a" stroke-width="1.2"/></marker>
+    <marker id="a2g" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1 L 8 4 L 0 7" fill="none" stroke="#2d5a27" stroke-width="1.2"/></marker>
   </defs>
   <rect width="100%" height="100%" fill="#faf8f5"/>
+
   <text x="340" y="28" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" font-weight="700" fill="#1a1a18" letter-spacing="0.1em">CG DEPTH AND THE GEAR EFFECT</text>
-  <text x="340" y="43" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#6b6256">Why the putter with more MOI can send the ball more offline</text>
-  <!-- Blade -->
-  <text x="170" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9.5" font-weight="700" fill="#2d5a27">BLADE &#8212; SHALLOW CG</text>
-  <rect x="80" y="100" width="180" height="30" rx="3" fill="#e8efe7" stroke="#2d5a27" stroke-width="2"/>
-  <line x1="80" y1="100" x2="80" y2="130" stroke="#2d5a27" stroke-width="3"/>
-  <circle cx="120" cy="115" r="6" fill="#d4a84b" stroke="#1a1a18" stroke-width="1"/>
-  <text x="120" y="118" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="6" fill="#1a1a18" font-weight="700">CG</text>
-  <line x1="83" y1="142" x2="120" y2="142" stroke="#6b6256" stroke-width="0.8"/><line x1="83" y1="138" x2="83" y2="146" stroke="#6b6256" stroke-width="0.8"/><line x1="120" y1="138" x2="120" y2="146" stroke="#6b6256" stroke-width="0.8"/>
-  <text x="101" y="155" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#6b6256">SHALLOW</text>
-  <circle cx="240" cy="100" r="8" fill="#faf8f5" stroke="#1a1a18" stroke-width="1.5"/>
-  <text x="253" y="95" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#6b6256">TOE HIT</text>
-  <path d="M 125 108 A 30 30 0 0 1 130 96" fill="none" stroke="#8b3a3a" stroke-width="1.5" stroke-dasharray="3 2"/>
-  <text x="143" y="94" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a">Small rotation</text>
-  <line x1="240" y1="92" x2="240" y2="55" stroke="#1a1a18" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#a2b)"/>
-  <text x="240" y="50" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#1a1a18">Ball path</text>
-  <rect x="70" y="175" width="200" height="60" rx="3" fill="#fff" stroke="#c4b9a8" stroke-width="1"/>
-  <text x="170" y="195" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="18" fill="#2d5a27" font-weight="700">0.23&#176;</text>
-  <text x="170" y="210" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">offline on 15mm toe strike</text>
-  <text x="170" y="225" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">Misses hole at 47 feet</text>
-  <line x1="340" y1="65" x2="340" y2="245" stroke="#c4b9a8" stroke-width="1"/>
-  <!-- Mallet -->
-  <text x="510" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9.5" font-weight="700" fill="#8b3a3a">MALLET &#8212; DEEP CG</text>
-  <path d="M 420 100 L 600 100 C 610 100 610 175 540 175 L 480 175 C 410 175 410 100 420 100 Z" fill="#f5eaea" stroke="#8b3a3a" stroke-width="2"/>
-  <line x1="420" y1="100" x2="600" y2="100" stroke="#8b3a3a" stroke-width="3"/>
-  <circle cx="510" cy="145" r="6" fill="#d4a84b" stroke="#1a1a18" stroke-width="1"/>
-  <text x="510" y="148" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="6" fill="#1a1a18" font-weight="700">CG</text>
-  <line x1="425" y1="185" x2="510" y2="185" stroke="#6b6256" stroke-width="0.8"/><line x1="425" y1="181" x2="425" y2="189" stroke="#6b6256" stroke-width="0.8"/><line x1="510" y1="181" x2="510" y2="189" stroke="#6b6256" stroke-width="0.8"/>
-  <text x="467" y="198" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#6b6256">DEEP</text>
-  <circle cx="585" cy="100" r="8" fill="#faf8f5" stroke="#1a1a18" stroke-width="1.5"/>
-  <text x="598" y="95" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#6b6256">TOE HIT</text>
-  <path d="M 520 135 A 45 45 0 0 1 535 110" fill="none" stroke="#8b3a3a" stroke-width="1.5" stroke-dasharray="3 2"/>
-  <text x="548" y="118" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a">Large rotation</text>
-  <line x1="585" y1="92" x2="600" y2="48" stroke="#8b3a3a" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#a2)"/>
-  <text x="610" y="50" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a">Ball pushed</text>
-  <text x="610" y="60" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a">offline</text>
-  <rect x="410" y="215" width="200" height="60" rx="3" fill="#fff" stroke="#c4b9a8" stroke-width="1"/>
-  <text x="510" y="235" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="18" fill="#8b3a3a" font-weight="700">0.59&#176;</text>
-  <text x="510" y="250" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">offline on 15mm toe strike</text>
-  <text x="510" y="265" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">Misses hole at 18 feet</text>
-  <line x1="60" y1="295" x2="620" y2="295" stroke="#c4b9a8" stroke-width="0.5"/>
-  <text x="340" y="315" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#1a1a18">The deep-CG mallet had <tspan font-weight="700">20% higher MOI</tspan> &#8212; yet sent the ball <tspan font-weight="700" fill="#8b3a3a">2.6&#215; more offline</tspan>.</text>
-  <text x="340" y="332" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">More &#8220;forgiveness&#8221; on paper. Worse directional accuracy in practice.</text>
-  <text x="340" y="352" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#c4b9a8">Source: Lambeth et al. &#8212; adjustable CG/MOI putter, robotic testing</text>
+  <text x="340" y="43" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#6b6256">Top-down view &#8212; same 15mm toe strike on both putters</text>
+
+  <!-- ===== BLADE (left) ===== -->
+  <text x="170" y="70" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="700" fill="#2d5a27">BLADE</text>
+
+  <!-- Blade body &#8212; compact rectangle, top-down -->
+  <rect x="95" y="95" width="150" height="28" rx="3" fill="#e8efe7" stroke="#2d5a27" stroke-width="1.5"/>
+  <!-- Face line (left edge) -->
+  <line x1="95" y1="93" x2="95" y2="125" stroke="#2d5a27" stroke-width="3"/>
+  <!-- CG &#8212; close to face -->
+  <circle cx="130" cy="109" r="7" fill="#d4a84b" stroke="#1a1a18" stroke-width="1"/>
+  <text x="130" y="112" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="5.5" fill="#1a1a18" font-weight="700">CG</text>
+
+  <!-- CG depth dimension -->
+  <line x1="97" y1="132" x2="130" y2="132" stroke="#6b6256" stroke-width="0.7"/>
+  <line x1="97" y1="129" x2="97" y2="135" stroke="#6b6256" stroke-width="0.7"/>
+  <line x1="130" y1="129" x2="130" y2="135" stroke="#6b6256" stroke-width="0.7"/>
+  <text x="113" y="143" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#6b6256">Shallow CG</text>
+
+  <!-- Ball at toe -->
+  <circle cx="230" cy="95" r="7" fill="#faf8f5" stroke="#1a1a18" stroke-width="1.5"/>
+
+  <!-- Rotation arc from CG &#8212; SMALL, subtle -->
+  <path d="M 145 100 A 20 20 0 0 1 148 93" fill="none" stroke="#6b6256" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Ball launch direction &#8212; nearly straight up (barely offline) -->
+  <line x1="230" y1="88" x2="232" y2="42" stroke="#2d5a27" stroke-width="2" marker-end="url(#a2g)"/>
+  <!-- Ghost line showing perfectly straight for reference -->
+  <line x1="230" y1="88" x2="230" y2="42" stroke="#c4b9a8" stroke-width="0.7" stroke-dasharray="3 2"/>
+  <text x="248" y="52" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#2d5a27">Nearly straight</text>
+
+  <!-- Result box -->
+  <rect x="70" y="165" width="200" height="55" rx="3" fill="#fff" stroke="#2d5a27" stroke-width="1.5"/>
+  <text x="170" y="185" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="20" fill="#2d5a27" font-weight="700">0.23&#176;</text>
+  <text x="170" y="200" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">offline &#8212; misses hole beyond 47 ft</text>
+
+  <!-- ===== DIVIDER ===== -->
+  <line x1="340" y1="60" x2="340" y2="230" stroke="#c4b9a8" stroke-width="1"/>
+
+  <!-- ===== MALLET (right) ===== -->
+  <text x="510" y="70" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="700" fill="#8b3a3a">MALLET</text>
+
+  <!-- Mallet body &#8212; large D-shape, top-down -->
+  <path d="M 430 95 L 590 95 C 600 95 600 160 540 160 L 480 160 C 420 160 420 95 430 95 Z" fill="#f5eaea" stroke="#8b3a3a" stroke-width="1.5"/>
+  <!-- Face line (left edge) -->
+  <line x1="430" y1="93" x2="590" y2="93" stroke="#8b3a3a" stroke-width="3"/>
+  <!-- CG &#8212; deep behind face -->
+  <circle cx="510" cy="133" r="7" fill="#d4a84b" stroke="#1a1a18" stroke-width="1"/>
+  <text x="510" y="136" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="5.5" fill="#1a1a18" font-weight="700">CG</text>
+
+  <!-- CG depth dimension -->
+  <line x1="433" y1="170" x2="510" y2="170" stroke="#6b6256" stroke-width="0.7"/>
+  <line x1="433" y1="167" x2="433" y2="173" stroke="#6b6256" stroke-width="0.7"/>
+  <line x1="510" y1="167" x2="510" y2="173" stroke="#6b6256" stroke-width="0.7"/>
+  <text x="471" y="181" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#6b6256">Deep CG</text>
+
+  <!-- Ball at toe -->
+  <circle cx="575" cy="93" r="7" fill="#faf8f5" stroke="#1a1a18" stroke-width="1.5"/>
+
+  <!-- Rotation arc from CG &#8212; LARGE, prominent -->
+  <path d="M 525 122 A 35 35 0 0 1 540 102" fill="none" stroke="#8b3a3a" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <path d="M 525 122 A 35 35 0 0 1 540 102" fill="none" stroke="#8b3a3a" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+  <!-- Ball launch direction &#8212; visibly angled offline -->
+  <line x1="575" y1="86" x2="593" y2="38" stroke="#8b3a3a" stroke-width="2" marker-end="url(#a2r)"/>
+  <!-- Ghost line showing perfectly straight for reference -->
+  <line x1="575" y1="86" x2="575" y2="38" stroke="#c4b9a8" stroke-width="0.7" stroke-dasharray="3 2"/>
+  <!-- Visible gap between straight and actual -->
+  <line x1="575" y1="42" x2="591" y2="42" stroke="#8b3a3a" stroke-width="0.8"/>
+  <text x="598" y="38" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a" font-weight="500">Pushed offline</text>
+  <text x="598" y="48" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a">by gear effect</text>
+
+  <!-- Result box -->
+  <rect x="410" y="195" width="200" height="55" rx="3" fill="#fff" stroke="#8b3a3a" stroke-width="1.5"/>
+  <text x="510" y="215" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="20" fill="#8b3a3a" font-weight="700">0.59&#176;</text>
+  <text x="510" y="230" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">offline &#8212; misses hole beyond 18 ft</text>
+
+  <!-- ===== BOTTOM TAKEAWAY ===== -->
+  <line x1="60" y1="270" x2="620" y2="270" stroke="#c4b9a8" stroke-width="0.5"/>
+  <text x="340" y="295" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#1a1a18">The mallet had <tspan font-weight="700">20% higher MOI</tspan>.</text>
+  <text x="340" y="312" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#1a1a18">It sent the ball <tspan font-weight="700" fill="#8b3a3a">2.6&#215; more offline</tspan>.</text>
+  <text x="340" y="335" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">More &#8220;forgiveness&#8221; on paper. Worse directional accuracy in practice.</text>
+
+  <text x="340" y="370" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#c4b9a8">Source: Lambeth et al. &#8212; adjustable CG/MOI putter, robotic testing</text>
 </svg>
-<figcaption><strong>Fig. 2 &#8212; The Mallet Tax.</strong> Top-down view: when struck off-center, the head rotates around its CG. A shallow CG (blade) produces a small arc at the contact point. A deep CG (mallet) produces a large arc, imparting a tangential kick that pushes the ball offline &#8212; despite having higher MOI.</figcaption>
+<figcaption><strong>Fig. 2 &#8212; The Mallet Tax.</strong> Both putters struck 15mm toward the toe. The blade&#8217;s shallow CG means the head barely rotates, and the ball launches nearly straight. The mallet&#8217;s deep CG creates a large rotation arc at the contact point, kicking the ball sideways via gear effect &#8212; despite having 20% more MOI.</figcaption>
 </figure>
 
 <p>Blades also provide clearer sensory feedback. The lower MOI means off-center strikes feel distinctly different&mdash;there&rsquo;s more twist, more vibration, a different sound. This isn&rsquo;t a flaw. For a player developing their stroke, that honest feedback is a calibration signal. You know immediately when you&rsquo;ve missed the center, and your motor system can adapt.</p>
@@ -314,47 +387,102 @@
 <p>Every traditional putter has its center of gravity offset from the shaft axis when the club is held at its playing lie angle. This offset creates a gravitational torque&mdash;the head wants to twist in one direction when you hold it naturally. In toe-hang designs, the toe drops. In face-balanced designs, the face points up only when the shaft is horizontal, not at the 70&deg; lie angle where you actually putt.</p>
 
 <figure class="article-figure">
-<svg viewBox="0 0 680 330" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 680 380" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <marker id="a4r" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1 L 8 4 L 0 7" fill="none" stroke="#8b3a3a" stroke-width="1.2"/></marker>
+    <marker id="a4r" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0.5 L 8 4 L 0 7.5" fill="#8b3a3a"/></marker>
+    <marker id="a4g" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0.5 L 8 4 L 0 7.5" fill="#2d5a27"/></marker>
+    <marker id="a4k" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1 L 8 4 L 0 7" fill="#6b6256"/></marker>
   </defs>
   <rect width="100%" height="100%" fill="#faf8f5"/>
-  <text x="340" y="28" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" font-weight="700" fill="#1a1a18" letter-spacing="0.1em">GRAVITATIONAL TORQUE AND LIE ANGLE BALANCE</text>
-  <text x="340" y="43" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#6b6256">What the putter wants to do when you let go of face control</text>
-  <!-- Traditional -->
-  <text x="170" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="700" fill="#8b3a3a">TRADITIONAL (TOE HANG)</text>
-  <line x1="130" y1="85" x2="170" y2="225" stroke="#6b6256" stroke-width="3" stroke-linecap="round"/>
-  <g transform="translate(170,225) rotate(15)">
-    <rect x="-5" y="-8" width="70" height="16" rx="3" fill="#f5eaea" stroke="#8b3a3a" stroke-width="1.5"/>
-    <line x1="-5" y1="-8" x2="-5" y2="8" stroke="#8b3a3a" stroke-width="2.5"/>
-    <circle cx="25" cy="0" r="4" fill="#d4a84b" stroke="#1a1a18" stroke-width="0.8"/>
+
+  <text x="340" y="28" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" font-weight="700" fill="#1a1a18" letter-spacing="0.1em">WHY TRADITIONAL PUTTERS TWIST</text>
+  <text x="340" y="43" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#6b6256">Front-on view &#8212; what happens when you let the putter hang naturally</text>
+
+  <!-- ===== TRADITIONAL (left) ===== -->
+  <text x="170" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="700" fill="#8b3a3a">TRADITIONAL PUTTER</text>
+
+  <!-- Shaft -->
+  <line x1="135" y1="92" x2="170" y2="210" stroke="#6b6256" stroke-width="4" stroke-linecap="round"/>
+  <!-- Shaft axis extension (where CG would need to be for balance) -->
+  <line x1="170" y1="210" x2="185" y2="260" stroke="#6b6256" stroke-width="1" stroke-dasharray="4 3" opacity="0.35"/>
+
+  <!-- Putter head — CLEARLY tilted, toe dropping hard -->
+  <g transform="translate(170,212) rotate(25)">
+    <!-- Head body -->
+    <rect x="-8" y="-12" width="90" height="20" rx="4" fill="#f5eaea" stroke="#8b3a3a" stroke-width="2"/>
+    <!-- Face (leading edge) -->
+    <line x1="-8" y1="-12" x2="-8" y2="8" stroke="#8b3a3a" stroke-width="3"/>
+    <!-- Heel label -->
+    <text x="2" y="3" font-family="'IBM Plex Mono',monospace" font-size="5" fill="#6b6256">HEEL</text>
+    <!-- Toe label -->
+    <text x="62" y="3" font-family="'IBM Plex Mono',monospace" font-size="5" fill="#8b3a3a" font-weight="500">TOE</text>
   </g>
-  <line x1="248" y1="233" x2="248" y2="265" stroke="#8b3a3a" stroke-width="1.5" marker-end="url(#a4r)"/>
-  <text x="260" y="255" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#8b3a3a">Gravity</text>
-  <text x="260" y="265" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#8b3a3a">pulls toe</text>
-  <path d="M 195 195 A 40 40 0 0 1 215 210" fill="none" stroke="#8b3a3a" stroke-width="1.5" stroke-dasharray="3 2"/>
-  <text x="220" y="195" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#8b3a3a">Face opens</text>
-  <text x="170" y="292" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">CG offset from shaft axis &#8594;</text>
-  <text x="170" y="305" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#8b3a3a" font-weight="500">gravitational torque opens face</text>
-  <text x="170" y="318" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">Golfer must time the close</text>
-  <line x1="340" y1="60" x2="340" y2="275" stroke="#c4b9a8" stroke-width="1"/>
-  <!-- LAB -->
+
+  <!-- CG dot — visibly offset from shaft axis -->
+  <circle cx="213" cy="228" r="7" fill="#d4a84b" stroke="#1a1a18" stroke-width="1.2"/>
+  <text x="213" y="231" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="5.5" fill="#1a1a18" font-weight="700">CG</text>
+
+  <!-- Offset dimension — horizontal line from shaft axis to CG -->
+  <line x1="182" y1="250" x2="213" y2="250" stroke="#8b3a3a" stroke-width="1.5"/>
+  <line x1="182" y1="245" x2="182" y2="255" stroke="#8b3a3a" stroke-width="1"/>
+  <line x1="213" y1="245" x2="213" y2="255" stroke="#8b3a3a" stroke-width="1"/>
+  <text x="197" y="264" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a" font-weight="500">CG OFFSET</text>
+
+  <!-- BIG gravity arrow pulling toe down -->
+  <line x1="250" y1="235" x2="250" y2="295" stroke="#8b3a3a" stroke-width="3" marker-end="url(#a4r)"/>
+  <text x="250" y="312" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#8b3a3a" font-weight="700">GRAVITY</text>
+  <text x="250" y="324" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a">pulls toe down</text>
+
+  <!-- Curved twist arrow — large and obvious -->
+  <path d="M 185 190 A 50 50 0 0 1 230 215" fill="none" stroke="#8b3a3a" stroke-width="2.5" marker-end="url(#a4r)"/>
+  <text x="108" y="188" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#8b3a3a" font-weight="700">FACE OPENS</text>
+
+  <!-- Bottom summary -->
+  <text x="170" y="352" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#8b3a3a">CG offset &#8594; gravity creates torque</text>
+  <text x="170" y="366" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">You must fight this twist on every stroke</text>
+
+  <!-- ===== DIVIDER ===== -->
+  <line x1="340" y1="60" x2="340" y2="340" stroke="#c4b9a8" stroke-width="1"/>
+
+  <!-- ===== LIE ANGLE BALANCED (right) ===== -->
   <text x="510" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="700" fill="#2d5a27">LIE ANGLE BALANCED</text>
-  <line x1="470" y1="85" x2="510" y2="225" stroke="#6b6256" stroke-width="3" stroke-linecap="round"/>
-  <g transform="translate(510,225)">
-    <rect x="-5" y="-8" width="70" height="16" rx="3" fill="#e8efe7" stroke="#2d5a27" stroke-width="1.5"/>
-    <line x1="-5" y1="-8" x2="-5" y2="8" stroke="#2d5a27" stroke-width="2.5"/>
-    <circle cx="10" cy="0" r="4" fill="#d4a84b" stroke="#1a1a18" stroke-width="0.8"/>
+
+  <!-- Shaft -->
+  <line x1="475" y1="92" x2="510" y2="210" stroke="#6b6256" stroke-width="4" stroke-linecap="round"/>
+  <!-- Shaft axis extension — CG sits RIGHT on it -->
+  <line x1="510" y1="210" x2="520" y2="248" stroke="#2d5a27" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.5"/>
+
+  <!-- Putter head — PERFECTLY LEVEL -->
+  <g transform="translate(510,212)">
+    <rect x="-8" y="-12" width="90" height="20" rx="4" fill="#e8efe7" stroke="#2d5a27" stroke-width="2"/>
+    <line x1="-8" y1="-12" x2="-8" y2="8" stroke="#2d5a27" stroke-width="3"/>
+    <text x="2" y="3" font-family="'IBM Plex Mono',monospace" font-size="5" fill="#6b6256">HEEL</text>
+    <text x="62" y="3" font-family="'IBM Plex Mono',monospace" font-size="5" fill="#6b6256">TOE</text>
   </g>
-  <line x1="510" y1="223" x2="520" y2="257" stroke="#2d5a27" stroke-width="0.8" stroke-dasharray="3 2"/>
-  <text x="530" y="253" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#2d5a27">CG on shaft axis</text>
-  <text x="558" y="213" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#2d5a27">Face stays</text>
-  <text x="558" y="223" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#2d5a27">square</text>
-  <text x="510" y="292" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">CG aligned with shaft axis &#8594;</text>
-  <text x="510" y="305" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#2d5a27" font-weight="500">zero gravitational torque</text>
-  <text x="510" y="318" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">Face has no rotational bias</text>
+
+  <!-- CG dot — ON the shaft axis extension -->
+  <circle cx="518" cy="238" r="7" fill="#d4a84b" stroke="#1a1a18" stroke-width="1.2"/>
+  <text x="518" y="241" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="5.5" fill="#1a1a18" font-weight="700">CG</text>
+
+  <!-- "On axis" annotation -->
+  <text x="540" y="252" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#2d5a27" font-weight="500">CG on shaft axis</text>
+
+  <!-- Gravity arrow — small, going through shaft = no torque -->
+  <line x1="518" y1="247" x2="518" y2="290" stroke="#6b6256" stroke-width="1.5" marker-end="url(#a4k)" opacity="0.4"/>
+  <text x="518" y="305" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#6b6256">Gravity acts through shaft</text>
+
+  <!-- Stability checkmark / level indicator -->
+  <text x="580" y="195" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#2d5a27" font-weight="700">FACE STAYS</text>
+  <text x="580" y="207" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#2d5a27" font-weight="700">SQUARE</text>
+
+  <!-- Horizontal level line to emphasize flatness -->
+  <line x1="502" y1="200" x2="600" y2="200" stroke="#2d5a27" stroke-width="0.6" stroke-dasharray="3 3" opacity="0.4"/>
+
+  <!-- Bottom summary -->
+  <text x="510" y="352" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#2d5a27">CG on axis &#8594; zero gravitational torque</text>
+  <text x="510" y="366" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">Dynamic forces from the stroke still exist</text>
 </svg>
-<figcaption><strong>Fig. 4 &#8212; The Torque Problem.</strong> A traditional putter&#8217;s CG sits offline from the shaft axis at the lie angle, so gravity constantly tries to rotate the face open. Lie angle balanced designs align the CG with the shaft axis, removing this static torque &#8212; though dynamic forces from the stroke itself remain.</figcaption>
+<figcaption><strong>Fig. 4 &#8212; The Torque Problem.</strong> When you hold a traditional putter at its lie angle, gravity pulls the offset CG downward, twisting the face open. You must counteract this torque on every stroke. Lie angle balanced designs place the CG on the shaft axis so gravity creates no twisting force &#8212; though dynamic forces from accelerating through the ball remain.</figcaption>
 </figure>
 
 <p>Lie angle balanced putters align the CG with the shaft axis <em>at the lie angle</em>. This zeros out the gravitational torque component. The face has no inherent tendency to rotate open or closed during the stroke. You swing it back, you swing it through, and the face stays perpendicular to the arc without you fighting anything.</p>
@@ -406,44 +534,124 @@
 <p>But face angle control happens in a <em>second</em>, perpendicular plane&mdash;rotation around the shaft axis. And this secondary motion is <em>coupled</em> to the primary stroke through the putter&rsquo;s inertial properties.<sup class="ref"><a href="#ref13">13</a></sup> As you accelerate the putter through the ball, centripetal and tangential forces act through the offset CG and produce torques that try to rotate the face. Your neuromuscular system must counteract these varying torques with precisely timed hand and wrist inputs to deliver the face square at the exact instant of contact.</p>
 
 <figure class="article-figure">
-<svg viewBox="0 0 680 310" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="a5c" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1 L 8 4 L 0 7" fill="#c4b9a8"/></marker>
+  </defs>
   <rect width="100%" height="100%" fill="#faf8f5"/>
+
   <text x="340" y="28" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" font-weight="700" fill="#1a1a18" letter-spacing="0.1em">THE STROKE AS A COUPLED SYSTEM</text>
-  <text x="340" y="43" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#6b6256">Two oscillators, one moment of truth</text>
-  <!-- Primary -->
-  <text x="190" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="700" fill="#2d5a27">PRIMARY MOTION</text>
-  <text x="190" y="85" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">Sagittal plane &#8212; pendulum</text>
-  <circle cx="190" cy="105" r="5" fill="#6b6256"/>
-  <text x="200" y="103" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#6b6256">SHOULDER PIVOT</text>
-  <line x1="190" y1="110" x2="140" y2="240" stroke="#c4b9a8" stroke-width="2"/>
-  <rect x="130" y="235" width="20" height="10" rx="2" fill="#c4b9a8" opacity="0.5" transform="rotate(-20,140,240)"/>
-  <line x1="190" y1="110" x2="190" y2="250" stroke="#2d5a27" stroke-width="2.5"/>
-  <rect x="180" y="245" width="20" height="10" rx="2" fill="#2d5a27"/>
-  <circle cx="210" cy="250" r="5" fill="#1a1a18"/>
-  <line x1="190" y1="110" x2="240" y2="240" stroke="#c4b9a8" stroke-width="2"/>
-  <rect x="230" y="235" width="20" height="10" rx="2" fill="#c4b9a8" opacity="0.5" transform="rotate(20,240,240)"/>
-  <path d="M 140 240 A 140 140 0 0 1 240 240" fill="none" stroke="#2d5a27" stroke-width="1" stroke-dasharray="4 3"/>
-  <text x="190" y="272" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#2d5a27">Controls: speed, tempo</text>
-  <text x="190" y="284" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#2d5a27">Driven at resonant frequency</text>
-  <line x1="340" y1="60" x2="340" y2="290" stroke="#c4b9a8" stroke-width="1"/>
-  <!-- Secondary -->
-  <text x="500" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="700" fill="#8b3a3a">SECONDARY MOTION</text>
-  <text x="500" y="85" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#6b6256">Transverse plane &#8212; face rotation</text>
-  <line x1="500" y1="100" x2="500" y2="250" stroke="#6b6256" stroke-width="2.5" stroke-linecap="round"/>
-  <g transform="translate(500,155) rotate(-12)"><rect x="-3" y="-20" width="45" height="8" rx="2" fill="#f5eaea" stroke="#8b3a3a" stroke-width="1" opacity="0.5"/><line x1="-3" y1="-20" x2="-3" y2="-12" stroke="#8b3a3a" stroke-width="2"/></g>
-  <text x="555" y="148" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a" opacity="0.6">Open</text>
-  <g transform="translate(500,190)"><rect x="-3" y="-20" width="45" height="8" rx="2" fill="#e8efe7" stroke="#2d5a27" stroke-width="1.5"/><line x1="-3" y1="-20" x2="-3" y2="-12" stroke="#2d5a27" stroke-width="2.5"/></g>
-  <text x="555" y="178" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#2d5a27" font-weight="500">SQUARE</text>
-  <text x="555" y="188" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#2d5a27">at impact</text>
-  <g transform="translate(500,225) rotate(12)"><rect x="-3" y="-20" width="45" height="8" rx="2" fill="#f5eaea" stroke="#8b3a3a" stroke-width="1" opacity="0.5"/><line x1="-3" y1="-20" x2="-3" y2="-12" stroke="#8b3a3a" stroke-width="2"/></g>
-  <text x="555" y="218" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a" opacity="0.6">Closed</text>
-  <path d="M 542 150 A 30 60 0 0 1 542 225" fill="none" stroke="#8b3a3a" stroke-width="1.2" stroke-dasharray="3 2"/>
-  <text x="500" y="272" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#8b3a3a">Controls: direction (83&#8211;92%)</text>
-  <text x="500" y="284" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#8b3a3a">Must be timed to &lt; 1&#176; at impact</text>
-  <line x1="60" y1="298" x2="620" y2="298" stroke="#c4b9a8" stroke-width="0.5"/>
-  <text x="340" y="310" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#1a1a18">These two motions are <tspan font-weight="700">coupled</tspan> &#8212; the primary stroke creates torques that disturb the secondary.</text>
+  <text x="340" y="43" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#6b6256">Two motions happen simultaneously &#8212; and they interfere with each other</text>
+
+  <!-- ===== PRIMARY: Pendulum (left) ===== -->
+  <text x="170" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="700" fill="#2d5a27">PRIMARY MOTION</text>
+  <text x="170" y="85" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">Back and through &#8212; the pendulum</text>
+
+  <!-- Pivot -->
+  <circle cx="170" cy="108" r="6" fill="#6b6256"/>
+  <text x="182" y="105" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#6b6256">PIVOT</text>
+
+  <!-- Backswing position (faded) -->
+  <line x1="170" y1="114" x2="115" y2="255" stroke="#c4b9a8" stroke-width="2.5"/>
+  <g transform="translate(115,255) rotate(-22)">
+    <rect x="-12" y="-6" width="24" height="12" rx="2" fill="#c4b9a8" opacity="0.4"/>
+  </g>
+  <text x="95" y="240" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#c4b9a8">Back</text>
+
+  <!-- Impact position (strong) -->
+  <line x1="170" y1="114" x2="170" y2="265" stroke="#2d5a27" stroke-width="3"/>
+  <g transform="translate(170,265)">
+    <rect x="-12" y="-6" width="24" height="12" rx="2" fill="#2d5a27"/>
+  </g>
+  <circle cx="195" cy="265" r="6" fill="#1a1a18"/>
+  <text x="195" y="282" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#2d5a27" font-weight="500">IMPACT</text>
+
+  <!-- Follow-through position (faded) -->
+  <line x1="170" y1="114" x2="225" y2="255" stroke="#c4b9a8" stroke-width="2.5"/>
+  <g transform="translate(225,255) rotate(22)">
+    <rect x="-12" y="-6" width="24" height="12" rx="2" fill="#c4b9a8" opacity="0.4"/>
+  </g>
+  <text x="232" y="240" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#c4b9a8">Through</text>
+
+  <!-- Arc path -->
+  <path d="M 115 255 A 155 155 0 0 1 225 255" fill="none" stroke="#2d5a27" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+  <!-- What it controls -->
+  <rect x="85" y="298" width="170" height="40" rx="3" fill="#e8efe7" stroke="#2d5a27" stroke-width="1"/>
+  <text x="170" y="315" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#2d5a27" font-weight="500">Controls: SPEED + TEMPO</text>
+  <text x="170" y="328" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#6b6256">Driven at natural resonant frequency</text>
+
+  <!-- ===== COUPLING ARROWS ===== -->
+  <line x1="295" y1="175" x2="365" y2="175" stroke="#c4b9a8" stroke-width="1.5" marker-end="url(#a5c)"/>
+  <line x1="365" y1="195" x2="295" y2="195" stroke="#c4b9a8" stroke-width="1.5" marker-end="url(#a5c)"/>
+  <text x="330" y="165" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#c4b9a8">COUPLED</text>
+  <text x="330" y="210" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="6" fill="#c4b9a8">Stroke forces</text>
+  <text x="330" y="220" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="6" fill="#c4b9a8">disturb face angle</text>
+
+  <!-- ===== SECONDARY: Face Rotation (right) ===== -->
+  <text x="510" y="72" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="700" fill="#8b3a3a">SECONDARY MOTION</text>
+  <text x="510" y="85" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#6b6256">Face rotation &#8212; opening and closing</text>
+
+  <!-- Shaft (top-down view) -->
+  <circle cx="510" cy="185" r="5" fill="#6b6256"/>
+  <text x="522" y="183" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#6b6256">SHAFT</text>
+
+  <!-- Face rotation sweep — fan/arc showing the range of rotation -->
+  <!-- Open position (red, faded) -->
+  <g transform="translate(510,185) rotate(-20)">
+    <rect x="8" y="-3" width="65" height="6" rx="1" fill="#8b3a3a" opacity="0.15"/>
+    <line x1="8" y1="-3" x2="8" y2="3" stroke="#8b3a3a" stroke-width="2" opacity="0.3"/>
+  </g>
+  <!-- Mid-open -->
+  <g transform="translate(510,185) rotate(-10)">
+    <rect x="8" y="-3" width="65" height="6" rx="1" fill="#8b3a3a" opacity="0.08"/>
+  </g>
+  <!-- SQUARE at impact (green, strong) -->
+  <g transform="translate(510,185)">
+    <rect x="8" y="-4" width="65" height="8" rx="1.5" fill="#e8efe7" stroke="#2d5a27" stroke-width="1.5"/>
+    <line x1="8" y1="-4" x2="8" y2="4" stroke="#2d5a27" stroke-width="3"/>
+  </g>
+  <!-- Mid-closed -->
+  <g transform="translate(510,185) rotate(10)">
+    <rect x="8" y="-3" width="65" height="6" rx="1" fill="#8b3a3a" opacity="0.08"/>
+  </g>
+  <!-- Closed position (red, faded) -->
+  <g transform="translate(510,185) rotate(20)">
+    <rect x="8" y="-3" width="65" height="6" rx="1" fill="#8b3a3a" opacity="0.15"/>
+    <line x1="8" y1="-3" x2="8" y2="3" stroke="#8b3a3a" stroke-width="2" opacity="0.3"/>
+  </g>
+
+  <!-- Rotation sweep arc -->
+  <path d="M 575 165 A 70 70 0 0 1 575 205" fill="none" stroke="#8b3a3a" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+  <!-- Labels -->
+  <text x="590" y="155" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a">OPEN</text>
+  <text x="590" y="185" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#2d5a27" font-weight="700">SQUARE</text>
+  <text x="590" y="215" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8b3a3a">CLOSED</text>
+
+  <!-- The critical window -->
+  <rect x="585" y="174" width="55" height="16" rx="2" fill="none" stroke="#2d5a27" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="612" y="198" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="5.5" fill="#2d5a27">&lt; 1&#176; window</text>
+
+  <!-- Timeline showing when square must happen -->
+  <line x1="420" y1="245" x2="600" y2="245" stroke="#6b6256" stroke-width="0.7"/>
+  <line x1="420" y1="240" x2="420" y2="250" stroke="#6b6256" stroke-width="0.7"/>
+  <line x1="510" y1="240" x2="510" y2="250" stroke="#6b6256" stroke-width="0.7"/>
+  <line x1="600" y1="240" x2="600" y2="250" stroke="#6b6256" stroke-width="0.7"/>
+  <text x="465" y="258" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="6" fill="#8b3a3a">Opening</text>
+  <text x="510" y="270" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#2d5a27" font-weight="700">IMPACT</text>
+  <text x="555" y="258" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="6" fill="#8b3a3a">Closing</text>
+
+  <!-- What it controls -->
+  <rect x="425" y="298" width="170" height="40" rx="3" fill="#f5eaea" stroke="#8b3a3a" stroke-width="1"/>
+  <text x="510" y="315" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#8b3a3a" font-weight="500">Controls: DIRECTION (83&#8211;92%)</text>
+  <text x="510" y="328" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#6b6256">Must be timed to &lt; 1&#176; at impact</text>
+
+  <!-- Bottom takeaway -->
+  <line x1="60" y1="348" x2="620" y2="348" stroke="#c4b9a8" stroke-width="0.5"/>
+  <text x="340" y="360" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#1a1a18">Every putter design is a different strategy for managing this coupling. <tspan font-weight="700">None eliminate it.</tspan></text>
 </svg>
-<figcaption><strong>Fig. 5 &#8212; Two Oscillators, One Moment of Truth.</strong> The primary pendulum motion controls speed. The secondary face rotation controls direction. They&#8217;re coupled: accelerating the putter creates dynamic torques that try to rotate the face. Every putter design is a different strategy for managing this coupling. None eliminate it.</figcaption>
+<figcaption><strong>Fig. 5 &#8212; Two Motions, One Moment of Truth.</strong> The primary pendulum motion (left) controls speed and tempo. The secondary face rotation (right) controls direction. The two are coupled: accelerating the putter through the ball creates forces that try to twist the face. The golfer must arrive within a sub-1&#176; window at the exact instant of impact. Every putter design manages this coupling differently. None eliminate it.</figcaption>
 </figure>
 
 <p>Different putter designs manage this coupling differently. High MOI makes the face respond more sluggishly to disturbing torques. Lie angle balance removes the gravitational torque component. Toe hang matches the putter&rsquo;s natural rotation to an arced stroke. But none of these eliminate the fundamental challenge: <strong>the stroke creates torques, and the golfer must time their response to within fractions of a degree at the exact moment of impact.</strong></p>
