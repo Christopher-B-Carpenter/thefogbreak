@@ -507,10 +507,68 @@
   .section-header, .article-grid { animation: fadeUp 0.6s ease 0.1s both; }
   .subscribe-section { animation: fadeUp 0.6s ease 0.2s both; }
 
+  /* === ARCHIVE GRID === */
+  .archive-grid {
+    max-width: 1100px;
+    margin: 1.5rem auto 2.5rem;
+    padding: 0 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .archive-card {
+    border-top: 1px solid var(--rule);
+    padding-top: 1rem;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: border-color 0.25s;
+  }
+  .archive-card:hover { border-color: var(--moss); }
+  .archive-card:hover h4 { color: var(--moss); }
+  .archive-card .card-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 2.2rem;
+    color: var(--rule);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .archive-card .card-topic {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.48rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--moss);
+    margin-bottom: 0.5rem;
+  }
+  .archive-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    line-height: 1.25;
+    margin-bottom: 0.6rem;
+    color: var(--ink);
+    transition: color 0.25s;
+  }
+  .archive-card .card-excerpt {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: #555;
+    margin-bottom: 0.6rem;
+  }
+  .archive-card .card-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.48rem;
+    letter-spacing: 0.1em;
+    color: var(--caption);
+  }
+
   /* === RESPONSIVE === */
   @media (max-width: 768px) {
     .hero-section { grid-template-columns: 1fr; }
     .article-grid { grid-template-columns: 1fr; }
+    .archive-grid { grid-template-columns: 1fr; }
     .masthead .title-main { font-size: 3rem; }
     .subscribe-box { flex-direction: column; text-align: center; }
     .subscribe-box input { width: 100%; border-right: 1px solid var(--rule); border-bottom: none; }
@@ -552,84 +610,9 @@
   <a href="/#subscribe">Subscribe</a>
 </nav>
 
-<div class="hero-section">
-  <div class="hero-feature">
-    <div class="label" id="issue-label">No. 1 &mdash; Putting</div>
-    <h2>What Your Putter Actually Does&mdash;and Doesn&rsquo;t Do&mdash;at Impact</h2>
-    <p class="excerpt">A forensic examination of blade, mallet, and zero-torque designs through the lens of oblique impact mechanics. Why face angle dominates direction, what MOI really buys you, where gear effect punishes the mallet, and why the dimpled ball puts a ceiling on all of it.</p>
-    <div class="meta-line">14 April 2026 &middot; 18 min read &middot; 5 interactive figures</div>
-    <a href="articles/putter-physics.html" class="read-link">Read the analysis &rarr;</a>
-  </div>
+<div id="hero-container"></div>
 
-  <div class="hero-diagram">
-    <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <pattern id="g1h" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#c4b9a8" stroke-width="0.4" opacity="0.2"/></pattern>
-        <marker id="ha" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1.5 L 10 5 L 0 8.5" fill="none" stroke="#8b4a3f" stroke-width="1.5"/></marker>
-        <marker id="hg" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1.5 L 10 5 L 0 8.5" fill="none" stroke="#4a6348" stroke-width="1.5"/></marker>
-      </defs>
-      <rect width="100%" height="100%" fill="#faf8f3"/>
-      <rect width="100%" height="100%" fill="url(#g1h)"/>
-
-      <text x="210" y="22" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" font-weight="700" fill="#1d1f1c" letter-spacing="0.12em">FACE ANGLE ERROR AT 8 FEET</text>
-      <text x="210" y="35" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#736a5c">Angles exaggerated ~40&#215; for visibility</text>
-
-      <rect x="28" y="48" width="364" height="90" rx="2" fill="#dfe7dd" opacity="0.35"/>
-      <line x1="70" y1="93" x2="380" y2="93" stroke="#bfb5a0" stroke-width="0.8" stroke-dasharray="6 4"/>
-      <text x="220" y="107" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#bfb5a0">TARGET LINE</text>
-      <line x1="70" y1="93" x2="354" y2="93" stroke="#4a6348" stroke-width="1.8" marker-end="url(#hg)" opacity="0.55"/>
-      <line x1="70" y1="93" x2="354" y2="66" stroke="#8b4a3f" stroke-width="1.8" marker-end="url(#ha)"/>
-      <line x1="70" y1="93" x2="354" y2="120" stroke="#8b4a3f" stroke-width="1.3" marker-end="url(#ha)" opacity="0.22"/>
-
-      <rect x="50" y="73" width="5" height="40" rx="1" fill="#4a6348"/>
-      <g transform="translate(52.5,93) rotate(-4)"><rect x="-2.5" y="-20" width="5" height="40" rx="1" fill="#8b4a3f" opacity="0.4"/></g>
-      <text x="56" y="70" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#4a6348">SQUARE</text>
-      <text x="34" y="70" text-anchor="end" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#8b4a3f">OPEN</text>
-      <circle cx="70" cy="93" r="5.5" fill="#faf8f3" stroke="#1d1f1c" stroke-width="1.3"/>
-
-      <path d="M 110 93 A 40 40 0 0 0 109 85" fill="none" stroke="#1d1f1c" stroke-width="1"/>
-      <text x="124" y="83" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#1d1f1c" font-weight="500">0.76&#176;</text>
-
-      <circle cx="374" cy="93" r="13" fill="none" stroke="#1d1f1c" stroke-width="1.8"/>
-      <circle cx="374" cy="93" r="8.5" fill="#2a2a28"/>
-      <line x1="362" y1="66" x2="386" y2="66" stroke="#8b4a3f" stroke-width="0.8" stroke-dasharray="3 2"/>
-      <text x="392" y="62" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#8b4a3f" font-weight="500">MISS</text>
-      <text x="392" y="72" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#8b4a3f">1.28" outside</text>
-
-      <line x1="28" y1="158" x2="392" y2="158" stroke="#bfb5a0" stroke-width="0.5"/>
-      <g transform="translate(42,180)">
-        <text x="0" y="0" font-family="'IBM Plex Mono',monospace" font-size="18" fill="#1d1f1c" font-weight="700">0.76&#176;</text>
-        <text x="0" y="14" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#736a5c">Max error at 8 ft</text>
-      </g>
-      <g transform="translate(155,180)">
-        <text x="0" y="0" font-family="'IBM Plex Mono',monospace" font-size="18" fill="#1d1f1c" font-weight="700">83&#8211;92%</text>
-        <text x="0" y="14" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#736a5c">From face angle</text>
-      </g>
-      <g transform="translate(296,180)">
-        <text x="0" y="0" font-family="'IBM Plex Mono',monospace" font-size="18" fill="#8b4a3f" font-weight="700">1.28"</text>
-        <text x="0" y="14" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#736a5c">Lateral miss</text>
-      </g>
-      <line x1="28" y1="210" x2="392" y2="210" stroke="#bfb5a0" stroke-width="0.5"/>
-
-      <a href="/tools/putter-face-angle.html" style="text-decoration:none">
-        <rect x="155" y="224" width="110" height="22" rx="2" fill="none" stroke="#4a6348" stroke-width="1"/>
-        <text x="210" y="239" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#4a6348" letter-spacing="0.12em">EXPLORE TOOL &#8594;</text>
-      </a>
-    </svg>
-    <div class="diagram-caption"><strong>Fig. 1</strong> &#8212; At eight feet, a face open by less than one degree sends the ball entirely outside the cup. Angles exaggerated for visibility. The real divergence is invisible to the eye.</div>
-  </div>
-</div>
-
-<div class="section-ornament">&#10044; &ensp; &#10044; &ensp; &#10044;</div>
-
-<div class="section-header" id="archive">
-  <h3>From the Archive</h3>
-  <a href="#" class="more-link">All issues &rarr;</a>
-</div>
-
-<div class="archive-coming-soon">
-  <p class="acs-quip">The archive fills one issue at a time. More on the way&mdash;every Monday.</p>
-</div>
+<div id="archive-container"></div>
 
 <div class="subscribe-section" id="subscribe">
   <div class="subscribe-box">
@@ -696,6 +679,115 @@ async function handleSubscribe() {
   }
 }
 </script>
+<script>
+// MANIFEST-DRIVEN RENDERING
+(function() {
+  fetch('/articles/manifest.json')
+    .then(r => r.json())
+    .then(data => {
+      const articles = data.articles;
+      const latest = articles[0];
+      const archive = articles.slice(1);
+      renderHero(latest);
+      renderArchive(archive);
+    })
+    .catch(err => console.error('Manifest load failed:', err));
+
+  function toRomanNum(n) {
+    const vals = [[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];
+    return vals.reduce((s,[v,r]) => { while(n>=v){s+=r;n-=v;} return s; }, '');
+  }
+
+  function renderHero(a) {
+    const el = document.getElementById('hero-container');
+    if (!el) return;
+    el.innerHTML = `
+      <div class="hero-section">
+        <div class="hero-feature">
+          <div class="label" id="issue-label">No. ${a.issue} &mdash; ${a.topic}</div>
+          <h2>${a.title}</h2>
+          <p class="excerpt">${a.excerpt}</p>
+          <div class="meta-line">${a.date} &middot; ${a.readtime} read &middot; ${a.figures} figures</div>
+          <a href="articles/${a.slug}.html" class="read-link">Read the analysis &rarr;</a>
+        </div>
+        <div class="hero-diagram" id="hero-diagram-container">
+          <div class="diagram-loading" style="height:300px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;color:var(--caption);text-transform:uppercase;">Loading figure&hellip;</div>
+        </div>
+      </div>
+      <div class="section-ornament">&#10044; &ensp; &#10044; &ensp; &#10044;</div>
+    `;
+    loadHeroFigure(a);
+  }
+
+  function loadHeroFigure(a) {
+    fetch(`articles/${a.slug}.html`)
+      .then(r => r.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const fig = doc.querySelector('.article-figure svg');
+        const container = document.getElementById('hero-diagram-container');
+        if (!container) return;
+        if (fig) {
+          // Fix any duplicate marker IDs by prefixing with 'hero-'
+          fig.querySelectorAll('[id]').forEach(el => {
+            const oldId = el.id;
+            const newId = 'hero-' + oldId;
+            el.id = newId;
+            fig.querySelectorAll(`[href="#${oldId}"]`).forEach(ref => ref.setAttribute('href', '#' + newId));
+            fig.querySelectorAll(`[marker-end="url(#${oldId})"]`).forEach(ref => ref.setAttribute('marker-end', `url(#${newId})`));
+            fig.querySelectorAll(`[fill="url(#${oldId})"]`).forEach(ref => ref.setAttribute('fill', `url(#${newId})`));
+          });
+          const figcaption = doc.querySelector('.article-figure figcaption');
+          const toolLink = a.tool ? `<a href="${a.tool}" style="display:inline-block;margin-top:0.8rem;font-family:'IBM Plex Mono',monospace;font-size:0.52rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--moss);text-decoration:none;border-bottom:1px solid var(--moss);padding-bottom:2px;">Explore the interactive tool &rarr;</a>` : '';
+          container.innerHTML = `
+            ${fig.outerHTML}
+            <div class="diagram-caption">${figcaption ? figcaption.innerHTML : ''}</div>
+            ${toolLink}
+          `;
+        } else {
+          container.innerHTML = '';
+        }
+      })
+      .catch(() => {
+        const container = document.getElementById('hero-diagram-container');
+        if (container) container.innerHTML = '';
+      });
+  }
+
+  function renderArchive(articles) {
+    const el = document.getElementById('archive-container');
+    if (!el) return;
+    if (!articles.length) {
+      el.innerHTML = `
+        <div class="section-header" id="archive">
+          <h3>From the Archive</h3>
+        </div>
+        <div class="archive-coming-soon">
+          <p class="acs-quip">The archive fills one issue at a time. More on the way&mdash;every Monday.</p>
+        </div>
+      `;
+      return;
+    }
+    const cards = articles.map(a => `
+      <a href="articles/${a.slug}.html" class="archive-card">
+        <div class="card-num">${toRomanNum(a.issue)}</div>
+        <div class="card-topic">${a.topic}</div>
+        <h4>${a.title}</h4>
+        <p class="card-excerpt">${a.excerpt}</p>
+        <div class="card-meta">${a.date} &middot; ${a.readtime}</div>
+      </a>
+    `).join('');
+    el.innerHTML = `
+      <div class="section-header" id="archive">
+        <h3>From the Archive</h3>
+      </div>
+      <div class="archive-grid">${cards}</div>
+    `;
+  }
+})();
+</script>
+
 <script>
 // Auto-update issue number based on weeks since launch (Issue 1 = 14 April 2026)
 (function() {

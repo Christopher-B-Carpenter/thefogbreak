@@ -1,0 +1,28 @@
+{
+  "articles": [
+      {
+      "issue": 2,
+      "slug": "driver-launch-v2",
+      "topic": "Driving",
+      "title": "Launch Angle, Spin Loft, and the 15 Yards You're Leaving on the Tee",
+      "subtitle": "The distance you&rsquo;re missing isn&rsquo;t hiding in your swing speed. It&rsquo;s hiding in the gap between your dynamic loft and your angle of attack&mdash;and most golfers have never heard of it.",
+      "date": "14 April 2026",
+      "readtime": "18 min",
+      "excerpt": "A forensic examination of blade, mallet, and zero-torque designs through the lens of oblique impact mechanics. Why face angle dominates direction, what MOI really buys you, and why the dimpled ball puts a ceiling on all of it.",
+      "figures": 5,
+      "tool": "/tools/putter-face-angle.html"
+    },
+    {
+      "issue": 1,
+      "slug": "putter-physics-v2",
+      "topic": "Putting",
+      "title": "What Your Putter Actually Does and Does Not Do at Impact",
+      "subtitle": "A forensic look at the physics of blade, mallet, and zero-torque designs. The math does not care about marketing.",
+      "date": "14 April 2026",
+      "readtime": "18 min",
+      "excerpt": "A forensic examination of blade, mallet, and zero-torque designs through the lens of oblique impact mechanics. Why face angle dominates direction, what MOI really buys you, and why the dimpled ball puts a ceiling on all of it.",
+      "figures": 5,
+      "tool": "/tools/putter-face-angle.html"
+    }
+  ]
+}
