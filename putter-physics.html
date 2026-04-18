@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Fog Break - Putter Physics Simulator</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a18;
+    --paper: #f5f1eb;
+    --accent: #2d5a27;
+    --accent-light: #e8efe7;
+    --rule: #c4b9a8;
+    --caption: #6b6256;
+    --red: #8b3a3a;
+    --red-light: #f5eaea;
+    --gold: #d4a84b;
+  }
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { 
+    background: var(--paper); 
+    color: var(--ink); 
+    font-family: 'Cormorant Garamond', serif; 
+    -webkit-font-smoothing: antialiased; 
+    padding: 2rem;
+  }
+
+  .masthead { 
+    text-align: center; 
+    font-family: 'IBM Plex Mono', monospace; 
+    font-size: 0.7rem; 
+    letter-spacing: 0.2em; 
+    text-transform: uppercase; 
+    color: var(--caption);
+    margin-bottom: 2rem;
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    text-align: center;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-style: italic;
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--caption);
+    margin-bottom: 2rem;
+  }
+
+  .app-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 300px 1fr 250px;
+    gap: 2rem;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(26,26,24,0.05);
+  }
+
+  /* Typography for UI */
+  .mono-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--caption);
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+
+  /* Controls Section */
+  .panel { display: flex; flex-direction: column; gap: 1.5rem; }
+  
+  .control-group {
+    background: var(--paper);
+    padding: 1rem;
+    border-radius: 4px;
+    border: 1px solid var(--rule);
+  }
+
+  .slider-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  input[type=range] {
+    width: 100%;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+
+  /* Putter Toggles */
+  .toggle-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .toggle-btn {
+    appearance: none;
+    background: #fff;
+    border: 1px solid var(--rule);
+    padding: 0.8rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 3px;
+    transition: all 0.2s;
+  }
+
+  .toggle-btn.active {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+
+  /* Presets */
+  .preset-btn {
+    appearance: none;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 0.6rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-style: italic;
+    cursor: pointer;
+    border-radius: 3px;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  .preset-btn:hover { background: #e8e4dd; }
+
+  /* Canvas Section */
+  .canvas-container {
+    position: relative;
+    background: #faf8f5;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    height: 500px;
+    overflow: hidden;
+  }
+
+  svg { width: 100%; height: 100%; }
+
+  /* Results Readout */
+  .results-panel {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 1.5rem;
+    background: #fff;
+  }
+
+  .result-metric {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--paper);
+    padding-bottom: 0.5rem;
+  }
+  
+  .result-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 3px;
+    margin-top: 1rem;
+    width: 100%;
+    text-align: center;
+  }
+  .status-make { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent); }
+  .status-miss { background: var(--red-light); color: var(--red); border: 1px solid var(--red); }
+
+  @media (max-width: 900px) {
+    .app-container { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">The Fog Break &bull; Interactive Tool</div>
+<h1>The Putter Physics Engine</h1>
+<p class="subtitle">Observe oblique impact mechanics, gear effect, and MOI in real time.</p>
+
+<div class="app-container">
+  
+  <div class="panel">
+    <div>
+      <span class="mono-label">1. Select Putter Geometry</span>
+      <div class="toggle-group">
+        <button class="toggle-btn active" onclick="setPutter('blade')" id="btn-blade">Traditional Blade</button>
+        <button class="toggle-btn" onclick="setPutter('mallet')" id="btn-mallet">High-MOI Mallet</button>
+        <button class="toggle-btn" onclick="setPutter('zero')" id="btn-zero">Zero Torque (L.A.B.)</button>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <span class="mono-label">2. Delivery Parameters</span>
+      
+      <div class="slider-row">
+        <span>Dist: <span id="val-dist">15</span> ft</span>
+      </div>
+      <input type="range" id="slide-dist" min="5" max="30" step="1" value="15" oninput="updatePhysics()">
+      
+      <div style="height: 1rem;"></div>
+
+      <div class="slider-row">
+        <span>Face: <span id="val-face">0.0</span>&deg;</span>
+      </div>
+      <input type="range" id="slide-face" min="-3" max="3" step="0.1" value="0" oninput="updatePhysics()">
+      
+      <div style="height: 1rem;"></div>
+
+      <div class="slider-row">
+        <span>Path: <span id="val-path">0.0</span>&deg;</span>
+      </div>
+      <input type="range" id="slide-path" min="-3" max="3" step="0.1" value="0" oninput="updatePhysics()">
+      
+      <div style="height: 1rem;"></div>
+
+      <div class="slider-row">
+        <span>Strike: <span id="val-strike">0</span> mm <span style="font-size:0.6rem">(+Toe)</span></span>
+      </div>
+      <input type="range" id="slide-strike" min="-20" max="20" step="1" value="0" oninput="updatePhysics()">
+    </div>
+  </div>
+
+  <div class="canvas-container">
+    <svg id="sim-canvas" viewBox="0 0 400 500">
+      <line x1="200" y1="50" x2="200" y2="450" stroke="#c4b9a8" stroke-width="1" stroke-dasharray="5 5"/>
+      
+      <circle cx="200" cy="50" r="10" fill="#f5f1eb" stroke="#1a1a18" stroke-width="1.5"/>
+      <circle cx="200" cy="50" r="7" fill="#1a1a18"/>
+
+      <line x1="190" y1="50" x2="210" y2="50" stroke="#c4b9a8" stroke-width="0.5"/>
+
+      <path id="ball-path" d="M 200 450 L 200 50" fill="none" stroke="#2d5a27" stroke-width="2.5"/>
+      <circle id="ball-end" cx="200" cy="50" r="4" fill="#2d5a27"/>
+
+      <g id="putter-head" transform="translate(200, 450)">
+        <rect id="putter-body" x="-30" y="5" width="60" height="15" rx="2" fill="#e8efe7" stroke="#1a1a18" stroke-width="1.5"/>
+        <line x1="-30" y1="5" x2="30" y2="5" stroke="#1a1a18" stroke-width="3"/>
+        <circle id="putter-cg" cx="0" cy="12" r="3" fill="#d4a84b"/>
+      </g>
+
+      <circle id="strike-dot" cx="200" cy="450" r="3" fill="#8b3a3a"/>
+    </svg>
+  </div>
+
+  <div class="panel">
+    <div class="results-panel">
+      <span class="mono-label">Impact Telemetry</span>
+      
+      <div class="result-metric">
+        <span class="mono-label" style="font-size:0.5rem; margin:0;">Launch Angle (85% Face / 15% Path)</span>
+        <div class="result-value" id="res-launch">0.00&deg;</div>
+      </div>
+
+      <div class="result-metric">
+        <span class="mono-label" style="font-size:0.5rem; margin:0;">Gear Effect Deflection</span>
+        <div class="result-value" id="res-gear">0.00&deg;</div>
+      </div>
+
+      <div class="result-metric">
+        <span class="mono-label" style="font-size:0.5rem; margin:0;">Speed Loss (Off-center penalty)</span>
+        <div class="result-value" id="res-drop">0.00 ft</div>
+      </div>
+
+      <div id="status-badge" class="status-badge status-make">HOLED</div>
+      <div id="status-desc" style="font-family:'IBM Plex Mono', monospace; font-size:0.65rem; text-align:center; margin-top:0.5rem; color:#6b6256;">Dead center.</div>
+    </div>
+
+    <div>
+      <span class="mono-label">Editorial Presets</span>
+      <button class="preset-btn" onclick="applyPreset('pure')">The Pure Strike</button>
+      <button class="preset-btn" onclick="applyPreset('mallet-tax')">The Mallet Tax (Fig. 2)</button>
+      <button class="preset-btn" onclick="applyPreset('blade-forgive')">The Blade Penalty (Fig. 3)</button>
+      <button class="preset-btn" onclick="applyPreset('face-dominates')">Face Angle Dominance</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Physics Constants from the article
+  const FACE_RATIO = 0.85;
+  const PATH_RATIO = 0.15;
+  const HOLE_RADIUS_INCHES = 2.125;
+  const BALL_RADIUS_INCHES = 0.84;
+  const MARGIN_INCHES = HOLE_RADIUS_INCHES - BALL_RADIUS_INCHES; // 1.285 inches
+  
+  // Putter Profiles
+  const putters = {
+    blade: {
+      gearMult: 0.0153, // 15mm = 0.23 deg
+      speedDropMult: 0.236, // 12.7mm = 3 ft short
+      color: '#e8efe7',
+      stroke: '#2d5a27',
+      cgDepth: 12,
+      bodyHeight: 15
+    },
+    mallet: {
+      gearMult: 0.0393, // 15mm = 0.59 deg
+      speedDropMult: 0.013, // 12.7mm = ~2 inches short
+      color: '#f5eaea',
+      stroke: '#8b3a3a',
+      cgDepth: 25,
+      bodyHeight: 35
+    },
+    zero: {
+      gearMult: 0.0393, // Behaves like a mallet on impact
+      speedDropMult: 0.013,
+      color: '#f5f1eb',
+      stroke: '#1a1a18',
+      cgDepth: 15,
+      bodyHeight: 25
+    }
+  };
+
+  let currentPutter = 'blade';
+
+  function setPutter(type) {
+    currentPutter = type;
+    document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('btn-' + type).classList.add('active');
+    updatePhysics();
+  }
+
+  function applyPreset(preset) {
+    const sDist = document.getElementById('slide-dist');
+    const sFace = document.getElementById('slide-face');
+    const sPath = document.getElementById('slide-path');
+    const sStrike = document.getElementById('slide-strike');
+
+    if (preset === 'pure') {
+      setPutter('blade');
+      sDist.value = 15; sFace.value = 0; sPath.value = 0; sStrike.value = 0;
+    } else if (preset === 'mallet-tax') {
+      setPutter('mallet');
+      sDist.value = 18; sFace.value = 0; sPath.value = 0; sStrike.value = 15; // Toe strike pushes it offline
+    } else if (preset === 'blade-forgive') {
+      setPutter('blade');
+      sDist.value = 20; sFace.value = 0; sPath.value = 0; sStrike.value = 13; // 1/2 inch toe strike leaves it short
+    } else if (preset === 'face-dominates') {
+      setPutter('blade');
+      sDist.value = 10; sFace.value = 1.0; sPath.value = -2.0; sStrike.value = 0; // Huge cut path, but face is 1 deg open so it misses right.
+    }
+    updatePhysics();
+  }
+
+  function updatePhysics() {
+    // Get slider values
+    const dist = parseFloat(document.getElementById('slide-dist').value);
+    const face = parseFloat(document.getElementById('slide-face').value);
+    const path = parseFloat(document.getElementById('slide-path').value);
+    const strike = parseFloat(document.getElementById('slide-strike').value); // Positive is Toe (Right)
+
+    // Update UI labels
+    document.getElementById('val-dist').innerText = dist;
+    document.getElementById('val-face').innerText = face.toFixed(1);
+    document.getElementById('val-path').innerText = path.toFixed(1);
+    document.getElementById('val-strike').innerText = strike;
+
+    const pData = putters[currentPutter];
+
+    // Core Physics
+    let launchAngle = (face * FACE_RATIO) + (path * PATH_RATIO);
+    
+    // Gear Effect: Positive strike (toe) -> face opens -> gear effect pushes ball Right (Positive angle)
+    // Wait, the article states Mallet toe strike pushes ball offline (away from center).
+    let gearEffectAngle = strike * pData.gearMult; 
+    let finalAngle = launchAngle + gearEffectAngle;
+
+    // Distance Physics (Assume player hits it with perfect energy for targetDist + 1.5 ft past hole)
+    let perfectRoll = dist + 1.5;
+    let distanceLost = Math.abs(strike) * pData.speedDropMult;
+    let actualRoll = perfectRoll - distanceLost;
+
+    // Lateral miss at the hole's depth
+    let lateralMissInches = Math.tan(finalAngle * Math.PI / 180) * (dist * 12);
+
+    // Determine Status
+    let status = "HOLED";
+    let statusDesc = "";
+    let isShort = actualRoll < dist;
+    let isWide = Math.abs(lateralMissInches) > MARGIN_INCHES;
+
+    if (isShort) {
+      status = "MISS (SHORT)";
+      let shortBy = (dist - actualRoll).toFixed(1);
+      statusDesc = `Left ${shortBy} ft short of the hole.`;
+    } else if (isWide) {
+      status = "MISS (WIDE)";
+      let side = lateralMissInches > 0 ? "Right" : "Left";
+      statusDesc = `Missed ${Math.abs(lateralMissInches).toFixed(1)}" to the ${side}.`;
+    } else {
+      statusDesc = `Holed. Ball dropped in.`;
+    }
+
+    // Update Data Panel
+    document.getElementById('res-launch').innerText = `${launchAngle > 0 ? '+':''}${launchAngle.toFixed(2)}°`;
+    document.getElementById('res-gear').innerText = `${gearEffectAngle > 0 ? '+':''}${gearEffectAngle.toFixed(2)}°`;
+    document.getElementById('res-drop').innerText = `-${distanceLost.toFixed(2)} ft`;
+    
+    const badge = document.getElementById('status-badge');
+    badge.innerText = status;
+    badge.className = 'status-badge ' + (status === "HOLED" ? 'status-make' : 'status-miss');
+    document.getElementById('status-desc').innerText = statusDesc;
+
+    // --- DRAW SVG ---
+    drawSVG(dist, face, path, strike, finalAngle, actualRoll, pData, status);
+  }
+
+  function drawSVG(targetDist, face, path, strike, finalAngle, actualRoll, pData, status) {
+    const svgHeight = 500;
+    const holeY = 50;
+    const putterY = 450;
+    const pxPerFoot = (putterY - holeY) / targetDist;
+
+    // Rotate Putter Head
+    const head = document.getElementById('putter-head');
+    head.setAttribute('transform', `translate(200, ${putterY}) rotate(${face})`);
+    
+    // Update Putter Body (Blade vs Mallet shapes)
+    const body = document.getElementById('putter-body');
+    body.setAttribute('height', pData.bodyHeight);
+    body.setAttribute('fill', pData.color);
+    body.setAttribute('stroke', pData.stroke);
+    
+    const cg = document.getElementById('putter-cg');
+    cg.setAttribute('cy', pData.cgDepth);
+
+    // Move Strike Dot
+    const sDot = document.getElementById('strike-dot');
+    // Rotate strike point mapping based on face angle
+    const sRad = face * Math.PI / 180;
+    // Base position is (200 + strike, 450) but rotated
+    // For visual simplicity, just offset X since face angles are tiny
+    sDot.setAttribute('cx', 200 + (strike * 1.5)); // Exaggerate strike visual slightly
+    sDot.setAttribute('cy', 450);
+
+    // Calculate ball end position
+    // Stop ball at actualRoll, but cap at the top of the canvas
+    let endDistPx = Math.min(actualRoll * pxPerFoot, putterY - 10);
+    let endY = putterY - endDistPx;
+    
+    // If it's a make, drop it in the hole
+    if (status === "HOLED") {
+      endY = holeY;
+    }
+
+    let endX = 200 + Math.tan(finalAngle * Math.PI / 180) * endDistPx;
+
+    const pathLine = document.getElementById('ball-path');
+    pathLine.setAttribute('d', `M 200 450 L ${endX} ${endY}`);
+    
+    const bEnd = document.getElementById('ball-end');
+    bEnd.setAttribute('cx', endX);
+    bEnd.setAttribute('cy', endY);
+    bEnd.setAttribute('fill', status === "HOLED" ? '#2d5a27' : '#8b3a3a');
+    pathLine.setAttribute('stroke', status === "HOLED" ? '#2d5a27' : '#8b3a3a');
+  }
+
+  // Initialize
+  updatePhysics();
+
+</script>
+</body>
+</html>

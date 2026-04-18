@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subscribe — The Fog Break</title>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<meta name="description" content="Golf physics, explained clearly. A new issue every Monday morning. No marketing, no hype.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#1d1f1c;--parchment:#f3efe6;--moss:#4a6348;--moss-soft:#dfe7dd;--rule:#bfb5a0;--caption:#736a5c; }
+  *{margin:0;padding:0;box-sizing:border-box} html{font-size:17px}
+  body{background:var(--parchment);color:var(--ink);font-family:'EB Garamond',Georgia,serif;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+  .top-rule{border-top:3px double var(--ink);padding:.45rem 2.5rem;display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--caption)}
+  .masthead{text-align:center;padding:3rem 2rem 2rem;border-bottom:1px solid var(--rule)}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.4em;text-transform:uppercase;color:var(--caption);margin-bottom:.4rem}
+  .masthead h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:4rem;letter-spacing:.06em;text-transform:uppercase;line-height:1}
+  .tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:var(--caption);margin-top:.6rem}
+  .pub-line{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--moss);margin-top:1rem}
+  .pub-line a{color:var(--moss);text-decoration:none}
+  main{flex:1;display:flex;align-items:center;justify-content:center;padding:3rem 2rem}
+  .signup-card{max-width:580px;width:100%}
+  .card-kicker{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.25em;text-transform:uppercase;color:var(--moss);margin-bottom:.8rem}
+  .card-heading{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:2.2rem;line-height:1.18;margin-bottom:1.2rem;border-top:2px solid var(--moss);padding-top:1.2rem}
+  .card-body{font-size:1.05rem;line-height:1.75;color:#4a4a42;margin-bottom:1.8rem}
+  .card-body em{font-style:italic;color:var(--moss)}
+  .pitch-list{list-style:none;margin-bottom:2rem;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:1.2rem 0;display:flex;flex-direction:column;gap:.6rem}
+  .pitch-list li{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.08em;color:var(--caption);display:flex;align-items:baseline;gap:.7rem}
+  .pitch-list li::before{content:'\2014';color:var(--moss);flex-shrink:0}
+  .form-row{display:flex}
+  .form-row input[type=email]{flex:1;font-family:'IBM Plex Mono',monospace;font-size:.65rem;padding:.75rem 1rem;border:1px solid var(--rule);border-right:none;background:#fff;color:var(--ink);outline:none;transition:border-color .2s}
+  .form-row input[type=email]:focus{border-color:var(--moss)}
+  .form-row input::placeholder{color:var(--caption)}
+  .form-row button{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;padding:.75rem 1.4rem;background:var(--moss);color:var(--parchment);border:1px solid var(--moss);cursor:pointer;transition:background .2s;white-space:nowrap}
+  .form-row button:hover{background:var(--ink);border-color:var(--ink)}
+  .form-note{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.08em;color:var(--caption);margin-top:.8rem}
+  .success-state{display:none;border-top:2px solid var(--moss);padding-top:1.2rem}
+  .success-heading{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:2rem;margin-bottom:.6rem}
+  .success-state p{font-size:1rem;color:var(--caption);line-height:1.7}
+  .success-state a{color:var(--moss)}
+  .footer{border-top:1px solid var(--rule);padding:1.2rem 2.5rem;display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.08em;color:var(--caption)}
+  .footer a{color:var(--moss);text-decoration:none}
+  @media(max-width:600px){
+    .masthead h1{font-size:2.8rem}
+    .form-row{flex-direction:column}
+    .form-row input[type=email]{border-right:1px solid var(--rule);border-bottom:none}
+    .top-rule,.footer{flex-direction:column;gap:.3rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="top-rule">
+  <span>The Fog Break &mdash; Golf Physics Publication</span>
+  <span>First issue Monday, 21 April 2026</span>
+</div>
+
+<div class="masthead">
+  <div class="eyebrow">The</div>
+  <h1>Fog Break</h1>
+  <div class="tagline">Demystifying Golf</div>
+  <div class="pub-line">A publication by <a href="https://www.fogandflag.com">Fog + Flag</a></div>
+</div>
+
+<main>
+  <div class="signup-card">
+    <div id="form-state">
+      <div class="card-kicker">Free weekly publication &mdash; Every Monday</div>
+      <h2 class="card-heading">Golf physics, explained clearly.</h2>
+      <p class="card-body">
+        Most golf instruction tells you <em>what</em> to do.
+        The Fog Break tells you <em>why it works</em>&mdash;using actual physics,
+        peer-reviewed research, and honest numbers.
+        No equipment ads, no swing tips, no hype.
+      </p>
+      <ul class="pitch-list">
+        <li>Why face angle controls 87% of ball direction&mdash;not your path</li>
+        <li>What spin loft actually is and how it costs you 15 yards off the tee</li>
+        <li>Why the dimpled ball puts a ceiling on what any putter can do</li>
+        <li>Interactive tools that let you explore the physics yourself</li>
+      </ul>
+      <div class="form-row">
+        <input type="email" id="email-input" placeholder="your@email.com" autocomplete="email">
+        <button id="sub-btn" onclick="handleSubscribe()">Subscribe free</button>
+      </div>
+      <div class="form-note">Free forever. No spam. Unsubscribe any time.</div>
+    </div>
+
+    <div class="success-state" id="success-state">
+      <div class="success-heading">You&rsquo;re in.</div>
+      <p>First issue lands Monday, 21 April 2026. We&rsquo;ll see you then.<br><br>
+      In the meantime, <a href="/">explore the site &rarr;</a></p>
+    </div>
+  </div>
+</main>
+
+<div class="footer">
+
+</div>
+
+<script>
+async function handleSubscribe() {
+  const email = document.getElementById('email-input').value.trim();
+  const btn = document.getElementById('sub-btn');
+  const input = document.getElementById('email-input');
+  if (!email || !email.includes('@')) { input.style.borderColor='#8b4a3f'; input.focus(); return; }
+  btn.textContent = 'Subscribing\u2026'; btn.disabled = true; input.disabled = true;
+  try {
+    const res = await fetch('/.netlify/functions/subscribe', {
+      method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email})
+    });
+    if (res.ok) {
+      document.getElementById('form-state').style.display='none';
+      document.getElementById('success-state').style.display='block';
+    } else {
+      btn.textContent='Something went wrong \u2014 try again'; btn.disabled=false; input.disabled=false; btn.style.background='#8b4a3f';
+    }
+  } catch {
+    btn.textContent='Something went wrong \u2014 try again'; btn.disabled=false; input.disabled=false;
+  }
+}
+document.getElementById('email-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') handleSubscribe();
+});
+</script>
+</body>
+</html>
