@@ -6,6 +6,7 @@
 <title>Putter Physics Explorer — The Fog Break</title>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/motion.css">
 <style>
   :root {
     --ink: #1d1f1c;
@@ -58,14 +59,6 @@
   .stat-val.good { color: var(--moss); }
   .stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.44rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--caption); }
 
-  .dist-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: 1.5rem; }
-  .dist-stat { background: var(--parchment); padding: 0.75rem 0.8rem; text-align: center; }
-  .dist-stat-val { font-family: 'IBM Plex Mono', monospace; font-size: 0.92rem; font-weight: 500; line-height: 1; margin-bottom: 0.25rem; color: var(--ink); }
-  .dist-stat-val.short { color: var(--red); }
-  .dist-stat-val.past  { color: var(--gold); }
-  .dist-stat-val.holes { color: var(--moss); }
-  .dist-stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.42rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--caption); }
-
   .insight { margin-bottom: 1.5rem; padding: 1.1rem 1.4rem; border-left: 3px solid var(--moss); background: var(--moss-soft); font-style: italic; font-size: 0.95rem; line-height: 1.65; color: #333; }
   .insight strong { font-style: normal; color: var(--moss); }
 
@@ -80,7 +73,7 @@
 
   @media (max-width: 600px) {
     .controls { grid-template-columns: 1fr; }
-    .stats, .dist-stats { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr; }
     .site-nav { padding: 0.7rem 1rem; }
     .tool-wrap, .tool-header { padding: 0 1rem; }
     .preset-btns { flex-direction: column; }
@@ -103,7 +96,7 @@
 <div class="tool-header">
   <div class="kicker">Interactive Tool &mdash; No. I &mdash; Putting</div>
   <h1>Putter Physics Explorer</h1>
-  <p>Adjust face angle, putt distance, pace, and putter type to see exactly where your ball ends up&mdash;and what the physics actually says about it.</p>
+  <p>Adjust face angle, strike location, distance, pace, and putter type to see exactly where your ball ends up&mdash;and what the physics actually says about it.</p>
 </div>
 
 <div class="tool-wrap">
@@ -130,16 +123,20 @@
       </select>
     </div>
     <div class="control-group full">
-      <label>Putt Pace &mdash; perfect strike stops here <span class="val" id="pace-val">Holing speed</span></label>
+      <label>Strike Location &mdash; heel (&minus;) / center / toe (+) <span class="val" id="strike-val">Center</span></label>
+      <input type="range" id="strike" min="-1.0" max="1.0" step="0.1" value="0">
+    </div>
+    <div class="control-group full">
+      <label>Putt Pace &mdash; perfect center strike stops here <span class="val" id="pace-val">Holing speed</span></label>
       <input type="range" id="pace" min="-2" max="2" step="0.1" value="0">
     </div>
   </div>
 
-  <div class="section-label">Direction &mdash; top-down view</div>
+  <div class="section-label">Direction &amp; distance &mdash; top-down view</div>
   <div class="viz-box">
     <svg id="dir-viz" viewBox="0 0 680 240" xmlns="http://www.w3.org/2000/svg"></svg>
   </div>
-  <div class="caption"><strong>Face angle</strong> determines 83&ndash;92% of starting direction (varies by putter type and friction). <strong>Path</strong> accounts for the remainder. Cup shown to scale at 4.25&Prime; diameter. An open face sends the ball right of the target line.</div>
+  <div class="caption"><strong>Solid line:</strong> trajectory for selected putter, face angle, and strike location &mdash; direction includes horizontal gear effect, distance reflects impact ratio drop. <strong>Dashed line:</strong> perfect center strike reference. Gear effect: Lambeth et al. 2020 (0.23&deg;/15mm blade, 0.59&deg;/15mm mallet). Impact ratios: Quintic Ball Roll robotic testing.</div>
 
   <div class="stats">
     <div class="stat">
@@ -152,28 +149,7 @@
     </div>
     <div class="stat">
       <div class="stat-val" id="stat-verdict">&mdash;</div>
-      <div class="stat-label">Direction verdict</div>
-    </div>
-  </div>
-
-  <div class="section-label">Distance &amp; pace &mdash; ½&Prime; off-center strike</div>
-  <div class="viz-box">
-    <svg id="dist-viz" viewBox="0 0 680 145" xmlns="http://www.w3.org/2000/svg"></svg>
-  </div>
-  <div class="caption"><strong>Each lane</strong> shows where the ball stops after a ½&Prime; toe mishit: center strike (reference), mallet, blade. Impact ratio data from Quintic Ball Roll robotic testing (IR: center&nbsp;1.70, mallet&nbsp;1.69, blade&nbsp;1.52). Pace set by the slider above.</div>
-
-  <div class="dist-stats">
-    <div class="dist-stat">
-      <div class="dist-stat-val" id="ds-center">&mdash;</div>
-      <div class="dist-stat-label">Center strike</div>
-    </div>
-    <div class="dist-stat">
-      <div class="dist-stat-val" id="ds-mallet">&mdash;</div>
-      <div class="dist-stat-label">Mallet ½&Prime; mishit</div>
-    </div>
-    <div class="dist-stat">
-      <div class="dist-stat-val" id="ds-blade">&mdash;</div>
-      <div class="dist-stat-label">Blade ½&Prime; mishit</div>
+      <div class="stat-label">Verdict</div>
     </div>
   </div>
 
@@ -183,8 +159,9 @@
     <div class="presets-label">Article examples</div>
     <div class="preset-btns">
       <button class="preset-btn" id="preset-1" onclick="applyPreset('8ft-1deg')">8ft &middot; 1&deg; open</button>
-      <button class="preset-btn" id="preset-2" onclick="applyPreset('mishit-25ft')">½&Prime; mishit &middot; 25ft</button>
-      <button class="preset-btn" id="preset-3" onclick="applyPreset('30ft-noise')">30ft &middot; noise floor</button>
+      <button class="preset-btn" id="preset-2" onclick="applyPreset('mishit-25ft')">½&Prime; toe &middot; 25ft</button>
+      <button class="preset-btn" id="preset-3" onclick="applyPreset('15mm-gear')">15mm toe &middot; gear effect</button>
+      <button class="preset-btn" id="preset-4" onclick="applyPreset('30ft-noise')">30ft &middot; noise floor</button>
     </div>
   </div>
 
@@ -194,47 +171,65 @@
 <script>
 // ─── Physics constants ─────────────────────────────────────────────────────
 
-// Cup geometry (inches)
-const CUP_R = 2.125;   // hole radius
-const BALL_R = 0.84;   // ball radius
-// Ball centre must be within (CUP_R - BALL_R) of hole centre to drop.
-// Matches the article's table: arctan(1.285 / 96") = 0.767° ≈ 0.76° at 8ft ✓
-const MAKE_THRESHOLD = CUP_R - BALL_R; // 1.285"
+const CUP_R = 2.125;   // hole radius, inches
+const BALL_R = 0.84;   // ball radius, inches
+const MAKE_THRESHOLD = CUP_R - BALL_R; // 1.285" — centre-to-centre for drop
 
-// Distance physics — Quintic Ball Roll robotic testing (article ref 8)
-// Impact Ratio (IR) = ball_speed / putter_speed
-// Center strike: 1.70  |  Blade ½" toe: 1.52  |  Mallet ½" toe: 1.69
-const DIST_RATIO_BLADE  = 1.52 / 1.70;  // 0.8941
-const DIST_RATIO_MALLET = 1.69 / 1.70;  // 0.9941
-
-// Face angle contribution to launch direction (Wood et al. 2020; Quintic data)
-// Varies with friction coefficient and putter design.
+// Face angle contribution to launch direction (Wood et al. 2020; Quintic)
+// Varies with putter design and friction. Range 83–92% across literature.
 function faceContrib(type) {
   if (type === 'zerotorque') return 0.91;
   if (type === 'mallet')     return 0.86;
   return 0.88; // blade
 }
 
-// Effective launch direction (degrees)
-function launchAngle(faceAngle, pathAngle, type) {
-  const fw = faceContrib(type);
-  return faceAngle * fw + pathAngle * (1 - fw);
+// Horizontal gear effect: degrees offline per mm of off-centre strike.
+// Source: Lambeth et al. 2020 — adjustable CG/MOI putter, 15mm toe strike.
+// Blade (shallow CG): 0.23° — short lever arm, ball deflects minimally.
+// Mallet (deep CG):   0.59° — long lever arm sweeps face sideways across ball.
+// Toe strike pushes ball open (outside); heel pushes ball closed (inside).
+function gearRate(type) {
+  if (type === 'mallet')     return 0.59 / 15; // °/mm
+  if (type === 'zerotorque') return 0.50 / 15; // °/mm — mallet geometry, some CG reduction
+  return 0.23 / 15; // blade
 }
 
-// Lateral miss in inches at hole distance
-function lateralMiss(faceAngle, distFt, pathAngle, type) {
-  const launch = launchAngle(faceAngle, pathAngle, type);
+// Impact ratio: ball_speed / putter_speed. Drops with off-centre contact.
+// Baseline: 1.70 (centre strike, all types).
+// At ½" (12.7mm) off-centre — blade 1.52, mallet 1.69 (Quintic Ball Roll, ref 8).
+// Scaled linearly with |strike offset|.
+const IR_CENTER = 1.70;
+function impactRatio(type, strikeIn) {
+  const t = Math.abs(strikeIn) / 0.5; // normalised to ½" reference
+  const irAtHalf = type === 'blade' ? 1.52
+                 : type === 'mallet' ? 1.69
+                 : 1.695; // zerotorque ≈ near centre
+  return Math.max(IR_CENTER - t * (IR_CENTER - irAtHalf), IR_CENTER * 0.5);
+}
+
+// Effective launch angle: face + path + horizontal gear effect.
+function launchAngle(faceAngle, pathAngle, type, strikeIn) {
+  const fw       = faceContrib(type);
+  const strikeMm = (strikeIn || 0) * 25.4; // inches → mm; positive = toe
+  const gear     = strikeMm * gearRate(type); // positive toe = open direction
+  return faceAngle * fw + pathAngle * (1 - fw) + gear;
+}
+
+// Lateral miss in inches at a given distance (includes gear effect).
+function lateralMiss(faceAngle, distFt, pathAngle, type, strikeIn) {
+  const launch = launchAngle(faceAngle, pathAngle, type, strikeIn);
   return distFt * 12 * Math.tan(launch * Math.PI / 180);
 }
 
-// Stopping positions in feet from address
-function stoppingFeet(distFt, pace) {
+// Stopping distances in feet.
+// center = perfect centre strike; actual = selected putter at current strike offset.
+function stoppingFeet(distFt, pace, type, strikeIn) {
   const intended = distFt + pace;
+  const ir       = impactRatio(type, strikeIn);
   return {
     cup:    distFt,
     center: intended,
-    mallet: intended * DIST_RATIO_MALLET,
-    blade:  intended * DIST_RATIO_BLADE
+    actual: intended * (ir / IR_CENTER)
   };
 }
 
@@ -284,186 +279,155 @@ function putterSVG(type, angleDeg, ox, oy) {
   if (type === 'mallet') {
     return ln(-28, -22, 0, -22, SHAFT, 2.5) + arc(22) + ln(0, -22, 0, 22, FACE, 2);
   }
-  // zerotorque — shaft through centre
   return ln(-32, 0, 0, 0, SHAFT, 2.5) + arc(20) + ln(0, -20, 0, 20, FACE, 2);
 }
 
-// ─── Direction visualisation ──────────────────────────────────────────────
+// Contact point dot on face — shows strike location visually.
+function strikeDotSVG(type, angleDeg, ox, oy, strikeIn) {
+  const faceHalfPx = 20; // half face height in SVG units
+  const dotY = -strikeIn * faceHalfPx; // positive strike (toe) = up in SVG
+  const [dx, dy] = rot(0, dotY, angleDeg, ox, oy);
+  const color = Math.abs(strikeIn) < 0.05 ? '#4a6348' : '#8b4a3f';
+  return `<circle cx="${dx.toFixed(1)}" cy="${dy.toFixed(1)}" r="3.5" fill="${color}" stroke="#fff" stroke-width="1.2" opacity="0.9"/>`;
+}
 
-function drawDirection(angle, dist, path, type, miss, made) {
+// ─── Unified direction + distance visualisation ───────────────────────────
+
+function drawDirection(angle, dist, path, type, miss, made, pace, stops, strike) {
   const H = 240, CY = H / 2;
   const ADDR_X = 56;
-  const usableW = W - ADDR_X - 80;
-  const scale = Math.min(usableW / (dist * 12), 10);
-  const distPx = dist * 12 * scale;
-  const cupX = ADDR_X + distPx;
-  const missPx = miss * scale;
-  const ballY = CY + missPx;
-  const cupR_px = Math.max(CUP_R * scale, 5);
+  const usableW = W - ADDR_X - 70;
+
+  const actualStop = stops.actual;
+  const centerStop  = stops.center;
+  const maxFt       = Math.max(dist, actualStop, centerStop) + 0.3;
+  const scale       = Math.min(usableW / (maxFt * 12), 10);
+
+  const cupX      = ADDR_X + dist * 12 * scale;
+  const cupR_px   = Math.max(CUP_R * scale, 5);
   const makeZone_px = Math.max(MAKE_THRESHOLD * scale, 4);
-  const bandH = Math.max(72, Math.abs(missPx) + cupR_px + 28);
+
+  // Actual endpoint — selected putter with current strike and face angle
+  const actualMissIn = lateralMiss(angle, actualStop, path, type, strike);
+  const ballX        = ADDR_X + actualStop * 12 * scale;
+  const ballY        = CY + actualMissIn * scale;
+
+  // Center strike reference — same face angle, no strike offset
+  const centerMissIn = lateralMiss(angle, centerStop, path, type, 0);
+  const centerX      = ADDR_X + centerStop * 12 * scale;
+  const centerY      = CY + centerMissIn * scale;
+
   const pathColor = made ? '#4a6348' : '#8b4a3f';
+  const maxLateral = Math.max(Math.abs(actualMissIn), Math.abs(centerMissIn)) * scale;
+  const bandH      = Math.max(72, maxLateral + cupR_px + 30);
 
-  let s = `
-    <rect width="${W}" height="${H}" fill="#faf8f4"/>
-    <rect x="${ADDR_X - 10}" y="${CY - bandH / 2}" width="${distPx + 55}" height="${bandH}" fill="#e6ede3" opacity="0.55" rx="3"/>
-    <line x1="${ADDR_X}" y1="${CY}" x2="${cupX + 34}" y2="${CY}" stroke="#a8a095" stroke-width="1" stroke-dasharray="6 4"/>
-    <line x1="${ADDR_X}" y1="${CY}" x2="${cupX}" y2="${ballY}" stroke="${pathColor}" stroke-width="2" stroke-linecap="round"/>
-    <circle cx="${cupX}" cy="${CY}" r="${cupR_px.toFixed(1)}" fill="none" stroke="#1d1f1c" stroke-width="1.5"/>
-    <circle cx="${cupX}" cy="${CY}" r="${makeZone_px.toFixed(1)}" fill="none" stroke="#4a6348" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.4"/>
-    <circle cx="${cupX}" cy="${CY}" r="${(cupR_px * 0.42).toFixed(1)}" fill="#2a2a28"/>
-    <circle cx="${cupX}" cy="${ballY}" r="5.5" fill="${pathColor}" stroke="#fff" stroke-width="1.5"/>
-  `;
+  let s = `<rect width="${W}" height="${H}" fill="#faf8f4"/>`;
+  s += `<rect x="${ADDR_X - 10}" y="${(CY - bandH / 2).toFixed(1)}" width="${(cupX - ADDR_X + 55).toFixed(0)}" height="${bandH.toFixed(1)}" fill="#e6ede3" opacity="0.55" rx="3"/>`;
 
-  if (Math.abs(missPx) > cupR_px + 8) {
-    const gx = (cupX + cupR_px + 12).toFixed(1);
+  // Dashed target line
+  s += `<line x1="${ADDR_X}" y1="${CY}" x2="${(cupX + 30).toFixed(0)}" y2="${CY}" stroke="#a8a095" stroke-width="1" stroke-dasharray="6 4"/>`;
+
+  // Center strike ghost (only meaningful when mishit ratio differs from 1.0)
+  const showCenter = Math.abs(centerX - ballX) > 6 || Math.abs(centerY - ballY) > 3;
+  if (showCenter) {
+    s += `<line x1="${ADDR_X}" y1="${CY}" x2="${centerX.toFixed(1)}" y2="${centerY.toFixed(1)}" stroke="#a8a095" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.45"/>`;
+    s += `<circle cx="${centerX.toFixed(1)}" cy="${centerY.toFixed(1)}" r="4" fill="none" stroke="#a8a095" stroke-width="1.5" opacity="0.5"/>`;
+    const labelSide = centerY <= CY ? -10 : 10;
+    s += `<text x="${centerX.toFixed(1)}" y="${(centerY + labelSide).toFixed(1)}" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#a8a095" opacity="0.7">center</text>`;
+  }
+
+  // Main trajectory — selected putter with ½" toe mishit
+  s += `<line x1="${ADDR_X}" y1="${CY}" x2="${ballX.toFixed(1)}" y2="${ballY.toFixed(1)}" stroke="${pathColor}" stroke-width="2" stroke-linecap="round"/>`;
+
+  // Cup
+  s += `<circle cx="${cupX}" cy="${CY}" r="${cupR_px.toFixed(1)}" fill="none" stroke="#1d1f1c" stroke-width="1.5"/>`;
+  s += `<circle cx="${cupX}" cy="${CY}" r="${makeZone_px.toFixed(1)}" fill="none" stroke="#4a6348" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.4"/>`;
+  s += `<circle cx="${cupX}" cy="${CY}" r="${(cupR_px * 0.42).toFixed(1)}" fill="#2a2a28"/>`;
+
+  // Ball dot at actual stopping position
+  s += `<circle cx="${ballX.toFixed(1)}" cy="${ballY.toFixed(1)}" r="5.5" fill="${pathColor}" stroke="#fff" stroke-width="1.5"/>`;
+
+  // Lateral miss annotation
+  if (Math.abs(actualMissIn * scale) > cupR_px + 8) {
+    const gx = (Math.max(cupX, ballX) + cupR_px + 12).toFixed(1);
     const my = ((CY + ballY) / 2 + 4).toFixed(1);
-    s += `
-      <line x1="${gx}" y1="${CY}" x2="${gx}" y2="${ballY}" stroke="#8b4a3f" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
-      <text x="${(parseFloat(gx) + 5).toFixed(1)}" y="${my}" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#8b4a3f">${Math.abs(miss).toFixed(2)}"</text>
-    `;
+    s += `<line x1="${gx}" y1="${CY}" x2="${gx}" y2="${ballY.toFixed(1)}" stroke="#8b4a3f" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>`;
+    s += `<text x="${(parseFloat(gx) + 5).toFixed(1)}" y="${my}" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#8b4a3f">${Math.abs(actualMissIn).toFixed(2)}"</text>`;
+  }
+
+  // Distance short / past annotation
+  const distDiffFt = actualStop - dist;
+  if (Math.abs(distDiffFt) > 0.04) {
+    const shortStr = Math.abs(distDiffFt) < 1
+      ? `${Math.abs(Math.round(distDiffFt * 12))}" ${distDiffFt < 0 ? 'short' : 'past'}`
+      : `${Math.abs(distDiffFt).toFixed(1)}ft ${distDiffFt < 0 ? 'short' : 'past'}`;
+    const mid  = ((ballX + cupX) / 2).toFixed(1);
+    const anoY = (CY - bandH / 2 + 14).toFixed(1);
+    s += `<line x1="${ballX.toFixed(1)}" y1="${anoY}" x2="${cupX.toFixed(1)}" y2="${anoY}" stroke="#9a9080" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.7"/>`;
+    s += `<text x="${mid}" y="${(parseFloat(anoY) - 4).toFixed(1)}" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#736a5c">${shortStr}</text>`;
   }
 
   s += putterSVG(type, angle, ADDR_X, CY);
-  s += `
-    <text x="${ADDR_X - 4}" y="${H - 10}" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#9a9080">address</text>
-    <text x="${cupX.toFixed(1)}" y="${H - 10}" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#9a9080">${dist}ft</text>
-    <text x="${W - 8}" y="${CY + 4}" text-anchor="end" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#c0b8a8">target line</text>
-  `;
+  s += strikeDotSVG(type, angle, ADDR_X, CY, strike);
+  s += `<text x="${ADDR_X - 4}" y="${H - 10}" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#9a9080">address</text>`;
+  s += `<text x="${cupX.toFixed(1)}" y="${H - 10}" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#9a9080">${dist}ft (hole)</text>`;
 
   document.getElementById('dir-viz').innerHTML = s;
 }
 
-// ─── Distance visualisation (swim lanes) ─────────────────────────────────
-
-function drawDistance(dist, pace, stops) {
-  const H = 145;
-  const ML = 110, MR = 40;
-  const UW = W - ML - MR;
-
-  const maxFt = Math.max(stops.cup + 2, stops.center + 0.3);
-  const scale = UW / (maxFt * 12);
-
-  const ax   = ML;
-  const cx   = ax + Math.min(stops.center, maxFt) * 12 * scale;
-  const mx_  = ax + Math.min(stops.mallet, maxFt) * 12 * scale;
-  const bx   = ax + Math.min(stops.blade,  maxFt) * 12 * scale;
-  const cupX = ax + stops.cup * 12 * scale;
-  const cupHW = Math.max(CUP_R * scale, 5);
-
-  const Y1 = 28, Y2 = 64, Y3 = 100;
-  const LANE_H = 13;
-  const COLORS = { center: '#4a6348', mallet: '#9a7020', blade: '#8b4a3f' };
-
-  let s = `<rect width="${W}" height="${H}" fill="#faf8f4"/>`;
-
-  [
-    { y: Y1, x: cx,  key: 'center', label: 'center strike' },
-    { y: Y2, x: mx_, key: 'mallet', label: 'mallet \u00bd\u2033' },
-    { y: Y3, x: bx,  key: 'blade',  label: 'blade \u00bd\u2033' }
-  ].forEach(({ y, x, key, label }) => {
-    const col = COLORS[key];
-    const reaches = x >= cupX - cupHW;
-
-    s += `<rect x="${ax}" y="${y - LANE_H / 2}" width="${UW}" height="${LANE_H}" fill="${col}" opacity="0.07" rx="2"/>`;
-
-    const lineEnd = Math.min(x, cupX - cupHW - 1);
-    if (lineEnd > ax) {
-      s += `<line x1="${ax}" y1="${y}" x2="${lineEnd.toFixed(1)}" y2="${y}" stroke="${col}" stroke-width="2.5" stroke-linecap="round"/>`;
-    }
-    if (reaches) {
-      s += `<line x1="${(cupX - cupHW + 1).toFixed(1)}" y1="${y}" x2="${Math.min(x, W - MR).toFixed(1)}" y2="${y}" stroke="${col}" stroke-width="1.5" stroke-dasharray="2 2" opacity="0.45"/>`;
-    }
-
-    s += `<circle cx="${x.toFixed(1)}" cy="${y}" r="5.5" fill="${col}" stroke="#fff" stroke-width="1.5"/>`;
-    s += `<text x="${ax - 6}" y="${y + 4}" text-anchor="end" font-family="'IBM Plex Mono',monospace" font-size="8" fill="${col}">${label}</text>`;
-  });
-
-  s += `<line x1="${cupX.toFixed(1)}" y1="${Y1 - LANE_H / 2 - 6}" x2="${cupX.toFixed(1)}" y2="${Y3 + LANE_H / 2 + 6}" stroke="#1d1f1c" stroke-width="1.5"/>`;
-
-  const bladeShortFt = stops.cup - stops.blade;
-  if (bladeShortFt > 0.06) {
-    const gapMid = ((bx + cupX - cupHW) / 2).toFixed(1);
-    const shortStr = bladeShortFt < 1
-      ? `${Math.round(bladeShortFt * 12)}" short`
-      : `${bladeShortFt.toFixed(1)}ft short`;
-    s += `
-      <line x1="${(bx + 7).toFixed(1)}" y1="${Y3}" x2="${(cupX - cupHW - 2).toFixed(1)}" y2="${Y3}" stroke="${COLORS.blade}" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.5"/>
-      <text x="${gapMid}" y="${Y3 - 9}" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="${COLORS.blade}">${shortStr}</text>
-    `;
-  }
-
-  const malletShortFt = stops.cup - stops.mallet;
-  if (malletShortFt > 0.04 && Math.abs(bx - mx_) > 14) {
-    const shortStr = malletShortFt < 1
-      ? `${(malletShortFt * 12).toFixed(1)}" short`
-      : `${malletShortFt.toFixed(1)}ft short`;
-    s += `<text x="${mx_.toFixed(1)}" y="${Y2 - 10}" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="${COLORS.mallet}">${shortStr}</text>`;
-  }
-
-  s += `
-    <circle cx="${ax}" cy="${Y2}" r="3" fill="#736a5c"/>
-    <text x="${ax}" y="${H - 6}" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#a8a095">address</text>
-    <text x="${cupX.toFixed(1)}" y="${H - 6}" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#1d1f1c">${dist}ft (hole)</text>
-  `;
-
-  document.getElementById('dist-viz').innerHTML = s;
-}
-
-// ─── Distance stat display ────────────────────────────────────────────────
-
-function fmtDistStat(stopFt, cupFt) {
-  const diff = stopFt - cupFt;
-  if (diff >= 0) {
-    if (diff < 0.01) return { text: 'Holes', cls: 'holes' };
-    const pastIn = diff * 12;
-    const txt = pastIn < 12 ? `+${pastIn.toFixed(1)}" (in)` : `+${diff.toFixed(1)}ft (in)`;
-    return { text: txt, cls: 'holes' };
-  } else {
-    const shortFt = -diff;
-    const txt = shortFt < 1
-      ? `${Math.round(shortFt * 12)}" short`
-      : `${shortFt.toFixed(1)}ft short`;
-    return { text: txt, cls: 'short' };
-  }
-}
-
 // ─── Insight ──────────────────────────────────────────────────────────────
 
-function buildInsight(angle, dist, miss, made, pace, stops, type) {
-  const typeName = { blade: 'blade', mallet: 'high-MOI mallet', zerotorque: 'zero-torque putter' }[type];
-  const bladeShortFt  = stops.cup - stops.blade;
-  const malletShortFt = stops.cup - stops.mallet;
-  const bladeReaches  = stops.blade  >= stops.cup;
-  const malletReaches = stops.mallet >= stops.cup;
-  const centerReaches = stops.center >= stops.cup;
+function buildInsight(angle, dist, miss, made, pace, stops, type, strike) {
+  const typeName      = { blade: 'blade', mallet: 'high-MOI mallet', zerotorque: 'zero-torque putter' }[type];
+  const distDiffFt    = stops.actual - dist;
+  const reachesHole   = stops.actual >= dist - 0.04;
+  const centerReaches = stops.center >= stops.cup - 0.04;
+  const gearDeg       = Math.abs(strike) * 25.4 * gearRate(type);
+  const overallMade   = made && reachesHole;
+  const absMiss       = Math.abs(miss);
+  const absStrike     = Math.abs(strike);
+
+  const missStr  = absMiss < 12
+    ? `${absMiss.toFixed(2)}&Prime;`
+    : `${(absMiss / 12).toFixed(2)}ft`;
+  const shortStr = Math.abs(distDiffFt) < 1
+    ? `${Math.abs(Math.round(distDiffFt * 12))}&Prime;`
+    : `${Math.abs(distDiffFt).toFixed(1)}ft`;
 
   const parts = [];
 
-  if (angle < 0.05) {
-    parts.push(`No face angle error. Direction miss (if any) comes entirely from path. This is what elite face control looks like in isolation.`);
-  } else if (made) {
-    parts.push(`A <strong>${angle.toFixed(2)}&deg;</strong> open face at ${dist}ft stays within the making window&mdash;the ball just catches the cup on the <strong>${typeName}</strong>.`);
+  // ── Verdict first ───────────────────────────────────────────────
+  if (overallMade && angle < 0.05 && absStrike < 0.05) {
+    parts.push(`Square face, centre strike, right pace &mdash; the <strong>${typeName}</strong> drops this one.`);
+  } else if (overallMade) {
+    parts.push(`<strong>It drops.</strong> The <strong>${typeName}</strong> absorbs the error with room to spare.`);
+  } else if (!reachesHole && made) {
+    parts.push(`<strong>Miss &mdash; short.</strong> The line is good, but the ball stops <strong>${shortStr}</strong> before the cup with the <strong>${typeName}</strong>.`);
+  } else if (reachesHole && !made) {
+    parts.push(`<strong>Miss &mdash; wide.</strong> The ball has the pace to reach the hole, but passes <strong>${missStr}</strong> to the ${miss >= 0 ? 'right' : 'left'} of it with the <strong>${typeName}</strong>.`);
   } else {
-    const missStr = Math.abs(miss) < 12
-      ? `${Math.abs(miss).toFixed(2)}&Prime;`
-      : `${(Math.abs(miss) / 12).toFixed(2)}ft`;
-    parts.push(`At ${dist}ft, <strong>${angle.toFixed(2)}&deg;</strong> open sends the ball <strong>${missStr} outside the cup</strong> with a <strong>${typeName}</strong>. The physics doesn&rsquo;t negotiate.`);
+    parts.push(`<strong>Miss on both axes:</strong> <strong>${shortStr}</strong> short and <strong>${missStr}</strong> offline with the <strong>${typeName}</strong>.`);
   }
 
-  if (!centerReaches && pace <= 0) {
-    parts.push(`The pace is set short&mdash;even a perfect center strike doesn&rsquo;t reach the hole. No putter design compensates for under-hitting.`);
-  } else if (bladeReaches && malletReaches) {
-    parts.push(`At this pace, both a ½&Prime; blade and mallet mishit still reach the cup. The mallet&rsquo;s energy advantage matters most near holing speed.`);
-  } else if (!bladeReaches && malletReaches) {
-    const shortStr = bladeShortFt < 1 ? `${Math.round(bladeShortFt * 12)}&Prime;` : `${bladeShortFt.toFixed(1)}ft`;
-    parts.push(`A ½&Prime; toe mishit leaves the <strong>blade ${shortStr} short</strong> while the <strong>mallet just reaches</strong>. The 0.9-point impact ratio gap is the entire margin.`);
-  } else if (!bladeReaches && !malletReaches) {
-    const bladeStr = bladeShortFt < 1 ? `${Math.round(bladeShortFt * 12)}&Prime;` : `${bladeShortFt.toFixed(1)}ft`;
-    const mallStr  = malletShortFt < 0.05 ? 'barely short'
-      : malletShortFt < 1 ? `${Math.round(malletShortFt * 12)}&Prime; short`
-      : `${malletShortFt.toFixed(1)}ft short`;
-    parts.push(`A ½&Prime; mishit leaves the <strong>blade ${bladeStr} short</strong>, the <strong>mallet ${mallStr}</strong>. This is the MOI forgiveness gap the article describes.`);
+  // ── Why: direction ──────────────────────────────────────────────
+  if (absStrike >= 0.1) {
+    const strikeDir = strike > 0 ? 'toe' : 'heel';
+    const kickDir   = strike > 0 ? 'open' : 'closed';
+    if (gearDeg > 0.02) {
+      parts.push(`A ${absStrike.toFixed(1)}&Prime; ${strikeDir} strike adds a <strong>${gearDeg.toFixed(2)}&deg; gear-effect kick</strong> ${kickDir} &mdash; the ${typeName}&rsquo;s CG depth amplifies the off-centre hit.`);
+    } else {
+      parts.push(`The ${absStrike.toFixed(1)}&Prime; ${strikeDir} strike only kicks ${gearDeg.toFixed(2)}&deg; offline; the shallow CG keeps gear effect small.`);
+    }
+  } else if (angle >= 0.05 && !made) {
+    parts.push(`With the face <strong>${angle.toFixed(2)}&deg;</strong> open at impact, the launch direction is set &mdash; no putter design fixes that once the ball leaves the face.`);
+  }
+
+  // ── Why: distance ───────────────────────────────────────────────
+  if (absStrike >= 0.1 && distDiffFt < -0.04) {
+    const ir = impactRatio(type, strike).toFixed(2);
+    parts.push(`Off-centre contact also drops the impact ratio to <strong>${ir}</strong>, costing <strong>${shortStr}</strong> of roll.`);
+  } else if (!centerReaches && pace < 0) {
+    parts.push(`The pace is set short by design &mdash; even a perfect centre strike wouldn&rsquo;t reach.`);
   }
 
   return parts.join(' ');
@@ -472,51 +436,55 @@ function buildInsight(angle, dist, miss, made, pace, stops, type) {
 // ─── Main draw ────────────────────────────────────────────────────────────
 
 function draw() {
-  const angle = parseFloat(document.getElementById('angle').value);
-  const dist  = parseInt(document.getElementById('dist').value);
-  const path  = parseFloat(document.getElementById('path').value);
-  const type  = document.getElementById('putter-type').value;
-  const pace  = parseFloat(document.getElementById('pace').value);
+  const angle  = parseFloat(document.getElementById('angle').value);
+  const dist   = parseInt(document.getElementById('dist').value);
+  const path   = parseFloat(document.getElementById('path').value);
+  const type   = document.getElementById('putter-type').value;
+  const strike = parseFloat(document.getElementById('strike').value);
+  const pace   = parseFloat(document.getElementById('pace').value);
 
-  document.getElementById('angle-val').textContent = angle.toFixed(2) + '\u00b0';
-  document.getElementById('dist-val').textContent  = dist + ' ft';
-  document.getElementById('path-val').textContent  = (path >= 0 ? '+' : '') + path.toFixed(1) + '\u00b0';
-  document.getElementById('pace-val').textContent  = pace === 0 ? 'Holing speed'
+  document.getElementById('angle-val').textContent  = angle.toFixed(2) + '\u00b0';
+  document.getElementById('dist-val').textContent   = dist + ' ft';
+  document.getElementById('path-val').textContent   = (path >= 0 ? '+' : '') + path.toFixed(1) + '\u00b0';
+  document.getElementById('pace-val').textContent   = pace === 0 ? 'Holing speed'
     : pace > 0 ? `+${pace.toFixed(1)}ft past` : `${pace.toFixed(1)}ft short`;
 
-  const miss = lateralMiss(angle, dist, path, type);
+  const strikeAbs = Math.abs(strike);
+  document.getElementById('strike-val').textContent = strikeAbs < 0.05 ? 'Center'
+    : `${strikeAbs.toFixed(1)}\u2033 ${strike > 0 ? 'toe' : 'heel'}`;
+
+  const miss = lateralMiss(angle, dist, path, type, strike);
   const made = Math.abs(miss) <= MAKE_THRESHOLD;
   const fw   = Math.round(faceContrib(type) * 100);
 
-  document.getElementById('stat-miss').textContent  = Math.abs(miss).toFixed(2) + '"';
-  document.getElementById('stat-miss').className    = 'stat-val ' + (made ? 'good' : 'warn');
-  document.getElementById('stat-pct').textContent   = fw + '%';
-  document.getElementById('stat-verdict').textContent = made ? 'Makes \u2713' : 'Misses \u2717';
-  document.getElementById('stat-verdict').className = 'stat-val ' + (made ? 'good' : 'warn');
+  const stops       = stoppingFeet(dist, pace, type, strike);
+  const reachesHole = stops.actual >= dist;
 
-  const stops = stoppingFeet(dist, pace);
+  document.getElementById('stat-miss').textContent = Math.abs(miss).toFixed(2) + '"';
+  document.getElementById('stat-miss').className   = 'stat-val ' + (made ? 'good' : 'warn');
+  document.getElementById('stat-pct').textContent  = fw + '%';
 
-  const setDS = (id, stat) => {
-    document.getElementById(id).textContent = stat.text;
-    document.getElementById(id).className   = 'dist-stat-val ' + stat.cls;
-  };
-  setDS('ds-center', fmtDistStat(stops.center, stops.cup));
-  setDS('ds-mallet', fmtDistStat(stops.mallet, stops.cup));
-  setDS('ds-blade',  fmtDistStat(stops.blade,  stops.cup));
+  if (!reachesHole) {
+    document.getElementById('stat-verdict').textContent = 'Short \u2717';
+    document.getElementById('stat-verdict').className   = 'stat-val warn';
+  } else {
+    document.getElementById('stat-verdict').textContent = made ? 'Makes \u2713' : 'Misses \u2717';
+    document.getElementById('stat-verdict').className   = 'stat-val ' + (made ? 'good' : 'warn');
+  }
 
   document.getElementById('insight-text').innerHTML =
-    buildInsight(angle, dist, miss, made, pace, stops, type);
+    buildInsight(angle, dist, miss, made, pace, stops, type, strike);
 
-  drawDirection(angle, dist, path, type, miss, made);
-  drawDistance(dist, pace, stops);
+  drawDirection(angle, dist, path, type, miss, made, pace, stops, strike);
 }
 
 // ─── Presets ──────────────────────────────────────────────────────────────
 
 const PRESETS = {
-  '8ft-1deg':    { angle: 1.0,  dist: 8,  path: 0, type: 'blade',      pace: 0 },
-  'mishit-25ft': { angle: 0,    dist: 25, path: 0, type: 'blade',      pace: 0 },
-  '30ft-noise':  { angle: 0.25, dist: 30, path: 0, type: 'zerotorque', pace: 0 },
+  '8ft-1deg':    { angle: 1.0,  dist: 8,  path: 0, type: 'blade',      strike: 0,     pace: 0 },
+  'mishit-25ft': { angle: 0,    dist: 25, path: 0, type: 'blade',      strike: 0.5,   pace: 0 },
+  '15mm-gear':   { angle: 0,    dist: 20, path: 0, type: 'mallet',     strike: 0.591, pace: 0 },
+  '30ft-noise':  { angle: 0.25, dist: 30, path: 0, type: 'zerotorque', strike: 0,     pace: 0 },
 };
 
 function applyPreset(key) {
@@ -526,14 +494,15 @@ function applyPreset(key) {
   document.getElementById('dist').value        = p.dist;
   document.getElementById('path').value        = p.path;
   document.getElementById('putter-type').value = p.type;
+  document.getElementById('strike').value      = p.strike;
   document.getElementById('pace').value        = p.pace;
   document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
-  const ids = { '8ft-1deg': 'preset-1', 'mishit-25ft': 'preset-2', '30ft-noise': 'preset-3' };
+  const ids = { '8ft-1deg': 'preset-1', 'mishit-25ft': 'preset-2', '15mm-gear': 'preset-3', '30ft-noise': 'preset-4' };
   if (ids[key]) document.getElementById(ids[key]).classList.add('active');
   draw();
 }
 
-['angle', 'dist', 'path', 'putter-type', 'pace'].forEach(id =>
+['angle', 'dist', 'path', 'putter-type', 'strike', 'pace'].forEach(id =>
   document.getElementById(id).addEventListener('input', () => {
     document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
     draw();
@@ -542,5 +511,6 @@ function applyPreset(key) {
 
 draw();
 </script>
+<script src="/assets/topo.js"></script>
 </body>
 </html>

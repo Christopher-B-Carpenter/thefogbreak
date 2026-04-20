@@ -1,0 +1,129 @@
+/*
+ * Motion vocabulary — The Fog Break
+ * Six named gestures applied consistently across every page.
+ * Include after page-specific styles. Requires topo.js for the
+ * ink draw-on and margin-wake behaviours.
+ */
+
+/* ── 1. Underline reveal ─────────────────────────────────────────────────────
+   Left-to-right sweep at 280ms ease-out on nav links.
+   Applies to both the centred homepage nav and the top-bar site-nav. */
+
+.nav a,
+.nav-links a {
+  position: relative;
+  text-decoration: none;
+}
+
+.nav a::after,
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--moss, #4a6348);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 280ms ease-out;
+}
+
+/* Only active reveal on non-active links */
+.nav a:not(.active):hover::after,
+.nav-links a:not(.active):hover::after {
+  transform: scaleX(1);
+}
+
+
+/* ── 2. Paper lift ───────────────────────────────────────────────────────────
+   Cards and tool previews rise 3 px with a soft shadow.
+   Never scales — that's a web-app tic. */
+
+.article-card,
+.archive-card,
+.tool-card {
+  transition:
+    transform    220ms ease-out,
+    box-shadow   220ms ease-out,
+    border-color 250ms ease-out;
+}
+
+.article-card:hover,
+.archive-card:hover,
+.tool-card:hover {
+  transform:  translateY(-3px);
+  box-shadow: 0 6px 20px rgba(29, 31, 28, 0.09);
+}
+
+
+/* ── 3. Crosshair cursor ─────────────────────────────────────────────────────
+   Over any interactive diagram the cursor becomes a crosshair,
+   signalling "this is a tool, not a picture." */
+
+.viz-box,
+.viz-box svg,
+.article-figure,
+.article-figure svg,
+.card-preview svg,
+.hero-diagram svg {
+  cursor: crosshair;
+}
+
+
+/* ── 4. Ink draw-on ──────────────────────────────────────────────────────────
+   Article figures start invisible and rise into view on first scroll-entry.
+   topo.js adds .topo-fade on each .article-figure, then adds .topo-visible
+   via IntersectionObserver. Once. Never on re-entry. */
+
+.article-figure.topo-fade {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 700ms ease-out, transform 700ms ease-out;
+}
+
+.article-figure.topo-fade.topo-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ── 5. Knob snap feedback ───────────────────────────────────────────────────
+   Sliders get a smooth accent-colour thumb and track — visual polish
+   that pairs with the JS snap-to-preset behaviour in the tool pages. */
+
+input[type="range"] {
+  accent-color: var(--moss, #4a6348);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  transition: box-shadow 120ms ease-out;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px rgba(74, 99, 72, 0.2);
+}
+
+
+/* ── 6. Margin wake ──────────────────────────────────────────────────────────
+   The topo canvas fades from its base opacity to a slightly higher value
+   when the cursor is active. topo.js handles this via canvas alpha;
+   no additional CSS needed here. */
+
+
+/* ── Topo canvas stacking ────────────────────────────────────────────────────
+   The canvas sits at z-index:0 (position:fixed). Without explicit z-index on
+   content, the CSS stacking order places positioned z-index:0 elements ABOVE
+   non-positioned static elements — meaning the canvas would paint over page
+   content. Fix: elevate all direct body children (except the canvas) to
+   z-index:1 so they reliably render above the canvas on every page. */
+
+#topo-canvas {
+  position: fixed !important;
+  z-index: 0 !important;
+}
+
+body > *:not(#topo-canvas) {
+  position: relative;
+  z-index: 1;
+}
