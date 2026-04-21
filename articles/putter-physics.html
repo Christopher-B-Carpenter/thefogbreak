@@ -3,7 +3,137 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Physics of the Flatstick</title>
+<title>What Your Putter Actually Does at Impact — The Fog Break</title>
+<meta name="description" content="A forensic look at blade, mallet, and zero-torque putter designs through oblique-impact mechanics. Why face angle dominates direction, what MOI really buys you, and why the dimpled ball puts a ceiling on all of it.">
+<meta name="keywords" content="putter physics, face angle, putter MOI, zero-torque putter, gear effect putter, blade vs mallet, putter impact mechanics, Lambeth 2020, Quintic putting, putting research">
+<meta name="author" content="The Fog Break">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://thefogbreak.com/articles/putter-physics.html">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Fog Break">
+<meta property="og:title" content="What Your Putter Actually Does and Does Not Do at Impact">
+<meta property="og:description" content="A forensic examination of blade, mallet, and zero-torque putter designs. Face angle dominates direction. MOI and gear effect play supporting roles. The dimpled ball caps all of it.">
+<meta property="og:url" content="https://thefogbreak.com/articles/putter-physics.html">
+<meta property="og:image" content="https://thefogbreak.com/assets/og-putter-physics.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:published_time" content="2026-04-14T00:00:00-07:00">
+<meta property="article:author" content="The Fog Break">
+<meta property="article:section" content="Putting">
+<meta property="article:tag" content="putter physics">
+<meta property="article:tag" content="face angle">
+<meta property="article:tag" content="putter MOI">
+<meta property="article:tag" content="zero-torque">
+<meta property="article:tag" content="gear effect">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What Your Putter Actually Does at Impact">
+<meta name="twitter:description" content="Blade, mallet, zero-torque — through the lens of oblique-impact mechanics. Face angle dominates. The math does not care about marketing.">
+<meta name="twitter:image" content="https://thefogbreak.com/assets/og-putter-physics.png">
+
+<!-- JSON-LD: Article -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "What Your Putter Actually Does and Does Not Do at Impact",
+  "alternativeHeadline": "A forensic look at the physics of blade, mallet, and zero-torque designs",
+  "description": "A forensic examination of blade, mallet, and zero-torque designs through the lens of oblique impact mechanics. Why face angle dominates direction, what MOI really buys you, and why the dimpled ball puts a ceiling on all of it.",
+  "image": "https://thefogbreak.com/assets/og-putter-physics.png",
+  "datePublished": "2026-04-14",
+  "dateModified": "2026-04-19",
+  "author": {
+    "@type": "Organization",
+    "name": "The Fog Break",
+    "url": "https://thefogbreak.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Fog Break",
+    "url": "https://thefogbreak.com/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://thefogbreak.com/assets/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://thefogbreak.com/articles/putter-physics.html"
+  },
+  "articleSection": "Putting",
+  "keywords": "putter physics, face angle, MOI, zero-torque putter, gear effect, oblique impact",
+  "wordCount": 4500,
+  "inLanguage": "en-US",
+  "isAccessibleForFree": true,
+  "citation": [
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Oblique impact of a putter face on a golf ball",
+      "author": "Lambeth et al.",
+      "datePublished": "2020"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Quintic Ball Roll putter performance studies",
+      "author": "Quintic Consultancy"
+    }
+  ]
+}
+</script>
+
+<!-- JSON-LD: FAQ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does face angle control the start line of a putt?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Face angle at impact accounts for roughly 83–92% of the initial start direction of a putt, depending on stroke path and strike location. Path and gear effect make up the remainder. Face angle is the dominant variable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a high-MOI mallet putter actually do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A high-MOI mallet reduces face rotation during off-center strikes, which preserves ball speed (the impact-ratio stays higher) and reduces distance loss. It does not meaningfully improve direction — in fact, the horizontal gear effect is larger on mallets than on blades."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the horizontal gear effect in putting?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "When the ball is struck off the center of the face, the putter head rotates during impact and imparts a lateral push on the ball. Lambeth et al. (2020) measured this at about 0.23 degrees per 15mm of heel/toe offset on a blade, and about 0.59 degrees per 15mm on a high-MOI mallet."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do zero-torque putters eliminate face rotation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Zero-torque designs align the center of gravity with the shaft axis to reduce torque during the stroke, which can help golfers who rotate the face open or closed through impact. They do not eliminate face rotation at impact itself, and they do not cancel the horizontal gear effect on off-center strikes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does a dimpled golf ball limit what any putter can do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Research on dimpled balls has shown that the initial launch direction varies by roughly one to two degrees depending on how the dimples happen to contact the putter face. This is a floor on putting precision that no putter design can overcome."
+      }
+    }
+  ]
+}
+</script>
+
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/motion.css">
 <style>
@@ -82,13 +212,18 @@
   </div>
 </nav>
 <div class="masthead">The Fog Break &bull; Equipment &bull; Essay</div>
-<div class="hero">
+<header class="hero">
   <div class="kicker">The Physics of Putting</div>
   <h1>What Your Putter Actually Does&mdash;and Doesn&rsquo;t Do&mdash;at Impact</h1>
   <p class="subtitle">A forensic look at the physics of blade, mallet, and zero-torque designs. The math doesn&rsquo;t care about marketing.</p>
+  <p class="hero-date" style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--caption);margin-top:1.2rem;">
+    Issue No. I &nbsp;&middot;&nbsp;
+    <time datetime="2026-04-14">14 April 2026</time>
+    &nbsp;&middot;&nbsp; 18&#8239;min read
+  </p>
   <hr class="hero-rule">
-</div>
-<div class="article">
+</header>
+<article class="article" itemscope itemtype="https://schema.org/Article">
 
 <p class="lede drop-cap">Every new putter release promises better roll, more forgiveness, and a straighter line to the hole. The claims usually aren&rsquo;t wrong so much as they&rsquo;re incomplete in ways that matter. Once you understand what actually happens in the half-millisecond a putter face touches a golf ball, the picture gets simpler and more humbling than any product launch lets on.</p>
 
@@ -117,7 +252,9 @@
 </div>
 
 <figure class="article-figure">
-<svg viewBox="0 0 680 280" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 680 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig1-title fig1-desc">
+  <title id="fig1-title">Figure 1: Face angle tolerance by putt distance</title>
+  <desc id="fig1-desc">At eight feet, less than one degree of face angle error at impact is enough to send the ball entirely outside the cup.</desc>
   <defs>
     <marker id="a1r" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1.5 L 10 5 L 0 8.5" fill="none" stroke="#8b3a3a" stroke-width="1.5"/></marker>
     <marker id="a1g" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1.5 L 10 5 L 0 8.5" fill="none" stroke="#2d5a27" stroke-width="1.5"/></marker>
@@ -187,7 +324,9 @@
 <p>Read that again. The putter with <em>more</em> forgiveness on paper sent the ball <em>more</em> offline in practice, because the directional error from gear effect outran the speed preservation from higher MOI. Putts that start 0.23&deg; offline miss the cup beyond about 27 feet; putts that start 0.59&deg; offline miss beyond roughly 10 feet.</p>
 
 <figure class="article-figure">
-<svg viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig2-title fig2-desc">
+  <title id="fig2-title">Figure 2: The mallet tax — blade vs mallet on a 15mm toe strike</title>
+  <desc id="fig2-desc">Blade and mallet putters both struck 15mm toward the toe. The blade's shallow center of gravity produces a nearly horizontal lever and a 0.23-degree offline launch. The mallet's deep center of gravity produces a diagonal lever and a 0.59-degree offline launch via horizontal gear effect.</desc>
   <defs>
     <marker id="a2r" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1 L 8 4 L 0 7" fill="none" stroke="#8b3a3a" stroke-width="1.2"/></marker>
     <marker id="a2g" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1 L 8 4 L 0 7" fill="none" stroke="#2d5a27" stroke-width="1.2"/></marker>
@@ -274,7 +413,9 @@
 <p>The flip side is unforgiving. That same low MOI means off-center hits lose significant energy. In robotic testing, a traditional Anser-style blade twisted six times as much as a high-MOI mallet on a half-inch toe strike, and its impact ratio (ball speed divided by putter speed) dropped from 1.70 to 1.52. On a 15-foot putt, that&rsquo;s enough to leave the ball about three feet short. The mallet barely moved, 1.70 down to 1.69&mdash;same putt, two inches short.<sup class="ref"><a href="#ref8">8</a></sup></p>
 
 <figure class="article-figure">
-<svg viewBox="0 0 680 260" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 680 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig3-title fig3-desc">
+  <title id="fig3-title">Figure 3: Distance forgiveness — off-center strike on blade vs high-MOI mallet</title>
+  <desc id="fig3-desc">On a half-inch off-center hit, a low-MOI blade loses enough impact-ratio energy to leave the ball three feet short of the cup, while a high-MOI mallet barely slows. This is the unambiguous mallet advantage: distance control on mishits.</desc>
   <rect width="100%" height="100%" fill="#faf8f5"/>
   <text x="340" y="28" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" font-weight="700" fill="#1a1a18" letter-spacing="0.1em">WHAT HAPPENS ON A &#189;-INCH MISHIT</text>
   <text x="340" y="43" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#6b6256">Robotic test &#8212; center hit vs. &#189;" off-center</text>
@@ -355,7 +496,9 @@
 <p>Every traditional putter has its center of gravity offset from the shaft axis when you hold the club at its playing lie angle. That offset creates a gravitational torque&mdash;the head wants to twist in one direction when you hold it naturally. In toe-hang designs, the toe drops. In face-balanced designs, the face points up only when the shaft is horizontal, not at the 70&deg; lie angle where you actually putt.</p>
 
 <figure class="article-figure">
-<svg viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig4-title fig4-desc">
+  <title id="fig4-title">Figure 4: The torque problem — traditional putter vs zero-torque design</title>
+  <desc id="fig4-desc">In a traditional putter held at lie angle, gravity acts on an offset center of gravity, producing a lever arm that twists the face open. A zero-torque or lie-angle-balanced design aligns the center of gravity with the shaft axis so the gravitational lever arm, and therefore the torque, is zero.</desc>
   <defs>
     <marker id="a4r" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0.5 L 8 4 L 0 7.5" fill="#8b3a3a"/></marker>
     <marker id="a4g" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0.5 L 8 4 L 0 7.5" fill="#2d5a27"/></marker>
@@ -478,7 +621,9 @@
 <p>Face angle control, though, happens in a <em>second</em>, perpendicular plane&mdash;rotation around the shaft axis. And that secondary motion is <em>coupled</em> to the primary stroke through the putter&rsquo;s inertial properties.<sup class="ref"><a href="#ref13">13</a></sup> As you accelerate the head through the ball, centripetal and tangential forces act through the offset CG and produce torques that try to rotate the face. Your neuromuscular system has to counteract those varying torques with precisely timed hand and wrist inputs, arriving at square at the exact instant of contact.</p>
 
 <figure class="article-figure">
-<svg viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig5-title fig5-desc">
+  <title id="fig5-title">Figure 5: Coupled motions of the putting stroke</title>
+  <desc id="fig5-desc">The stroke has a primary pendulum motion that controls speed and tempo, and a secondary face rotation that controls direction. The two are coupled through inertia: accelerating the putter creates forces that try to twist the face, so the golfer must arrive within a sub-one-degree window at the exact instant of impact.</desc>
   <defs>
     <marker id="a5c" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 1 L 8 4 L 0 7" fill="#c4b9a8"/></marker>
   </defs>
@@ -614,7 +759,7 @@
 
 <p>That&rsquo;s putting. Everything else is commentary.</p>
 
-<div class="references" id="references">
+<aside class="references" id="references" role="doc-bibliography" aria-label="References">
   <h2>Sources &amp; Further Reading</h2>
   <ol>
     <li id="ref1"><span class="ref-authors">Cochran, A. &amp; Stobbs, J.</span> <span class="ref-title">The Search for the Perfect Swing.</span> Lippincott, 1968. The foundational text on golf impact dynamics, establishing that the clubhead behaves as a free body during the ~0.5ms impact.</li>
@@ -635,11 +780,11 @@
     <li id="ref16"><span class="ref-authors">Cross, R.</span> <span class="ref-title">Physics of Golf.</span> University of Sydney, 2006. Experimental demonstration that golf balls do not roll straight on flat horizontal surfaces due to dimple-surface interactions. <a href="https://www.physics.usyd.edu.au/~cross/GOLF/GOLF.htm">usyd.edu.au</a></li>
     <li id="ref17"><span class="ref-authors">Pataky, T.C. &amp; Lamb, P.F.</span> <span class="ref-title">Effects of physical randomness training on virtual and laboratory golf putting performance in novices.</span> <span class="ref-journal">Journal of Sports Sciences, 36(12), 1355&ndash;1362, 2018.</span> Established that robotic putters sink only ~80% of 5m putts due to irreducible ball-green randomness.</li>
   </ol>
-</div>
+</aside>
 
-</div>
+</article>
 
-<div class="footer">&copy; 2026 &bull; The Fog Break &bull; A publication by Fog + Flag &bull; All claims grounded in peer-reviewed research and published physics.</div>
+<footer class="footer">&copy; 2026 &bull; The Fog Break &bull; A publication by Fog + Flag &bull; All claims grounded in peer-reviewed research and published physics.</footer>
 
 <script src="/assets/topo.js"></script>
 </body>

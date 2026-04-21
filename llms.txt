@@ -1,0 +1,41 @@
+# The Fog Break
+
+> Peer-reviewed golf physics, written in plain English, with explicit citations.
+> We translate the research on equipment and technique into honest, forensic
+> explanations — what the gear actually does at impact, what it doesn't, and
+> where the marketing stops matching the math.
+
+The Fog Break is a golf publication for players who want to understand the
+science behind their equipment and their swing. Every article is grounded in
+peer-reviewed mechanics, worked through first principles, and paired with
+interactive tools that let readers explore the same physics themselves.
+
+Citations are explicit and linked. When a claim has a number on it, the paper
+it came from is named. When a claim is our own synthesis, we say so.
+
+## Published articles
+
+- [What Your Putter Actually Does and Does Not Do at Impact](https://thefogbreak.com/articles/putter-physics.html): A forensic look at blade, mallet, and zero-torque putters through oblique-impact mechanics. Why face angle dominates direction (83–92% of start line), what MOI really buys you, the horizontal gear effect (Lambeth 2020), and why the dimpled ball puts a ceiling on all of it. 18-minute read, 5 figures.
+
+## Interactive tools
+
+- [Putter Face Angle Visualizer](https://thefogbreak.com/tools/putter-face-angle.html): Adjust face angle, putt distance, putter type, and strike location. The tool returns the predicted miss, accounting for face-angle contribution, horizontal gear effect, and impact-ratio roll-out behavior. Built from the same equations used in the putter-physics article.
+
+## Index
+
+- [Homepage](https://thefogbreak.com/): Latest issue and archive.
+- [Tools index](https://thefogbreak.com/tools/): All interactive physics tools.
+
+## Editorial standards
+
+- Every physical claim is sourced. We link to the paper or we don't make the
+  claim.
+- We favor mechanics over brand names. Where we name a model, we name it
+  because the design illustrates a principle, not because we endorse it.
+- We publish the equations. If the math doesn't support the story, the story
+  changes.
+
+## Contact
+
+The Fog Break is an independent publication. For corrections, citations, or
+physics questions, the site is at https://thefogbreak.com/.
