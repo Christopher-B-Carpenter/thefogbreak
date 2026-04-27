@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Driver Spin Loft Explorer — The Fog Break</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --ink: #1a1a18;
+        --paper: #f5f1eb;
+        --accent: #2d5a27;
+        --accent-light: #e8efe7;
+        --rule: #c4b9a8;
+        --caption: #6b6256;
+        --highlight: #d4a84b;
+        --red: #8b3a3a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+        margin: 0;
+        padding: 2rem;
+        background-color: var(--paper);
+        color: var(--ink);
+        font-family: 'EB Garamond', Georgia, serif;
+        display: flex;
+        justify-content: center;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+        max-width: 1000px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 2.5rem;
+    }
+
+    h2, h3 {
+        font-family: 'Cormorant Garamond', serif;
+        margin-top: 0;
+        font-weight: 700;
+        color: var(--ink);
+    }
+
+    /* Controls Column */
+    .controls {
+        background: #fff;
+        padding: 2rem 1.5rem;
+        border: 1px solid var(--rule);
+        display: flex;
+        flex-direction: column;
+        gap: 1.8rem;
+        height: min-content;
+    }
+
+    .controls h2 {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+        border-bottom: 2px solid var(--ink);
+        padding-bottom: 0.5rem;
+    }
+
+    .control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    label { 
+        font-family: 'IBM Plex Mono', monospace;
+        font-weight: 600; 
+        font-size: 0.7rem; 
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        display: flex; 
+        justify-content: space-between;
+        color: var(--ink);
+    }
+    
+    .slider-val { 
+        font-weight: 500; 
+        color: var(--accent);
+    }
+
+    input[type=range] {
+        width: 100%;
+        margin: 0;
+        cursor: pointer;
+        -webkit-appearance: none;
+        background: transparent;
+    }
+
+    input[type=range]:focus {
+        outline: none;
+    }
+
+    input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 2px;
+        background: var(--rule);
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        height: 16px;
+        width: 8px;
+        border-radius: 0;
+        background: var(--ink);
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: -7px;
+    }
+
+    /* Stats Display within Controls */
+    .derived-stats {
+        margin-top: 0.5rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+
+    .stat-box {
+        background: var(--paper);
+        padding: 0.8rem;
+        border: 1px solid var(--rule);
+    }
+
+    .stat-label { 
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.55rem; 
+        color: var(--caption); 
+        text-transform: uppercase; 
+        letter-spacing: 0.1em;
+        display: block; 
+        margin-bottom: 0.4rem;
+    }
+    
+    .stat-value { 
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 1.1rem; 
+        font-weight: 600; 
+    }
+    
+    .unit { 
+        font-size: 0.7rem; 
+        font-weight: 400; 
+        color: var(--caption);
+    }
+
+    /* Highlights calculated core metric */
+    .highlight-stat {
+        grid-column: 1 / -1;
+        background-color: var(--ink);
+        border: 1px solid var(--ink);
+    }
+    .highlight-stat .stat-label { color: var(--paper); opacity: 0.8;}
+    .highlight-stat .stat-value { color: var(--paper); font-size: 1.4rem; }
+    .highlight-stat .unit { color: var(--paper); opacity: 0.8;}
+
+    /* Visualization Column */
+    .visual-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .viz-container {
+        background: #fff;
+        border: 1px solid var(--rule);
+        height: 400px;
+        position: relative;
+        overflow: hidden;
+        padding: 10px;
+    }
+
+    canvas {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Insight Text */
+    .insight-card {
+        background: var(--accent-light);
+        border-left: 4px solid var(--accent);
+        padding: 1.5rem 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+
+    .insight-text {
+        font-size: 1.15rem;
+        font-style: italic;
+        margin: 0;
+        color: var(--ink);
+        line-height: 1.5;
+    }
+    
+    .optimum-note {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.6rem;
+        color: var(--caption);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        border-top: 1px solid var(--rule);
+        padding-top: 1rem;
+    }
+
+    @media (max-width: 800px) {
+        .container { grid-template-columns: 1fr; }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="controls">
+        <h2>Impact Geometry</h2>
+        
+        <div class="control-group">
+            <label>Club Speed <span class="slider-val" id="valSpeed">100 mph</span></label>
+            <input type="range" id="speed" min="75" max="130" step="1" value="100">
+        </div>
+
+        <div class="control-group">
+            <label>Angle of Attack <span class="slider-val" id="valAoa">0.0°</span></label>
+            <input type="range" id="aoa" min="-6" max="8" step="0.5" value="0">
+        </div>
+
+        <div class="control-group">
+            <label>Dynamic Loft <span class="slider-val" id="valLoft">12.0°</span></label>
+            <input type="range" id="loft" min="8" max="22" step="0.5" value="12">
+        </div>
+
+        <div class="derived-stats">
+            <div class="stat-box highlight-stat">
+                <span class="stat-label">Spin Loft Gap</span>
+                <span class="stat-value" id="statSpinLoft">12.0<span class="unit">°</span></span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Launch</span>
+                <span class="stat-value" id="statLaunch">10.2<span class="unit">°</span></span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Ball Speed</span>
+                <span class="stat-value" id="statBallSpeed">147<span class="unit"> mph</span></span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Spin Rate</span>
+                <span class="stat-value" id="statSpin">2600<span class="unit"> rpm</span></span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Carry</span>
+                <span class="stat-value" id="statCarry" style="color:var(--accent)">254<span class="unit"> yd</span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="visual-wrapper">
+        <div class="viz-container">
+            <canvas id="trajectoryCanvas"></canvas>
+        </div>
+
+        <div class="insight-card">
+            <p class="insight-text" id="insightText">Adjust parameters to simulate trajectory.</p>
+            <div class="optimum-note">
+                Disclaimer: This tool provides a simplified aerodynamic physics simulation for illustrative purposes only. Actual results will vary based on strike location, equipment specifics, and local environmental factors. Default air density is modeled for ~5,300 ft elevation.
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // DOM Elements
+    const inputs = {
+        speed: document.getElementById('speed'),
+        aoa: document.getElementById('aoa'),
+        loft: document.getElementById('loft')
+    };
+    const vals = {
+        speed: document.getElementById('valSpeed'),
+        aoa: document.getElementById('valAoa'),
+        loft: document.getElementById('valLoft')
+    };
+    const stats = {
+        spinLoft: document.getElementById('statSpinLoft'),
+        launch: document.getElementById('statLaunch'),
+        ballSpeed: document.getElementById('statBallSpeed'),
+        spin: document.getElementById('statSpin'),
+        carry: document.getElementById('statCarry')
+    };
+    const insightText = document.getElementById('insightText');
+    const canvas = document.getElementById('trajectoryCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Physics Constants & Setup
+    const G = 9.81; 
+    const AIR_DENSITY = 1.03; 
+    const BALL_MASS = 0.04593; 
+    const BALL_AREA = 0.00143; 
+    
+    const MPH_TO_MS = 0.44704;
+    const MS_TO_YDS = 1.09361;
+
+    const DT = 0.01; 
+    const MAX_TIME = 15; 
+
+    function setCanvasSize() {
+        const container = canvas.parentElement;
+        canvas.width = container.clientWidth - 20;
+        canvas.height = container.clientHeight - 20;
+    }
+
+    // --- Physics Engine ---
+
+    function calculateTrajectory(v0_mph, launchAngle_deg, spin_rpm) {
+        let v0 = v0_mph * MPH_TO_MS;
+        let launchAngle_rad = launchAngle_deg * (Math.PI / 180);
+
+        let vx = v0 * Math.cos(launchAngle_rad);
+        let vy = v0 * Math.sin(launchAngle_rad);
+
+        let x = 0;
+        let y = 0.1; 
+
+        let trajectoryData = [];
+        let maxLandingYds = 0;
+
+        let spin_k = spin_rpm / 1000;
+        // Drag scales up aggressively with spin to punish ballooning
+        let Cd = 0.17 + Math.pow(spin_k, 1.2) * 0.018; 
+        // Lift plateaus using arctan to prevent infinite floating
+        let Cl = 0.24 * Math.atan(0.55 * spin_k);
+
+        for (let t = 0; t < MAX_TIME; t += DT) {
+            trajectoryData.push({ x: x * MS_TO_YDS, y: y * MS_TO_YDS });
+
+            if (y < 0 && t > 0.1) {
+                let prevX_yds = trajectoryData[trajectoryData.length - 2].x;
+                let prevY_yds = trajectoryData[trajectoryData.length - 2].y;
+                let currentY_yds = y * MS_TO_YDS;
+                let currentX_yds = x * MS_TO_YDS;
+                
+                let fraction = prevY_yds / (prevY_yds - currentY_yds);
+                maxLandingYds = prevX_yds + fraction * (currentX_yds - prevX_yds);
+                break;
+            }
+
+            let v = Math.sqrt(vx*vx + vy*vy);
+            
+            let F_drag = 0.5 * Cd * AIR_DENSITY * BALL_AREA * v * v;
+            let F_lift = 0.5 * Cl * AIR_DENSITY * BALL_AREA * v * v;
+
+            let ax_drag = -(F_drag * (vx / v)) / BALL_MASS;
+            let ay_drag = -(F_drag * (vy / v)) / BALL_MASS;
+
+            let ax_lift = -(F_lift * (vy / v)) / BALL_MASS;
+            let ay_lift = (F_lift * (vx / v)) / BALL_MASS;
+
+            vx += (ax_drag + ax_lift) * DT;
+            vy += (ay_drag + ay_lift - G) * DT;
+
+            x += vx * DT;
+            y += vy * DT;
+        }
+
+        return { points: trajectoryData, carryYds: maxLandingYds };
+    }
+
+    function update() {
+        const speed = parseFloat(inputs.speed.value);
+        const aoa = parseFloat(inputs.aoa.value);
+        const loft = parseFloat(inputs.loft.value);
+
+        vals.speed.textContent = speed + ' mph';
+        vals.aoa.textContent = (aoa > 0 ? '+' : '') + aoa.toFixed(1) + '°';
+        vals.loft.textContent = loft.toFixed(1) + '°';
+
+        const spinLoft = loft - aoa;
+        
+        const launchAngle = (loft * 0.85) + (aoa * 0.15);
+
+        const smashBaseline = 1.49;
+        const smashEfficiencyLoss = spinLoft * 0.002;
+        const smash = smashBaseline - smashEfficiencyLoss;
+        const ballSpeed = speed * smash;
+
+        const spinBase = spinLoft * 210;
+        const speedSpinAdjustment = (speed - 100) * 10; 
+        
+        const spin = Math.max(1600, spinBase + speedSpinAdjustment + 200); 
+
+        stats.spinLoft.innerHTML = spinLoft.toFixed(1) + '<span class="unit">°</span>';
+        stats.launch.innerHTML = launchAngle.toFixed(1) + '<span class="unit">°</span>';
+        stats.ballSpeed.innerHTML = Math.round(ballSpeed) + '<span class="unit"> mph</span>';
+        stats.spin.innerHTML = Math.round(spin) + '<span class="unit"> rpm</span>';
+
+        const result = calculateTrajectory(ballSpeed, launchAngle, spin);
+
+        stats.carry.innerHTML = Math.round(result.carryYds) + '<span class="unit"> yd</span>';
+
+        drawTrajectory(result);
+        updateInsight(speed, aoa, loft, spinLoft, launchAngle, spin, result.carryYds);
+    }
+
+    function drawTrajectory(data) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        const padding = 35;
+        const graphW = canvas.width - padding * 2;
+        const graphH = canvas.height - padding * 2;
+
+        const maxX = 360; 
+        const maxY = 100;  
+
+        function getCanvasX(golfX) { return padding + (golfX / maxX) * graphW; }
+        function getCanvasY(golfY) { return (canvas.height - padding) - (golfY / maxY) * graphH; }
+
+        ctx.strokeStyle = '#c4b9a8';
+        ctx.lineWidth = 0.5;
+        ctx.font = '10px "IBM Plex Mono", monospace';
+        ctx.fillStyle = '#6b6256';
+        ctx.textAlign = 'center';
+
+        for (let x = 0; x <= maxX; x += 50) {
+            let px = getCanvasX(x);
+            ctx.beginPath();
+            ctx.moveTo(px, padding);
+            ctx.lineTo(px, canvas.height - padding);
+            ctx.stroke();
+            if (x > 0) ctx.fillText(x, px, canvas.height - padding + 15);
+        }
+
+        ctx.textAlign = 'right';
+        for (let y = 0; y <= maxY; y += 20) {
+            let py = getCanvasY(y);
+            ctx.beginPath();
+            ctx.moveTo(padding, py);
+            ctx.lineTo(canvas.width - padding, py);
+            ctx.stroke();
+            if (y > 0) ctx.fillText(y, padding - 8, py + 3);
+        }
+        
+        ctx.strokeStyle = '#1a1a18';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(padding, canvas.height - padding);
+        ctx.lineTo(canvas.width - padding, canvas.height - padding);
+        ctx.stroke();
+
+        if (data.points.length > 0) {
+            ctx.strokeStyle = '#2d5a27'; 
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(getCanvasX(data.points[0].x), getCanvasY(data.points[0].y));
+
+            for (let i = 1; i < data.points.length; i++) {
+                ctx.lineTo(getCanvasX(data.points[i].x), getCanvasY(data.points[i].y));
+            }
+            ctx.stroke();
+            
+            ctx.fillStyle = '#2d5a27'; 
+            ctx.beginPath();
+            ctx.arc(getCanvasX(data.carryYds), getCanvasY(0), 4.5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function updateInsight(speed, aoa, loft, spinLoft, launchAngle, spin, carry) {
+        let text = "";
+
+        if (aoa < 0 && spin > 3500) {
+            text = `Hitting down (-${Math.abs(aoa)}° AoA) severely widens the spin loft gap to ${spinLoft.toFixed(1)}°. Notice on the graph how the high spin (${Math.round(spin)} RPM) generates extreme drag, causing the ball to balloon, stall, and drop sharply, killing your forward rollout.`;
+        } else if (aoa < 0 && launchAngle < 10) {
+            text = `You successfully lowered spin loft (${spinLoft.toFixed(1)}°), but by hitting down with a strong-lofted club, you created a "worm burner." The launch angle (${launchAngle.toFixed(1)}°) is too low to stay airborne. You need a positive Angle of Attack to compress spin loft while launching high.`;
+        } else if (aoa >= 3 && spinLoft <= 11 && launchAngle >= 10) {
+            text = `Highly efficient geometry. Hitting up (+${aoa}°) naturally compresses the spin loft gap. Look at the graph: the flight is high and penetrating, gliding into a shallow descent angle that maximizes both carry and roll for your club speed.`;
+        } else if (spinLoft > 16) {
+            text = `Your spin loft gap is too wide (${spinLoft.toFixed(1)}°). This bleeds valuable ball speed into backspin. The graph illustrates a classic "ballooning" flight—it climbs too high, stalls in the air, and falls steeply, acting more like a short iron than a driver.`;
+        } else if (speed >= 110 && spin > 3000) {
+            text = `At high speeds (${speed} mph), excessive spin creates massive drag. Look at the graph: the ball climbs rapidly but hits an aerodynamic wall, forcing a steep drop. Flattening your angle of attack will help compress the spin loft and reduce that drag.`;
+        } else {
+            text = `Notice how adjusting your dynamic loft moves the launch angle and spin rate in tandem. Conversely, changing your angle of attack moves them in opposite directions. The goal is finding the right balance to compress the spin loft gap.`;
+        }
+
+        insightText.textContent = text;
+    }
+
+    Object.values(inputs).forEach(input => input.addEventListener('input', update));
+    window.addEventListener('resize', () => { setCanvasSize(); update(); });
+
+    setCanvasSize();
+    update();
+</script>
+</body>
+</html>

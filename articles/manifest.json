@@ -1,6 +1,18 @@
 {
   "articles": [
     {
+      "issue": 2,
+      "slug": "driver-launch-v2",
+      "topic": "Equipment",
+      "title": "Launch Angle, Spin Loft, and the 15 Yards You're Leaving on the Tee",
+      "subtitle": "The distance you're missing isn't hiding in your swing speed. It's hiding in the gap between your dynamic loft and your angle of attack.",
+      "date": "26 April 2026",
+      "readtime": "16 min",
+      "excerpt": "Spin loft — the angular gap between dynamic loft and angle of attack — governs driver distance more than any equipment purchase. Why most amateurs hit down on the driver, what the TrackMan data actually shows, and how a few setup changes recover real yards without swinging harder.",
+      "figures": 3,
+      "tool": "/tools/driver-spin-loft.html"
+    },
+    {
       "issue": 1,
       "slug": "putter-physics",
       "topic": "Putting",
