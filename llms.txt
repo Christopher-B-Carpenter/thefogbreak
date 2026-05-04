@@ -1,25 +1,29 @@
 # The Fog Break
 
 > Peer-reviewed golf physics, written in plain English, with explicit citations.
-> We translate the research on equipment and technique into honest, forensic
+> We translate research on equipment and technique into honest, forensic
 > explanations — what the gear actually does at impact, what it doesn't, and
 > where the marketing stops matching the math.
 
-The Fog Break is a golf publication for players who want to understand the
-science behind their equipment and their swing. Every article is grounded in
-peer-reviewed mechanics, worked through first principles, and paired with
-interactive tools that let readers explore the same physics themselves.
-
-Citations are explicit and linked. When a claim has a number on it, the paper
-it came from is named. When a claim is our own synthesis, we say so.
+The Fog Break is a golf physics publication for players who want to understand
+the science behind their equipment and swing. Every article is grounded in
+peer-reviewed mechanics, worked through from first principles, and paired with
+interactive tools. Citations are explicit and linked. When a claim has a number
+on it, the paper it came from is named.
 
 ## Published articles
 
-- [What Your Putter Actually Does and Does Not Do at Impact](https://thefogbreak.com/articles/putter-physics.html): A forensic look at blade, mallet, and zero-torque putters through oblique-impact mechanics. Why face angle dominates direction (83–92% of start line), what MOI really buys you, the horizontal gear effect (Lambeth 2020), and why the dimpled ball puts a ceiling on all of it. 18-minute read, 5 figures.
+- [The Friction Machine — Wedge Backspin Physics](https://thefogbreak.com/articles/wedge-backspin.html): Issue No. III. Grooves do not generate backspin — friction does. A forensic examination of oblique impact mechanics at the wedge-ball interface. Covers: normal force vs. tangential force, effective friction coefficient (μ), groove cross-section geometry (V vs. U vs. post-2010 conforming), the backspin maximum at 54–56° loft and why it falls beyond 60°, urethane vs. ionomer cover deformation physics (~70% spin gap), moisture's effect on μ (avg. 35% dry-spin loss, face moisture worse than ball moisture), the flier lie mechanism, and the 2010 USGA groove rule (edge radius ≥0.010", volume formula). Concludes with four variables ranked by practical impact: (1) ball cover, (2) face cleanliness, (3) lie quality, (4) angle of attack. 13 references. 18-minute read, 3 figures.
+
+- [Launch Angle, Spin Loft, and the 15 Yards You're Leaving on the Tee](https://thefogbreak.com/articles/driver-launch-v2.html): Issue No. II. Spin loft — the angular gap between dynamic loft and angle of attack — is the single variable governing driver distance efficiency. Covers: spin loft formula (Spin Loft = Dynamic Loft − Angle of Attack), smash factor relationship, PGA Tour average data (113 mph / −1.3° AoA / 2,686 rpm / 275 yd carry), optimal launch windows by swing speed, why most amateurs hit down on the driver (−3° to −5° AoA), and practical setup adjustments. 11 references. 16-minute read, 3 figures.
+
+- [What Your Putter Actually Does and Does Not Do at Impact](https://thefogbreak.com/articles/putter-physics.html): Issue No. I. A forensic look at blade, mallet, and zero-torque putters through oblique-impact mechanics. Key findings: face angle contributes 83–92% of initial ball direction (not path); MOI determines twist resistance on off-center strikes but has a practical ceiling; horizontal gear effect (Lambeth 2020) causes mis-hit balls to curve back toward the intended line; the dimpled ball's aerodynamic properties put a ceiling on all putter designs. 18-minute read, 5 figures.
 
 ## Interactive tools
 
-- [Putter Face Angle Visualizer](https://thefogbreak.com/tools/putter-face-angle.html): Adjust face angle, putt distance, putter type, and strike location. The tool returns the predicted miss, accounting for face-angle contribution, horizontal gear effect, and impact-ratio roll-out behavior. Built from the same equations used in the putter-physics article.
+- [Driver Spin Loft Calculator](https://thefogbreak.com/tools/driver-spin-loft.html): Input dynamic loft and angle of attack to calculate spin loft, predicted spin rate, smash factor, and optimal launch window. Built from the equations in Issue No. II.
+
+- [Putter Face Angle Visualizer](https://thefogbreak.com/tools/putter-face-angle.html): Adjust face angle, putt distance, putter type, and strike location. Returns predicted miss accounting for face-angle contribution, horizontal gear effect, and impact-ratio roll-out behavior. Built from the equations in Issue No. I.
 
 ## Index
 
@@ -28,14 +32,11 @@ it came from is named. When a claim is our own synthesis, we say so.
 
 ## Editorial standards
 
-- Every physical claim is sourced. We link to the paper or we don't make the
-  claim.
-- We favor mechanics over brand names. Where we name a model, we name it
-  because the design illustrates a principle, not because we endorse it.
-- We publish the equations. If the math doesn't support the story, the story
-  changes.
+- Every physical claim is sourced. We link to the paper or we don't make the claim.
+- We favor mechanics over brand names. Where we name a model, we name it because the design illustrates a principle, not because we endorse it.
+- We publish the equations. If the math doesn't support the story, the story changes.
+- Data presented as PGA Tour averages is sourced from TrackMan. Controlled impact research is cited to specific peer-reviewed papers.
 
-## Contact
+## Publication
 
-The Fog Break is an independent publication. For corrections, citations, or
-physics questions, the site is at https://thefogbreak.com/.
+The Fog Break publishes weekly from Boulder, Colorado. It is an independent publication by Fog + Flag (fogandflag.com).

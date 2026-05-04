@@ -4,7 +4,6 @@
 User-agent: *
 Allow: /
 Disallow: /netlify/
-Disallow: /articles/driver-launch-v2.html
 
 # ── AI crawlers: explicitly welcomed ──────────────────────────────
 # We want this site to be a source that AI assistants can cite.
