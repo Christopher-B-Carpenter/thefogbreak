@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Lie Angle Lie — The Fog Break Issue IV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=IBM+Plex+Mono:wght@300;400;500&family=Cormorant:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --parchment: #F2EDE0;
+      --parchment-dark: #E8E0CE;
+      --ink: #1A1916;
+      --ink-mid: #3A3730;
+      --moss: #3D4A35;
+      --moss-light: #5C6B52;
+      --gold: #B8943C;
+      --gold-light: #D4A84B;
+      --rule: #C4B98A;
+      --caption-bg: #EDE6D4;
+      --callout-bg: #E8E0CE;
+      --tool-bg: #2A3225;
+      --tool-accent: #7A9E6A;
+      --tool-text: #E8EDE5;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 18px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 400;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── MASTHEAD ─── */
+    .masthead {
+      border-bottom: 1px solid var(--rule);
+      padding: 2rem 0 1.25rem;
+      text-align: center;
+    }
+
+    .masthead-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--moss-light);
+      margin-bottom: 0.9rem;
+    }
+
+    .masthead-wordmark {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-size: 3.4rem;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+
+    .masthead-tagline {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--moss);
+    }
+
+    .masthead-nav {
+      margin-top: 1.2rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .masthead-nav a {
+      color: var(--moss);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 1px;
+      transition: border-color 0.2s;
+    }
+    .masthead-nav a:hover { border-color: var(--moss); }
+
+    /* ─── ISSUE HEADER ─── */
+    .issue-header {
+      max-width: 780px;
+      margin: 3.5rem auto 0;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .issue-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .issue-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 600;
+      font-size: 3.2rem;
+      line-height: 1.1;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+      margin-bottom: 0.8rem;
+    }
+
+    .issue-subtitle {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.4rem;
+      color: var(--ink-mid);
+      line-height: 1.5;
+      margin-bottom: 1.8rem;
+    }
+
+    .issue-rule {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 1.8rem;
+    }
+
+    .issue-byline {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--moss-light);
+    }
+
+    /* ─── BODY ─── */
+    .article-body {
+      max-width: 680px;
+      margin: 3rem auto 0;
+      padding: 0 2rem 5rem;
+    }
+
+    .article-body p {
+      margin-bottom: 1.4rem;
+      font-size: 1.08rem;
+      hyphens: auto;
+    }
+
+    .article-body p:first-child::first-letter {
+      float: left;
+      font-family: 'Cormorant', Georgia, serif;
+      font-weight: 600;
+      font-size: 4.2rem;
+      line-height: 0.78;
+      margin: 0.08em 0.1em 0 0;
+      color: var(--moss);
+    }
+
+    h2.section-head {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 600;
+      font-size: 1.55rem;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      margin: 2.8rem 0 0.9rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    h3.sub-head {
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 500;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--moss);
+      margin: 2rem 0 0.7rem;
+    }
+
+    /* ─── PULL QUOTE ─── */
+    .pull-quote {
+      border-left: 3px solid var(--gold);
+      padding: 1.2rem 1.5rem;
+      margin: 2.5rem 0;
+      background: var(--callout-bg);
+    }
+
+    .pull-quote p {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      line-height: 1.55;
+      color: var(--ink-mid);
+      margin: 0;
+    }
+    .pull-quote p::first-letter { all: unset; }
+
+    /* ─── FORMULA BOX ─── */
+    .formula-box {
+      background: var(--callout-bg);
+      border: 1px solid var(--rule);
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .formula-expression {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 1.6rem;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.03em;
+    }
+
+    .formula-caption {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--moss-light);
+    }
+
+    /* ─── DATA TABLE ─── */
+    .data-table-wrap {
+      margin: 2rem 0;
+      overflow-x: auto;
+    }
+
+    .data-table-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--moss-light);
+      margin-bottom: 0.5rem;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    table.data-table th {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--moss);
+      text-align: left;
+      padding: 0.5rem 0.8rem;
+      border-bottom: 2px solid var(--rule);
+      background: var(--caption-bg);
+    }
+
+    table.data-table td {
+      padding: 0.5rem 0.8rem;
+      border-bottom: 1px solid var(--rule);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem;
+    }
+
+    table.data-table tr:last-child td { border-bottom: none; }
+    table.data-table td.num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem;
+      text-align: right;
+    }
+
+    /* ─── SVG DIAGRAM ─── */
+    .diagram-wrap {
+      margin: 2.5rem 0;
+      background: var(--caption-bg);
+      border: 1px solid var(--rule);
+      padding: 1.5rem;
+    }
+
+    .diagram-caption {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--moss-light);
+      margin-top: 1rem;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .diagram-wrap svg {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+
+    /* ─── CITATION ─── */
+    sup.cite {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.58rem;
+      color: var(--moss);
+      margin-left: 1px;
+      cursor: default;
+    }
+
+    /* ─── FOOTNOTES ─── */
+    .footnotes {
+      border-top: 1px solid var(--rule);
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+    }
+
+    .footnotes-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--moss);
+      margin-bottom: 1rem;
+    }
+
+    .footnotes ol {
+      padding-left: 1.4rem;
+    }
+
+    .footnotes li {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      line-height: 1.7;
+      color: var(--ink-mid);
+      margin-bottom: 0.4rem;
+    }
+
+    .footnotes li a {
+      color: var(--moss);
+      text-decoration: none;
+    }
+
+    /* ─── INTERACTIVE TOOL ─── */
+    .tool-section {
+      background: var(--tool-bg);
+      color: var(--tool-text);
+      padding: 2.5rem;
+      margin: 3rem 0;
+    }
+
+    .tool-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tool-accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .tool-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 600;
+      font-size: 1.55rem;
+      color: var(--tool-text);
+      margin-bottom: 0.5rem;
+    }
+
+    .tool-desc {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #A8B8A4;
+      margin-bottom: 2rem;
+    }
+
+    .tool-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 580px) {
+      .tool-inputs { grid-template-columns: 1fr; }
+      .issue-title { font-size: 2.4rem; }
+      .masthead-wordmark { font-size: 2.4rem; }
+    }
+
+    .tool-input-group label {
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--tool-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .tool-input-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .tool-input-row input[type="range"] {
+      flex: 1;
+      -webkit-appearance: none;
+      height: 3px;
+      background: #4A5E40;
+      outline: none;
+      border-radius: 2px;
+    }
+
+    .tool-input-row input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: var(--tool-accent);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .tool-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--tool-text);
+      min-width: 42px;
+      text-align: right;
+    }
+
+    .tool-select {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      background: #1E2A1B;
+      color: var(--tool-text);
+      border: 1px solid #4A5E40;
+      padding: 0.4rem 0.6rem;
+      width: 100%;
+      cursor: pointer;
+      margin-top: 0.2rem;
+    }
+
+    .tool-results {
+      background: #1E2A1B;
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background-color: #3A4A36;
+    }
+
+    @media (max-width: 580px) {
+      .tool-results { grid-template-columns: 1fr; }
+    }
+
+    .tool-result-cell {
+      background: #1E2A1B;
+      padding: 1rem 1.2rem;
+      text-align: center;
+    }
+
+    .tool-result-value {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--tool-accent);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .tool-result-unit {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #6A8A60;
+    }
+
+    .tool-note {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.58rem;
+      color: #5A7A56;
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+
+    /* ─── PRESET CLUBS ─── */
+    .club-presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .club-btn {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: transparent;
+      border: 1px solid #4A5E40;
+      color: #7A9E6A;
+      padding: 0.3rem 0.7rem;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .club-btn:hover, .club-btn.active {
+      background: var(--tool-accent);
+      color: var(--tool-bg);
+      border-color: var(--tool-accent);
+    }
+
+    /* ─── FOOTER ─── */
+    .article-footer {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--moss-light);
+    }
+
+    .footer-brand a {
+      color: var(--moss);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-meta">Vol. I · No. 4 &nbsp;—&nbsp; Spring 2026 &nbsp;·&nbsp; Published Weekly from Boulder, Colorado</div>
+  <div class="masthead-wordmark">The Fog Break</div>
+  <div class="masthead-tagline">Demystifying Golf</div>
+  <nav class="masthead-nav">
+    <a href="/">Current Issue</a>
+    <a href="/#archive">Archive</a>
+    <a href="/tools/">Interactive Tools</a>
+    <a href="/#subscribe">Subscribe</a>
+  </nav>
+</header>
+
+<div class="issue-header">
+  <div class="issue-label">Issue IV &nbsp;·&nbsp; Club Fitting</div>
+  <h1 class="issue-title">The Lie Angle Lie</h1>
+  <p class="issue-subtitle">What the fitting chart tells you, what the physics actually says,<br>and why your address position means nothing</p>
+  <div class="issue-rule"></div>
+  <div class="issue-byline">The Fog Break &nbsp;·&nbsp; May 2026</div>
+</div>
+
+<article class="article-body">
+
+  <p>Walk into any fitting bay in the country and you'll hear some version of the same line: <em>toe up at impact means the ball goes right, toe down means it goes left.</em> Fit your lie angle, the story goes, and your misses disappear. The fitter tapes your sole, has you swing on a lie board, reads the scuff mark, bends the hosel. Done.</p>
+
+  <p>This is not wrong, exactly. But it is incomplete in ways that matter — and in the hands of a careless fitter, those gaps produce clubs that were never actually fitted for the golfer who bought them.</p>
+
+  <p>The mechanism at work is called <em>face plane tilt.</em> It is real, well-documented, and quantifiable. The misunderstanding lies in what creates it, how much it depends on the club in your hands, and why the position you see at address tells you almost nothing useful about what the clubface is doing when the ball leaves it.</p>
+
+  <h2 class="section-head">What Face Plane Tilt Actually Is</h2>
+
+  <p>When a golf club sits flat on the ground, its face is oriented perpendicular to the target line and the loft points upward along the target plane. The face normal — the invisible vector pointing away from the face at a right angle — is the only thing that matters for ball direction, because the ball rebounds perpendicular to the face plane.<sup class="cite">[1]</sup></p>
+
+  <p>Now introduce a lie error. Raise the handle, and the toe drops relative to the heel. Lower the handle, and the toe rises. Either way, you have rotated the entire clubhead about an axis running from ball to target. This rotation does something important: it tilts the face plane. The loft is no longer pointing straight up the target line. It is now pointing slightly left (toe-up) or slightly right (toe-down).<sup class="cite">[2]</sup></p>
+
+  <p>This is what the fitter is measuring when they read the lie board. It is a proxy for face plane tilt at impact — not address, not a guess, but a recording of where the clubhead actually was when it touched the ground.</p>
+
+  <div class="diagram-wrap" aria-label="Face plane tilt diagram">
+    <svg viewBox="0 0 640 300" width="600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#3D4A35"/>
+        </marker>
+        <marker id="arr-gold" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#B8943C"/>
+        </marker>
+        <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#8B3A2A"/>
+        </marker>
+      </defs>
+
+      <g transform="translate(100, 240)">
+        <line x1="-55" y1="0" x2="55" y2="0" stroke="#C4B98A" stroke-width="1.5"/>
+        <rect x="-36" y="-14" width="72" height="14" rx="3" fill="#C4B98A" stroke="#8A7A50" stroke-width="1"/>
+        <line x1="20" y1="-14" x2="38" y2="-90" stroke="#3A3730" stroke-width="2.5"/>
+        <line x1="0" y1="-14" x2="0" y2="-85" stroke="#3D4A35" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+        <text x="6" y="-68" font-family="IBM Plex Mono, monospace" font-size="9" fill="#3D4A35" letter-spacing="0.5">LOFT</text>
+        <text x="-22" y="18" font-family="IBM Plex Mono, monospace" font-size="9" fill="#6C6050" letter-spacing="0.5">NEUTRAL</text>
+      </g>
+
+      <g transform="translate(320, 240)">
+        <line x1="-55" y1="0" x2="55" y2="0" stroke="#C4B98A" stroke-width="1.5"/>
+        <rect x="-36" y="-14" width="72" height="14" rx="3" fill="#C4B98A" stroke="#8A7A50" stroke-width="1" transform="rotate(-8 0 -7)"/>
+        <line x1="20" y1="-17" x2="38" y2="-90" stroke="#3A3730" stroke-width="2.5"/>
+        <line x1="0" y1="-14" x2="16" y2="-82" stroke="#8B3A2A" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+        <line x1="0" y1="-14" x2="0" y2="-82" stroke="#C4B98A" stroke-width="1" stroke-dasharray="2 4"/>
+        <path d="M 0 -42 Q 6 -42 8 -45" fill="none" stroke="#8B3A2A" stroke-width="1.2"/>
+        <text x="12" y="-35" font-family="IBM Plex Mono, monospace" font-size="9" fill="#8B3A2A">δ</text>
+        <text x="-22" y="18" font-family="IBM Plex Mono, monospace" font-size="9" fill="#8B3A2A" letter-spacing="0.5">TOE DOWN</text>
+        <text x="-30" y="30" font-family="IBM Plex Mono, monospace" font-size="8" fill="#8B3A2A" letter-spacing="0.3">(too flat)</text>
+      </g>
+
+      <g transform="translate(540, 240)">
+        <line x1="-55" y1="0" x2="55" y2="0" stroke="#C4B98A" stroke-width="1.5"/>
+        <rect x="-36" y="-14" width="72" height="14" rx="3" fill="#C4B98A" stroke="#8A7A50" stroke-width="1" transform="rotate(8 0 -7)"/>
+        <line x1="20" y1="-11" x2="38" y2="-90" stroke="#3A3730" stroke-width="2.5"/>
+        <line x1="0" y1="-14" x2="-16" y2="-82" stroke="#B8943C" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-gold)"/>
+        <line x1="0" y1="-14" x2="0" y2="-82" stroke="#C4B98A" stroke-width="1" stroke-dasharray="2 4"/>
+        <path d="M 0 -42 Q -6 -42 -8 -45" fill="none" stroke="#B8943C" stroke-width="1.2"/>
+        <text x="-18" y="-35" font-family="IBM Plex Mono, monospace" font-size="9" fill="#B8943C">δ</text>
+        <text x="-26" y="18" font-family="IBM Plex Mono, monospace" font-size="9" fill="#B8943C" letter-spacing="0.5">TOE UP</text>
+        <text x="-32" y="30" font-family="IBM Plex Mono, monospace" font-size="8" fill="#B8943C" letter-spacing="0.3">(too upright)</text>
+      </g>
+
+      <text x="320" y="30" font-family="Cormorant Garamond, serif" font-size="13" fill="#3A3730" text-anchor="middle" font-style="italic">Face plane tilt: lie error rotates the direction loft points, deflecting ball flight</text>
+      <text x="8" y="62" font-family="IBM Plex Mono, monospace" font-size="9" fill="#8B3A2A">Ball starts right →</text>
+      <text x="462" y="62" font-family="IBM Plex Mono, monospace" font-size="9" fill="#B8943C">← Ball starts left</text>
+    </svg>
+    <p class="diagram-caption">Fig. 1 — Face plane tilt. A lie error of δ degrees rotates the loft direction by δ × sin(loft) degrees off target. The club face is viewed from directly in front; target line runs into the page.</p>
+  </div>
+
+  <h2 class="section-head">The Formula</h2>
+
+  <p>The relationship between lie error, loft, and directional error has been expressed precisely by engineer Dave Tutelman, whose work on club design is among the most rigorous publicly available outside of OEM research labs:<sup class="cite">[3]</sup></p>
+
+  <div class="formula-box">
+    <div class="formula-expression">Directional Error = Loft &times; sin(Lie Error)</div>
+    <div class="formula-caption">Degrees of face plane tilt as a function of loft (°) and lie error (°)</div>
+  </div>
+
+  <p>Two things fall out of this immediately. First, if loft is zero, lie errors produce no directional error at all — a theoretically zero-loft club pointed squarely at the target cannot misdirect the ball regardless of how it sits. Second, a driver with 10° of loft produces less directional error from a given lie error than a 9-iron with 44°. Both of these seem counterintuitive to golfers who have been told lie angle is a driver fitting priority.</p>
+
+  <p>But the picture is more nuanced once you account for distance. A 1° lie error produces a larger face angle error on a pitching wedge — but the wedge travels 130 yards, not 250. Tutelman's full table, converting angular error to yards at representative distances, reveals something important: the <em>linear</em> error in yards is remarkably consistent across the set, peaking around the 6-iron.<sup class="cite">[3]</sup></p>
+
+  <div class="data-table-wrap">
+    <div class="data-table-label">Table 1 — Directional error per 1° of lie angle error, by club</div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Club</th>
+          <th>Loft (°)</th>
+          <th>Carry (yds)</th>
+          <th>Face angle error (°)</th>
+          <th>Yards off-line</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Driver</td>
+          <td class="num">10</td>
+          <td class="num">250</td>
+          <td class="num">0.17</td>
+          <td class="num">2.5</td>
+        </tr>
+        <tr>
+          <td>3-iron</td>
+          <td class="num">20</td>
+          <td class="num">190</td>
+          <td class="num">0.35</td>
+          <td class="num">2.8</td>
+        </tr>
+        <tr>
+          <td>6-iron</td>
+          <td class="num">32</td>
+          <td class="num">160</td>
+          <td class="num">0.56</td>
+          <td class="num">3.2</td>
+        </tr>
+        <tr>
+          <td>9-iron</td>
+          <td class="num">44</td>
+          <td class="num">130</td>
+          <td class="num">0.77</td>
+          <td class="num">2.8</td>
+        </tr>
+        <tr>
+          <td>Sand wedge</td>
+          <td class="num">54</td>
+          <td class="num">100</td>
+          <td class="num">0.94</td>
+          <td class="num">2.0</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Three yards per degree of lie error, across the irons. That is not trivial — for a competent ball-striker, three yards is the difference between a tap-in and a ten-foot putt. But it also means that a driver incorrectly fitted by 3° of lie produces less than 8 yards of lateral error. The common fitter's instinct to obsess over lie angle in woods, then, is at least partly misplaced.</p>
+
+  <div class="pull-quote">
+    <p>The linear error in yards is remarkably consistent across the set — peaking at the 6-iron, not the driver. A 3-iron and a sand wedge both produce about the same offline distance per degree of lie error.</p>
+  </div>
+
+  <h2 class="section-head">The Static Fitting Problem</h2>
+
+  <p>Here is where the fitting industry has historically gotten itself into trouble. For decades, the standard approach to lie angle fitting was static: the fitter watches the golfer address the ball, notes where the sole sits relative to the ground, and adjusts accordingly. Some variations have the golfer grip the club at a measured height; others use address position photos.</p>
+
+  <p>All of these methods share the same fatal flaw: <em>address position is not impact position.</em><sup class="cite">[4]</sup></p>
+
+  <p>Two things happen on the way down that move the hands significantly higher than they were at address. First, centrifugal force straightens the golfer's arm-and-club chain into a more extended, more upright position at impact — you can see this clearly in any face-on high-speed video of a mid-handicap player. Second, and less discussed, the shaft itself bends.</p>
+
+  <h3 class="sub-head">Shaft Droop</h3>
+
+  <p>As the club accelerates through the downswing, the weight of the clubhead is being swung on the end of a flexible shaft. Centripetal force pulls the head outward and downward, causing the shaft to bend in what engineers call <em>toe droop</em> — a deflection of the clubhead toward the ground relative to the shaft centerline.<sup class="cite">[5]</sup></p>
+
+  <p>Research by MacKenzie and Sprigings (2009) established that radial force — the centripetal component — plays the dominant role in producing toe-down deflection, with shaft recoil from earlier-in-the-downswing deflection adding to the effect at impact.<sup class="cite">[6]</sup> The practical consequence: the clubhead at impact is measurably closer to the ground than its position at address suggests. This makes the club <em>effectively flatter</em> at impact than it looked when the golfer was standing still.</p>
+
+  <p>The amount of droop is not a fixed correction you can look up in a table — it varies with swing speed, shaft flex, how aggressively the golfer loads the shaft, and the timing of their release. A player with an early cast will show different droop characteristics than a player who holds lag deep into the downswing. This is why Tutelman's assessment of address-based static fitting is unambiguous: <em>"My assessment is that static lie fitting is ineffective at best, and more honestly not really fitting at all."</em><sup class="cite">[4]</sup></p>
+
+  <div class="diagram-wrap" aria-label="Shaft droop diagram">
+    <svg viewBox="0 0 580 240" width="540" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#3D4A35"/>
+        </marker>
+        <marker id="arr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#B8943C"/>
+        </marker>
+      </defs>
+
+      <g transform="translate(145, 195)">
+        <line x1="-60" y1="0" x2="60" y2="0" stroke="#C4B98A" stroke-width="1.5"/>
+        <line x1="15" y1="-16" x2="60" y2="-155" stroke="#3A3730" stroke-width="2.5"/>
+        <rect x="-30" y="-16" width="62" height="16" rx="3" fill="#C4B98A" stroke="#8A7A50" stroke-width="1"/>
+        <text x="-50" y="22" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#6C6050">ADDRESS</text>
+        <text x="-60" y="35" font-family="IBM Plex Mono, monospace" font-size="8.5" fill="#6C6050">Hands at h₁</text>
+      </g>
+
+      <line x1="290" y1="20" x2="290" y2="215" stroke="#C4B98A" stroke-width="1" stroke-dasharray="4 4"/>
+
+      <g transform="translate(435, 195)">
+        <line x1="-60" y1="0" x2="60" y2="0" stroke="#C4B98A" stroke-width="1.5"/>
+        <rect x="-30" y="-20" width="62" height="16" rx="3" fill="#C4B98A" stroke="#8A7A50" stroke-width="1" transform="rotate(-6 0 -12)"/>
+        <line x1="18" y1="-20" x2="70" y2="-170" stroke="#C4B98A" stroke-width="1" stroke-dasharray="3 3"/>
+        <path d="M 18 -20 Q 35 -95 70 -170" fill="none" stroke="#B8943C" stroke-width="2.5"/>
+        <line x1="46" y1="-95" x2="41" y2="-95" stroke="#B8943C" stroke-width="1.5" marker-end="url(#arr3)"/>
+        <text x="50" y="-92" font-family="IBM Plex Mono, monospace" font-size="8.5" fill="#B8943C">droop</text>
+        <text x="-40" y="22" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#B8943C">IMPACT</text>
+        <text x="-50" y="35" font-family="IBM Plex Mono, monospace" font-size="8.5" fill="#B8943C">Hands at h₂ &gt; h₁</text>
+      </g>
+
+      <text x="290" y="15" font-family="Cormorant Garamond, serif" font-size="13" fill="#3A3730" text-anchor="middle" font-style="italic">Two forces flatten the effective lie angle between address and impact</text>
+    </svg>
+    <p class="diagram-caption">Fig. 2 — At impact, the hands are higher than at address (centrifugal extension), and the shaft has drooped — bending the clubhead downward relative to the shaft axis. Both effects make the dynamic lie flatter than static address suggests. Neither is fixed or predictable from body measurements alone.</p>
+  </div>
+
+  <h2 class="section-head">The Turf Multiplier</h2>
+
+  <p>So far we have been discussing lie angle error on a pure, ball-first strike. The face plane tilt error is real but bounded — roughly three yards per degree across the iron set. A golfer with a 2° lie error on their irons is consistently missing about six yards left or right. Annoying, correctable, meaningful over a round. But not catastrophic.</p>
+
+  <p>What makes lie angle errors genuinely dangerous is what happens when the club contacts the ground before the ball.</p>
+
+  <p>When a club with incorrect lie hits the turf early, the ground provides a resistive force against the leading portion of the sole — heel or toe, depending on the direction of error. This twists the clubface. A too-flat club (toe-down) catches the toe first, which torques the face open — adding to an already right-biased error. A too-upright club does the opposite: heel catches first, face closes, amplifying a left error that was already present.<sup class="cite">[3]</sup></p>
+
+  <p>The amplification is not additive — it is multiplicative. A golfer who hits slightly fat with a 2° lie error does not get 2° + some small correction. They get a much larger error, because ground torque and face plane tilt are both working in the same direction simultaneously. What was a 6-yard push becomes a potential 15-yard shank-family shot. The shot that costs the stroke is not the flush one — it is the slightly heavy one, which every golfer hits.</p>
+
+  <div class="pull-quote">
+    <p>The shot that reveals a lie angle error is not the pure strike. It is the slightly heavy one — which every golfer hits, in every round.</p>
+  </div>
+
+  <h2 class="section-head">What Dynamic Fitting Captures — and Doesn't</h2>
+
+  <p>The lie board test addresses all of these problems in principle. It does not care about address position. It records what the sole actually did at impact — specifically, where under the sole the ground contact occurred. A mark at the toe means the club was too flat at impact; a mark at the heel means too upright. This is exactly the information needed to fit lie angle correctly.<sup class="cite">[4]</sup></p>
+
+  <p>But two practical caveats are worth knowing. First, the accuracy of the test depends on a valid strike — the ball must be hit, not the board. A fat strike misreads as a lie error, and a thin strike leaves no mark at all. Multiple swings, with a fitter reading ball flight alongside the board, are mandatory.<sup class="cite">[4]</sup></p>
+
+  <p>Second, and this is the one most fitting studios skip: <em>dynamic lie varies with shaft flex and swing tempo.</em> A player tested with demo steel irons at moderate tempo, then built into graphite at higher swing speed, has been fitted for the wrong dynamic lie. The GCQuad data published by ExactGolf showed that when lie angle was adjusted by ±2° on the same club, the dynamic lie measured at impact shifted by only about 2.5° — the player unconsciously compensated at address, reducing the effective fit variance but also masking the true dynamic signature.<sup class="cite">[7]</sup> The implication: fitting with the actual shaft you intend to play, at full swing effort, matters more than most studios acknowledge.</p>
+
+  <h3 class="sub-head">The Bending Machine Complication</h3>
+
+  <p>One more wrinkle that rarely gets mentioned at the counter: bending a hosel to change lie angle also changes loft. The two are coupled. Bend an iron 2° more upright and the loft increases fractionally; bend it flat and loft decreases. How much depends on the head geometry. This is why any lie bend of more than 1° should be verified on a loft-lie machine post-bend, not assumed.<sup class="cite">[8]</sup></p>
+
+  <h2 class="section-head">What This Means at the Course</h2>
+
+  <p>If you have never had a dynamic lie fitting — not a static one, not a "let me watch you address the ball" one — you likely have at least 2° of lie error in your irons. At three yards per degree, that is six yards of systematic lateral bias on every iron shot, compounding into a worse miss every time you catch the ground early.</p>
+
+  <p>If you have been fitted, ask which method your fitter used. If the answer involves a static length chart, posture, or address position without a lie board or launch monitor data, the fitting was incomplete. This is not a small distinction. The gap between static and dynamic lie can be 3–5° depending on the golfer's swing characteristics, which at mid-loft irons means 9–15 yards of chronic directional error.</p>
+
+  <p>The core truth of lie angle is not complicated: a tilted face plane sends the ball in the direction the loft is pointing, not the direction the leading edge is pointing. The leading edge can look perfectly square to your target at address while the loft is already pointed two yards left of the pin — because your hands are higher at impact than they were when you set up, your shaft has drooped under centripetal force, and the club you're holding was specified from a chart that assumed none of that.</p>
+
+  <div class="tool-section" id="lie-tool">
+    <div class="tool-label">Interactive Tool</div>
+    <div class="tool-title">Face Plane Tilt Calculator</div>
+    <div class="tool-desc">Enter your club loft and lie error to see directional error in degrees and yards offline</div>
+
+    <div class="club-presets">
+      <button class="club-btn" onclick="setPreset(10, 45.8)">Driver</button>
+      <button class="club-btn" onclick="setPreset(20, 60)">3-iron</button>
+      <button class="club-btn" onclick="setPreset(27, 60.5)">4-iron</button>
+      <button class="club-btn" onclick="setPreset(31, 61)">5-iron</button>
+      <button class="club-btn" onclick="setPreset(38, 62)">7-iron</button>
+      <button class="club-btn" onclick="setPreset(44, 63)">9-iron</button>
+      <button class="club-btn" onclick="setPreset(48, 63.5)">PW</button>
+      <button class="club-btn" onclick="setPreset(54, 63.5)">54° Wedge</button>
+      <button class="club-btn" onclick="setPreset(60, 64)">60° Wedge</button>
+    </div>
+
+    <div class="tool-inputs">
+      <div class="tool-input-group">
+        <label>Club Loft</label>
+        <div class="tool-input-row">
+          <input type="range" id="loft-slider" min="4" max="64" step="1" value="38" oninput="updateTool()">
+          <span class="tool-val" id="loft-val">38°</span>
+        </div>
+      </div>
+      <div class="tool-input-group">
+        <label>Lie Error (+ = upright / − = flat)</label>
+        <div class="tool-input-row">
+          <input type="range" id="lie-slider" min="-6" max="6" step="0.5" value="2" oninput="updateTool()">
+          <span class="tool-val" id="lie-val">+2°</span>
+        </div>
+      </div>
+      <div class="tool-input-group">
+        <label>Carry Distance (yards)</label>
+        <div class="tool-input-row">
+          <input type="range" id="dist-slider" min="60" max="300" step="5" value="155" oninput="updateTool()">
+          <span class="tool-val" id="dist-val">155 yds</span>
+        </div>
+      </div>
+      <div class="tool-input-group">
+        <label>Fat hit amplification</label>
+        <select class="tool-select" id="fat-select" onchange="updateTool()">
+          <option value="1.0">Pure strike — no ground contact</option>
+          <option value="1.8">Slightly heavy — toe/heel contacts</option>
+          <option value="3.5">Fat — significant ground torque</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="tool-results">
+      <div class="tool-result-cell">
+        <div class="tool-result-value" id="res-angle">—</div>
+        <div class="tool-result-unit">Face plane tilt (°)</div>
+      </div>
+      <div class="tool-result-cell">
+        <div class="tool-result-value" id="res-yards">—</div>
+        <div class="tool-result-unit">Yards offline</div>
+      </div>
+      <div class="tool-result-cell">
+        <div class="tool-result-value" id="res-dir">—</div>
+        <div class="tool-result-unit">Miss direction</div>
+      </div>
+    </div>
+
+    <div class="tool-note">
+      Formula: Directional Error = Loft × sin(Lie Error) — Tutelman (tutelman.com). Yards offline estimated as carry × tan(error °). Fat hit amplification is a multiplier derived from ground-torque coupling; it is qualitative, not a precision measurement. Positive lie error = too upright (toe up), which tilts the face left for a right-handed golfer.
+    </div>
+  </div>
+
+  <div class="footnotes">
+    <div class="footnotes-label">Citations</div>
+    <ol>
+      <li>Mitchell Golf Equipment. <em>A Guide for Measuring &amp; Adjusting Golf Club Angles.</em> "The ball rebounds 90 degrees off the face plane producing the tilt axis of the ball, thus its starting direction and eventual curvature." <a href="https://www.mitchellgolf.com/wp-content/uploads/2017/05/Measuring_Adjusting_Golf_Club_Angles.pdf" target="_blank">mitchellgolf.com</a></li>
+      <li>Golf Monthly. "How Does Lie Angle Affect Golf Shots?" The face plane tilt explanation of how raising or lowering the handle redirects where the loft points relative to the leading edge. <a href="https://www.golfmonthly.com/features/the-game/how-does-lie-angle-affect-golf-shots-66452" target="_blank">golfmonthly.com, Nov 2024</a></li>
+      <li>Tutelman, Dave. "Lie Angle: What It Is and Why We Care." <em>Club Design Notes.</em> Source of the formula DirectionalError = Loft × sin(LieError) and the error-per-degree table. <a href="https://tutelman.com/golf/design/lie1.php" target="_blank">tutelman.com</a></li>
+      <li>Tutelman, Dave. "Fitting for Lie Angle." <em>Club Design Notes.</em> Source of static fitting critique, toe droop mechanism, and dynamic fitting methodology. "My assessment is that static lie fitting is ineffective at best." <a href="https://tutelman.com/golf/design/lie2.php" target="_blank">tutelman.com</a></li>
+      <li>Gears Sports. "Shaft Metrics Defined: Deflection, Droop, Twist, Ratio." "Shaft droop will affect the line of attack, lie angle, face angle and loft." <a href="https://www.gearssports.com/articles/shaft-metrics-defined-deflection-droop-twist-ratio/" target="_blank">gearssports.com</a></li>
+      <li>MacKenzie, S.J. &amp; Sprigings, E.J. (2009). "Understanding the mechanisms of shaft deflection in the golf swing." <em>Sports Engineering.</em> Radial force identified as dominant factor in toe-down deflection; shaft recoil plays equally important role at impact. <a href="https://www.researchgate.net/publication/225947431" target="_blank">researchgate.net</a></li>
+      <li>ExactGolf. "Lie Comparison: How Does Lie Influence Ball Flight?" GCQuad-measured dynamic lie data showing player compensation reducing the effective lie spread from ±2° static to approximately ±1.25° dynamic. <a href="https://exactgolf.com/club-shaft-tests/lie-comparison-how-does-lie-influence-ball-flight/" target="_blank">exactgolf.com, May 2025</a></li>
+      <li>Hireko Golf. "Modern Guide to Golf Club Fitting: Understanding Dynamic Lie Angle." Notes the coupling between lie bend and loft, and the limits of hosel bending (typically ±2° before structural risk). <a href="https://www.hirekogolf.com/modern-guide-to-golf-club-fitting-understanding-dynamic-lie-angle" target="_blank">hirekogolf.com</a></li>
+    </ol>
+  </div>
+
+</article>
+
+<footer class="article-footer">
+  <div class="footer-brand">
+    The Fog Break &nbsp;·&nbsp; A publication by <a href="https://www.fogandflag.com">Fog + Flag</a>
+  </div>
+  <div class="footer-brand">
+    Vol. I · No. 4 &nbsp;·&nbsp; &copy; 2026
+  </div>
+</footer>
+
+<script>
+  function updateTool() {
+    const loft = parseFloat(document.getElementById('loft-slider').value);
+    const lieErr = parseFloat(document.getElementById('lie-slider').value);
+    const dist = parseFloat(document.getElementById('dist-slider').value);
+    const fatMult = parseFloat(document.getElementById('fat-select').value);
+
+    document.getElementById('loft-val').textContent = loft + '°';
+    document.getElementById('lie-val').textContent = (lieErr >= 0 ? '+' : '') + lieErr + '°';
+    document.getElementById('dist-val').textContent = dist + ' yds';
+
+    // Formula: DirectionalError (degrees) = Loft * sin(lieError in radians)
+    const lieRad = Math.abs(lieErr) * Math.PI / 180;
+    const angleDeg = loft * Math.sin(lieRad) * fatMult;
+    const ydsOffline = dist * Math.tan(angleDeg * Math.PI / 180);
+
+    // Direction: positive lie error = too upright = toe up = ball goes LEFT for RH golfer
+    let dir = '—';
+    if (lieErr > 0) dir = 'Left';
+    else if (lieErr < 0) dir = 'Right';
+
+    document.getElementById('res-angle').textContent = angleDeg.toFixed(1) + '°';
+    document.getElementById('res-yards').textContent = Math.abs(ydsOffline).toFixed(1);
+    document.getElementById('res-dir').textContent = dir;
+  }
+
+  function setPreset(loft, lie) {
+    document.getElementById('loft-slider').value = loft;
+    // Clear active states and set distance based on club
+    const distMap = {10:250, 20:190, 27:180, 31:165, 38:155, 44:130, 48:115, 54:100, 60:85};
+    document.getElementById('dist-slider').value = distMap[loft] || 150;
+    updateTool();
+    document.querySelectorAll('.club-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+
+  // Init
+  updateTool();
+</script>
+
+</body>
+</html>

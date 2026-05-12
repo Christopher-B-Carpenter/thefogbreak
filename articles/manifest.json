@@ -1,6 +1,16 @@
 {
   "articles": [
     {
+      "issue": 4,
+      "slug": "lie-angle",
+      "topic": "Club Fitting",
+      "title": "The Lie Angle Lie",
+      "subtitle": "What the fitting chart tells you, what the physics actually says, and why your address position means nothing.",
+      "date": "12 May 2026",
+      "readtime": "14 min",
+      "excerpt": "Face plane tilt is real and quantifiable. The fitting method most golfers receive is not. A physics-first look at the Tutelman formula, shaft droop, the static fitting problem, and why the slightly fat shot is the one that reveals whether your lie angle is actually correct."
+    },
+    {
       "issue": 3,
       "slug": "wedge-backspin",
       "topic": "Wedge Play",
