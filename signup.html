@@ -105,8 +105,8 @@ async function handleSubscribe() {
   if (!email || !email.includes('@')) { input.style.borderColor='#8b4a3f'; input.focus(); return; }
   btn.textContent = 'Subscribing\u2026'; btn.disabled = true; input.disabled = true;
   try {
-    const res = await fetch('/.netlify/functions/subscribe', {
-      method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email})
+    const res = await fetch('https://api.fogandflag.com/api/subscribe', {
+      method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email, source:'fog_break'})
     });
     if (res.ok) {
       document.getElementById('form-state').style.display='none';
