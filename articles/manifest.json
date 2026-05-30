@@ -1,6 +1,17 @@
 {
   "articles": [
     {
+      "issue": 5,
+      "slug": "wedge-bounce",
+      "topic": "Short Game",
+      "title": "The Anatomy of Bounce",
+      "subtitle": "The number stamped on your wedge is a static measurement. Shaft lean, attack angle, and face rotation each change what the turf actually feels.",
+      "date": "2 Jun 2026",
+      "readtime": "13 min",
+      "excerpt": "Effective bounce — the dynamic angle the turf actually encounters — can differ from the stamped number by more than ten degrees. A physics-first look at how shaft lean destroys bounce, how face rotation restores it, what grinds actually do, and why two golfers holding the same wedge are playing different clubs.",
+      "figures": 2
+    },
+    {
       "issue": 4,
       "slug": "lie-angle",
       "topic": "Club Fitting",
@@ -8,7 +19,8 @@
       "subtitle": "What the fitting chart tells you, what the physics actually says, and why your address position means nothing.",
       "date": "12 May 2026",
       "readtime": "14 min",
-      "excerpt": "Face plane tilt is real and quantifiable. The fitting method most golfers receive is not. A physics-first look at the Tutelman formula, shaft droop, the static fitting problem, and why the slightly fat shot is the one that reveals whether your lie angle is actually correct."
+      "excerpt": "Face plane tilt is real and quantifiable. The fitting method most golfers receive is not. A physics-first look at the Tutelman formula, shaft droop, the static fitting problem, and why the slightly fat shot is the one that reveals whether your lie angle is actually correct.",
+      "figures": 3
     },
     {
       "issue": 3,

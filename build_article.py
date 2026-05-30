@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>The Lie Angle Lie &mdash; The Fog Break</title><meta name="description" content="What the fitting chart tells you, what the physics actually says, and why the position you see at address has almost nothing to do with where the ball goes."><link rel="canonical" href="https://thefogbreak.com/articles/lie-angle.html">
+html = r"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>The Lie Angle Lie &mdash; The Fog Break</title><meta name="description" content="What the fitting chart tells you, what the physics actually says, and why the position you see at address has almost nothing to do with where the ball goes."><link rel="canonical" href="https://thefogbreak.com/articles/lie-angle.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="The Fog Break">
 <meta property="og:title" content="The Lie Angle Lie &mdash; The Fog Break">
@@ -267,4 +267,8 @@ function calc(){var loft=parseFloat(document.getElementById('loft-sl').value);va
 function setPreset(btn,loft,dist){document.getElementById('loft-sl').value=loft;document.getElementById('dist-sl').value=dist;document.querySelectorAll('.club-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');calc();}
 calc();
 </script>
-</body></html>
+</body></html>"""
+
+with open('/Users/chrisandcourtney/src/thefogbreak/articles/lie-angle.html', 'w', encoding='utf-8') as f:
+    f.write(html)
+print("written")
